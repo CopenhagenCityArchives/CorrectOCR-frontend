@@ -10,7 +10,7 @@ CREATE TABLE token (
 	selection VARCHAR(255),
 	token_type VARCHAR(255),
 	token_info TEXT,
-	PRIMARY KEY (doc_id, doc_index)
+	PRIMARY KEY (doc_id, doc_index, kind)
 );
 
 CREATE TABLE kbest (
@@ -20,7 +20,7 @@ CREATE TABLE kbest (
 	k INT NOT NULL,
 	candidate VARCHAR(255) NOT NULL,
 	probability float NOT NULL --,
---	FOREIGN KEY fk_kbest_token(doc_id, doc_index) REFERENCES token(doc_id, doc_index)
+--	FOREIGN KEY fk_kbest_token(doc_id, doc_index, kind) REFERENCES token(doc_id, doc_index, kind)
 );
 
 CREATE INDEX idx_token_doc_id_doc_index
