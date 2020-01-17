@@ -3,6 +3,7 @@ CREATE TABLE token (
 	doc_id VARCHAR(255) NOT NULL,
 	doc_index INT NOT NULL,
 	original VARCHAR(255) NOT NULL,
+	hyphenated BOOLEAN,
 	gold VARCHAR(255),
 	bin INT,
 	heuristic VARCHAR(1),
