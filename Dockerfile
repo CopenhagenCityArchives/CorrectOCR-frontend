@@ -2,9 +2,16 @@ FROM python:3.7
 
 RUN apt update
 RUN apt install -y tesseract-ocr libtesseract-dev libleptonica-dev mupdf unixodbc-dev
+RUN curl -SL https://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/mysql-connector-odbc-8.0.19-linux-debian10-x86-64bit.tar.gz | tar -zxC /opt
+RUN cp /opt/mysql-connector-odbc-8.0.19-linux-debian10-x86-64bit/lib/libmyodbc8* /usr/lib/x86_64-linux-gnu/odbc/
+RUN /opt/mysql-connector-odbc-8.0.19-linux-debian10-x86-64bit/bin/myodbc-installer -d -a -n "MySQL ODBC 8.0 ANSI Driver" -t "DRIVER=/usr/lib/x86_64-linux-gnu/odbc/libmyodbc8a.so;"
+RUN /opt/mysql-connector-odbc-8.0.19-linux-debian10-x86-64bit/bin/myodbc-installer -d -a -n "MySQL ODBC 8.0 Unicode Driver" -t "DRIVER=/usr/lib/x86_64-linux-gnu/odbc/libmyodbc8w.so;"
 
-COPY . .
+COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
+COPY . .
+
 EXPOSE 5000
 
 ENTRYPOINT [ "python3", "-m", "CorrectOCR", "server", "--host", "0.0.0.0" ]
+

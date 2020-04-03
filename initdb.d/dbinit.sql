@@ -15,12 +15,12 @@ CREATE TABLE token (
 );
 
 CREATE TABLE kbest (
-	id PRIMARY KEY,
+	id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	doc_id VARCHAR(255) NOT NULL,
 	doc_index INT NOT NULL,
 	k INT NOT NULL,
 	candidate VARCHAR(255) NOT NULL,
-	probability float NOT NULL --,
+	probability float NOT NULL
 --	FOREIGN KEY fk_kbest_token(doc_id, doc_index, kind) REFERENCES token(doc_id, doc_index, kind)
 );
 
