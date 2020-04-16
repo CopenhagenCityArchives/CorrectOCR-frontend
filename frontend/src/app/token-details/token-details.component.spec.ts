@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TokenComponent } from './token.component';
+import { TokenDetailsComponent } from './token-details.component';
 
-describe('TokenComponent', () => {
-  let component: TokenComponent;
-  let fixture: ComponentFixture<TokenComponent>;
+describe('TokenDetailsComponent', () => {
+  let component: TokenDetailsComponent;
+  let fixture: ComponentFixture<TokenDetailsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TokenComponent ]
+      declarations: [ TokenDetailsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TokenComponent);
+    fixture = TestBed.createComponent(TokenDetailsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

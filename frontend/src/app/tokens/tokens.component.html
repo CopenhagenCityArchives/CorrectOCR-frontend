@@ -1,0 +1,12 @@
+<p>tokens works!</p>
+<h1> OR DOES IT? </h1>
+
+<div *ngFor="let token of tokens">
+    <p> {{token.Doc_ID}} </p>
+    <p> {{token.Original}} </p>
+    <p> {{token.image_url}} </p>
+    <img src="{{token.image_url}}" width="100px" length="100px">
+</div>
+
+
+<router-outlet></router-outlet>
