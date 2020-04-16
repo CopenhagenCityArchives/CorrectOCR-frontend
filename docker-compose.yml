@@ -5,6 +5,7 @@ services:
     build: .
     ports:
       - "5000:5000"
+      - "1000:1000"
     volumes:
       - "./resources:/resources"
       - "./original:/original"
@@ -25,3 +26,5 @@ services:
       - "./initdb.d:/docker-entrypoint-initdb.d"
     ports:
       - "3306:3306"
+networks:
+  default:

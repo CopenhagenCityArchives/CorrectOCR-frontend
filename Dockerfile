@@ -13,5 +13,5 @@ COPY . .
 
 EXPOSE 5000
 
-ENTRYPOINT [ "python3", "-m", "CorrectOCR", "server", "--host", "0.0.0.0" ]
+ENTRYPOINT [ "python3", "-m", "CorrectOCR", "server", "--host", "0.0.0.0", "--loglevel", "DEBUG"]
 
