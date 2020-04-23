@@ -12,8 +12,11 @@
             <p> {{mainToken.Original}} </p>
         </div>
         <div class="col-sm" *ngIf = "rightToken">
-            <p> right token </p> <img src="{{leftToken.image_url}}" height="150px" width="300">
+            <p> right token </p> <img src="{{url}}{{json.image_url}}" height="150px" width="300">
             <button (click)="hypRight()">Hypernate Right</button>
+        </div>
+        <div>
+            <p>{{json}}</p>
         </div>
     </div>
 </div>

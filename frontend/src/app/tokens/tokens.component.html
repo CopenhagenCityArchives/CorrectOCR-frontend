@@ -1,12 +1,37 @@
-<p>tokens works!</p>
-<h1> OR DOES IT? </h1>
+<h1> WIP </h1>
 
-<div *ngFor="let token of tokens">
-    <p> {{token.Doc_ID}} </p>
-    <p> {{token.Original}} </p>
-    <p> {{token.image_url}} </p>
-    <img src="{{token.image_url}}" width="100px" length="100px">
+<div class ="container">
+    <div class="row">
+        <div class="col-sm" *ngIf = "leftToken">
+            <p> left token </p> <img src="{{url}}{{leftToken.image_url}}" height="250px" width="400" class="img-fluid" alt="Responsive image">
+            <p></p>
+            <button (click)="hypLeft()">Hypernate Left</button>
+        </div>
+        <div class="col-sm" *ngIf = "mainToken">
+            <p> main </p>
+            <img src="{{url}}{{mainToken.image_url}}" height="250px" width="400" class="img-fluid" alt="Responsive image">
+            <p> {{mainToken.Original}} </p>
+            <p></p>
+            <button (click)="suggestion()">{{mainToken.firstBest}}</button>    
+            <button (click)="suggestion()">{{mainToken.secondBest}}</button>    
+            <button (click)="suggestion()">{{mainToken.thirdBest}}</button>
+              
+            <p></p>
+            <button (click)="accept()">Accept</button>
+
+        </div>
+        <div class="col-sm" *ngIf = "rightToken">
+            <p> right token </p> <img src="{{url}}{{rightToken.image_url}}" height="250px" width="400" class="img-fluid" alt="Responsive image">
+            <p></p>
+            <button (click)="hypRight()">Hypernate Right</button>
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
 </div>
+
 
 
 <router-outlet></router-outlet>

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { tokens } from '../../testData/tokens';
-
+import { TokensService } from '../tokens.service';
+import { ApiService } from '../api.service';
 
 @Component({
   selector: 'app-token-details',
@@ -12,7 +13,9 @@ export class TokenDetailsComponent implements OnInit {
   leftToken;
   mainToken;
   rightToken;
-  constructor( private route: ActivatedRoute) {
+  json;
+  url;
+  constructor(private route: ActivatedRoute, private TokensService: TokensService, private ApiService: ApiService) {
    
   }
 
@@ -22,6 +25,16 @@ export class TokenDetailsComponent implements OnInit {
         this.leftToken = tokens[(+params.get('tokenDocId')-1)];
         this.mainToken = tokens[+params.get('tokenDocId')];
         this.rightToken = tokens[(+params.get('tokenDocId')+1)];
+        this.url = 'localhost:5000';
+        this.ApiService.getRandomToken().subscribe((data) => {
+          console.log('data: ');
+          console.log(data);
+          this.json = data;
+        });
+        this.ApiService.getAllTokens().subscribe((data) => {
+          console.log('data2: ');
+          console.log(data);
+        });
     })
   }
 
