@@ -1,4 +1,4 @@
-interface IToken {
+export interface IToken {
     firstBest:  string,
     firstProb:  number,
     secondBest: string,

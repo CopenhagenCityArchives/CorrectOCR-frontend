@@ -35,8 +35,6 @@ export class TokensComponent implements OnInit {
         });
       });
 
-
-
     }).unsubscribe();
 
   }
@@ -45,8 +43,8 @@ export class TokensComponent implements OnInit {
     window.alert('Accept main token...');
   }
 
-  suggestion(gold): void {
-    window.alert('suggestion num: ' + gold);
+  suggestion(): void {
+    window.alert('suggestion num: ');
   }
 
   hypLeft(): void {

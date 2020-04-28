@@ -1,3 +1,5 @@
+import { IToken } from "./i-token";
+
 export class Token implements IToken {
     firstBest: string;
     firstProb: number;
