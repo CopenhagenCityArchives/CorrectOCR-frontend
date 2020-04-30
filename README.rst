@@ -5,10 +5,10 @@ Run locally
 =======
 Backend:
 -------------
-- Bootstrap.zip
+- extract Bootstrap.zip into root folder
 - Prep ini file
-- docker-compose up
-- docker exec backend python -m CorrectOCR prepare --all --step server --loglevel DEBUG
+- run docker-compose up
+- run docker exec backend python -m CorrectOCR prepare --all --step server --loglevel DEBUG
 
 Frontend:
 =======
