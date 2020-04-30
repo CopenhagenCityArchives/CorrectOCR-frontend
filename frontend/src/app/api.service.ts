@@ -47,7 +47,7 @@ export class ApiService {
   public postHypernate(mainToken: IToken, hypDir: string) {
     let response;
     let body = {
-      'hypernate': hypDir
+      'hyphenate': hypDir
     };
     response = this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
     return response;
