@@ -46,13 +46,19 @@ export class ApiService {
 
   public postHypernate(mainToken: IToken, hypDir: string) {
     let response;
-    response = this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: {'hypernate': hypDir}});
+    let body = {
+      'hypernate': hypDir
+    };
+    response = this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
     return response;
   }
 
   public postGold(mainToken: IToken, gold: string) {
     let response;
-    response = this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: gold});
+    let body = {
+      'gold': gold
+    };
+    response = this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
     return response;
   }
 

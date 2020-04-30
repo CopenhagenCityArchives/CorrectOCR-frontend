@@ -10,12 +10,10 @@
         <div class="col-sm" *ngIf = "mainToken">
             <p> main </p>
             <img src="{{url}}{{mainToken.image_url}}" height="250px" width="400" class="img-fluid" alt="Responsive image">
-            <p> {{mainToken.Original}} </p>
             <p></p>
-            <button (click)="suggestion()">{{mainToken.firstBest}}</button>    
-            <button (click)="suggestion()">{{mainToken.secondBest}}</button>    
-            <button (click)="suggestion()">{{mainToken.thirdBest}}</button>
-              
+            <button (click)="correct(1)">{{mainToken.firstBest}}</button>    
+            <button (click)="correct(2)">{{mainToken.secondBest}}</button>    
+            <button (click)="correct(3)">{{mainToken.thirdBest}}</button>
             <p></p>
             <button (click)="accept()">Accept</button>
 

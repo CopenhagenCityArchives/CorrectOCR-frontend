@@ -43,8 +43,26 @@ export class TokensComponent implements OnInit {
     window.alert('Accept main token...');
   }
 
-  suggestion(): void {
-    window.alert('suggestion num: ');
+  correct(correction): void {
+    let gold;
+    switch (correction) {
+      case 1:
+        gold = this.mainToken.firstBest;
+        break;
+      case 2:
+        gold = this.mainToken.secondBest;
+        break;
+      case 3:
+        gold = this.mainToken.thirdBest
+        break;
+      default:
+        break;
+    }
+    
+    this.ApiService.postGold(this.mainToken, gold).subscribe((data => {
+      this.response = new Token(data);
+      console.log(this.response);
+    }))
   }
 
   hypLeft(): void {
