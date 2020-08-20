@@ -1,33 +1,39 @@
 <h1> WIP </h1>
 
-<div class ="container">
+<div class="container-fluid">
+
+
     <div class="row">
         <div class="col-sm" *ngIf = "leftToken">
-            <p> left token </p> <img src="{{url}}{{leftToken.image_url}}" height="250px" width="400" class="img-fluid" alt="Responsive image">
-            <p></p>
-            <button (click)="hypLeft()">Hypernate Left</button>
-        </div>
-        <div class="col-sm" *ngIf = "mainToken">
-            <p> main </p>
-            <img src="{{url}}{{mainToken.image_url}}" height="250px" width="400" class="img-fluid" alt="Responsive image">
-            <p></p>
-            <button (click)="correct(1)">{{mainToken.firstBest}}</button>    
-            <button (click)="correct(2)">{{mainToken.secondBest}}</button>    
-            <button (click)="correct(3)">{{mainToken.thirdBest}}</button>
-            <p></p>
-            <button (click)="accept()">Accept</button>
+            <span class="label">left token</span>
+            <img src="{{url}}{{leftToken.image_url}}" class="img-fluid m-2" alt="Responsive image">
 
-        </div>
-        <div class="col-sm" *ngIf = "rightToken">
-            <p> right token </p> <img src="{{url}}{{rightToken.image_url}}" height="250px" width="400" class="img-fluid" alt="Responsive image">
-            <p></p>
-            <button (click)="hypRight()">Hypernate Right</button>
+            <div>
+                <button class="btn btn-secondary" type="button" (click)="hypLeft()">Hypernate Left</button>
+            </div>
         </div>
 
-        <div>
+        <div class="col-sm" *ngIf="mainToken">
+            <span class="label">main</span>
+            <img src="{{url}}{{mainToken.image_url}}" class="img-fluid m-2" alt="Responsive image">
             
+            <div class="col-sm">
+                <button class="btn btn-secondary mr-2" type="button" (click)="correct(1)">{{mainToken.firstBest}}</button>    
+                <button class="btn btn-secondary mr-2" type="button" (click)="correct(2)">{{mainToken.secondBest}}</button>    
+                <button class="btn btn-secondary mr-2" type="button" (click)="correct(3)">{{mainToken.thirdBest}}</button>
+            </div>
+        </div>
+
+        <div class="col-sm" *ngIf="rightToken">
+            <span class="label">right token</span>
+            <img src="{{url}}{{rightToken.image_url}}" class="img-fluid m-2" alt="Responsive image">
+    
+            <div class="col-sm">
+                <button class="btn btn-secondary" type="button" (click)="hypRight()">Hypernate Right</button>
+            </div>
         </div>
     </div>
+
 </div>
 
 

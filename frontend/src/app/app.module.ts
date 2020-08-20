@@ -8,6 +8,7 @@ import { TokensComponent } from './tokens/tokens.component';
 import { RouterModule } from '@angular/router';
 import { TokenDetailsComponent } from './token-details/token-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       {path: '', component: AppComponent},
       {path: 'tokens', component: TokensComponent},
       {path: 'tokens/:tokenDocId', component: TokenDetailsComponent},
-    ])
+    ]),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
