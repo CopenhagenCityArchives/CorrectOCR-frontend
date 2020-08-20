@@ -22,6 +22,10 @@ export class TokensComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getTokens();
+  }
+
+  getTokens(): void {
     this.route.paramMap.subscribe(params => {
       this.ApiService.getRandomToken().subscribe((data) => {
         this.mainToken = new Token(data);
@@ -36,11 +40,6 @@ export class TokensComponent implements OnInit {
       });
 
     }).unsubscribe();
-
-  }
-
-  accept(): void {
-    window.alert('Accept main token...');
   }
 
   correct(correction): void {
@@ -63,6 +62,7 @@ export class TokensComponent implements OnInit {
       this.response = new Token(data);
       console.log(this.response);
     }))
+    this.nextToken();
   }
 
   hypLeft(): void {
@@ -70,13 +70,19 @@ export class TokensComponent implements OnInit {
       this.response = new Token(data);
       console.log(this.response);
     }))
+    this.nextToken();
   }
 
   hypRight(): void {
-    let response = this.ApiService.postHypernate(this.mainToken, 'right').subscribe((data => {
+    this.ApiService.postHypernate(this.mainToken, 'right').subscribe((data => {
       this.response = new Token(data);
       console.log(this.response);
     }))
+    this.nextToken();
+  }
+
+  nextToken(): void {
+    this.getTokens();
   }
 
 }
