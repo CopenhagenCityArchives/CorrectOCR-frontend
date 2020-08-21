@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IToken } from './tokens/i-token'
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators'
 
 const url = 'http://localhost:5000';
 
@@ -11,55 +9,44 @@ const url = 'http://localhost:5000';
 })
 export class ApiService {
 
+  options: {
+    responseType: 'json'
+  };
+
   constructor(private http: HttpClient) { }
 
   public getToken(token) {
-    let json;
-    json = this.http.get(url + token)
-    return json;
+    return this.http.get(url + token);
   }
 
   public getAllTokens() {
-    let json;
-    json = this.http.get(url + '/6148/tokens.json');
-    return json;
+    return this.http.get(url + '/6148/tokens.json');
   }
 
   public getRandomToken() {
-    let json;
-    json = this.http.get(url + '/random');
-    return json;
+    return this.http.get(url + '/random', this.options)
   }
 
   public getLeftToken(mainToken: IToken) {
-    let json;
-    console.log(mainToken);
-    json = this.http.get(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json');
-    return json;
+    return this.http.get(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json', this.options);
   }
 
   public getRightToken(mainToken: IToken) {
-    let json;
-    json = this.http.get(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json');
-    return json;
+    return this.http.get(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json', this.options);
   }
 
   public postHypernate(mainToken: IToken, hypDir: string) {
-    let response;
     let body = {
       'hyphenate': hypDir
     };
-    response = this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
-    return response;
+    return this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
   }
 
   public postGold(mainToken: IToken, gold: string) {
-    let response;
     let body = {
       'gold': gold
     };
-    response = this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
-    return response;
+    return this.http.request('POST',(url + '/' +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
   }
 
   

@@ -27,19 +27,18 @@ export class TokensComponent implements OnInit {
 
   getTokens(): void {
     this.route.paramMap.subscribe(params => {
-      this.ApiService.getRandomToken().subscribe((data) => {
+      this.ApiService.getRandomToken().subscribe((data: JSON) => {
         this.mainToken = new Token(data);
 
-        this.ApiService.getLeftToken(this.mainToken).subscribe((data) => {
+        this.ApiService.getLeftToken(this.mainToken).subscribe((data: JSON) => {
           this.leftToken = new Token(data);
-        });
+        })
   
-        this.ApiService.getRightToken(this.mainToken).subscribe((data) => {
+        this.ApiService.getRightToken(this.mainToken).subscribe((data: JSON) => {
           this.rightToken = new Token(data);
-        });
-      });
-
-    }).unsubscribe();
+        })
+      })
+    })
   }
 
   correct(correction): void {
@@ -58,26 +57,26 @@ export class TokensComponent implements OnInit {
         break;
     }
     
-    this.ApiService.postGold(this.mainToken, gold).subscribe((data => {
+    this.ApiService.postGold(this.mainToken, gold).subscribe((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
-    }))
+    })
     this.nextToken();
   }
 
   hypLeft(): void {
-   this.ApiService.postHypernate(this.mainToken, 'left').subscribe((data => {
+   this.ApiService.postHypernate(this.mainToken, 'left').subscribe((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
-    }))
+    })
     this.nextToken();
   }
 
   hypRight(): void {
-    this.ApiService.postHypernate(this.mainToken, 'right').subscribe((data => {
+    this.ApiService.postHypernate(this.mainToken, 'right').subscribe((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
-    }))
+    })
     this.nextToken();
   }
 
