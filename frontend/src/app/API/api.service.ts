@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IToken } from '../tokens/i-token'
+import { Observable } from 'rxjs';
 
 const url = 'http://localhost:5000/';
 
@@ -15,11 +16,16 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Get a list of documents
+   *
+   * @return  {Observable<Object>}[return Observable]
+   */
   public getOverview() {
     return this.http.get(url);
   }
 
-  public getToken(token) {
+  public getToken(token): Observable<Object> {
     return this.http.get(url + token);
   }
 

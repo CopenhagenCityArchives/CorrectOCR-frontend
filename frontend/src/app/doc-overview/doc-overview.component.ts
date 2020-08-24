@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ApiService } from '../API/api.service'
 @Component({
   selector: 'app-doc-overview',
   templateUrl: './doc-overview.component.html',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocOverviewComponent implements OnInit {
 
-  constructor() { }
+  documentList;
+
+  constructor(private ApiService: ApiService) { }
 
   ngOnInit(): void {
+    this.ApiService.getOverview().subscribe((data) => {
+      this.documentList = data;
+      console.log(data);
+      this.ApiService.getTokensFromDocId("6148").subscribe((data) =>  {
+        console.log("tokensFormDocID", data);
+      })
+    });
   }
 
 }
