@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { TokensComponent } from './tokens/tokens.component';
 import { DocOverviewComponent } from './doc-overview/doc-overview.component';
 import { DocTokensComponent } from './doc-tokens/doc-tokens.component';
+import { TokenFormDirective } from './directives/token-form.directive';
 
 @NgModule({
   declarations: [
@@ -17,13 +17,14 @@ import { DocTokensComponent } from './doc-tokens/doc-tokens.component';
     TokensComponent,
     DocOverviewComponent,
     DocTokensComponent,
+    TokenFormDirective,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    ReactiveFormsModule,
+    //ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: AppComponent},
       {path: 'tokens', component: TokensComponent},
