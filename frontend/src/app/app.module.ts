@@ -9,12 +9,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { TokensComponent } from './tokens/tokens.component';
 import { DocOverviewComponent } from './doc-overview/doc-overview.component';
+import { DocTokensComponent } from './doc-tokens/doc-tokens.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TokensComponent,
     DocOverviewComponent,
+    DocTokensComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,7 @@ import { DocOverviewComponent } from './doc-overview/doc-overview.component';
     RouterModule.forRoot([
       {path: '', component: AppComponent},
       {path: 'tokens', component: TokensComponent},
+      {path: 'tokens/:docid', component: DocTokensComponent},
       {path: 'doc-overview', component: DocOverviewComponent},
     ]),
     NgbModule

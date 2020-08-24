@@ -37,6 +37,10 @@ export class ApiService {
     return this.http.get(url + docid + '/token-' + index + '.json');;
   }
 
+  public getTokenFromInfoUrl(infoUrl:string): Observable<Object> {
+    return this.http.get(url + infoUrl);
+  }
+
   /**
    * Get all tokens from given document id
    *
@@ -44,7 +48,7 @@ export class ApiService {
    *
    * @return  {Observable<Object>}         [return Observable]
    */
-  public getTokensFromDocId(docid:string): Observable<Object> {
+  public getAllTokensFromDocId(docid:string): Observable<Object> {
     return this.http.get(url + docid + '/tokens.json');
   }
 
