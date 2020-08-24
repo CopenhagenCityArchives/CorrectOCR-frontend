@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./tokens.component.scss']
 })
 export class TokensComponent implements OnInit {
+  url = 'http://localhost:5000';
   mainToken: Token;
   leftToken: Token;
   rightToken: Token;
