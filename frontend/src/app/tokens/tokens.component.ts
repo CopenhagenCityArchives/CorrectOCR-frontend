@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TokensService } from '../tokens.service';
-import { ApiService } from '../api.service';
+import { ApiService } from '../API/api.service';
 import { Token } from '../tokens/token';
 import { Subscription } from 'rxjs';
 
@@ -12,12 +11,11 @@ import { Subscription } from 'rxjs';
 })
 export class TokensComponent implements OnInit {
   url = 'http://localhost:5000';
-  conn: Subscription;
   mainToken: Token;
   leftToken: Token;
   rightToken: Token;
   response;
-  constructor(private route: ActivatedRoute, private TokensService: TokensService, private ApiService: ApiService) {
+  constructor(private route: ActivatedRoute, private ApiService: ApiService) {
    
   }
 
@@ -28,6 +26,7 @@ export class TokensComponent implements OnInit {
   getTokens(): void {
     this.route.paramMap.subscribe(params => {
       this.ApiService.getRandomToken().subscribe((data: JSON) => {
+        console.log(new Token(data));
         this.mainToken = new Token(data);
 
         this.ApiService.getLeftToken(this.mainToken).subscribe((data: JSON) => {
