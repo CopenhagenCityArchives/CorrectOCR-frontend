@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../API/api.service';
 import { Token } from '../tokens/token';
@@ -10,6 +10,9 @@ import { Token } from '../tokens/token';
 })
 export class TokensComponent implements OnInit {
   url = 'http://localhost:5000';
+  @Input() promise?: Promise<Object>;
+  @Input() urlList?: Array<Object>;
+  index: number = 0;
   mainToken: Token;
   leftToken: Token;
   rightToken: Token;
@@ -19,12 +22,19 @@ export class TokensComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getTokens();
+  }
+
+  ngOnChanges() {
+    if (this.urlList) {
+      console.log("urlList", this.urlList);
+      this.getTokens();
+    }
   }
 
   getTokens(): void {
+    console.log("hit")
     this.route.paramMap.subscribe(params => {
-      this.ApiService.getRandomToken().subscribe((data: JSON) => {
+      this.ApiService.getTokenFromInfoUrl(this.urlList[this.index]['info_url']).subscribe((data: JSON) => {
         console.log(new Token(data));
         this.mainToken = new Token(data);
 
@@ -37,6 +47,7 @@ export class TokensComponent implements OnInit {
         })
       })
     })
+    this.index ++;
   }
 
   correct(correction:string): void {

@@ -1,45 +1,5 @@
 <h1>doc-tokens WIP</h1>
 
-<div class="container-fluid">
-
-    <div class="row">
-        <div class="col-sm" *ngIf = "leftToken">
-            <label for="left_token">left token</label>
-            <img id="left_token" src="{{url}}{{leftToken.image_url}}" class="img-fluid m-2" alt="left token">
-
-            <div>
-                <button class="btn btn-secondary" type="button" (click)="hypLeft()">Hypernate Left</button>
-            </div>
-        </div>
-
-        <div class="col-sm" *ngIf="mainToken">
-            <label for="main_token">main</label>
-            <img id="main_token" src="{{url}}{{mainToken.image_url}}" class="img-fluid m-2" alt="main token">
-            
-            <div class="col-sm">
-                <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.firstBest)">{{mainToken.firstBest}}</button>    
-                <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.secondBest)">{{mainToken.secondBest}}</button>    
-                <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.secondBest)">{{mainToken.thirdBest}}</button>
-            </div>
-            <div class="row">
-                <label for="skriv">Ny gold</label>
-                <input type="text" id="skriv" class="form-control" aria-labelledby="skrivhelp" placeholder="skriv selv...">
-                <small id="skrivhelp" class="form-text text-muted">Skriv hvis ingen mulighder passer</small>
-            </div>
-        </div>
-
-        <div class="col-sm" *ngIf="rightToken">
-            <label for="right_token">right token</label>
-            <img id="right_token" src="{{url}}{{rightToken.image_url}}" class="img-fluid m-2" alt="right token">
-    
-            <div class="col-sm">
-                <button class="btn btn-secondary mr-2" type="button" (click)="hypRight()">Hypernate Right</button>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
+<app-tokens [urlList] = "uncorrectedList"></app-tokens>
 
 <router-outlet></router-outlet>

@@ -4,6 +4,7 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TokensComponent } from './components/tokens/tokens.component'
@@ -22,6 +23,7 @@ import { DocTokensComponent } from './components/doc-tokens/doc-tokens.component
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
+    FormsModule,
     //ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: AppComponent},

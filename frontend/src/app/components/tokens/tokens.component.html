@@ -1,46 +1,9 @@
-<h1> Random Token WIP </h1>
-<!--
-<div class="container-fluid">
-
-    <div class="row">
-        <div class="col-sm" *ngIf = "leftToken">
-            <label for="left_token">left token</label>
-            <img id="left_token" src="{{url}}{{leftToken.image_url}}" class="img-fluid m-2" alt="left token">
-
-            <div>
-                <button class="btn btn-secondary" type="button" (click)="hypLeft()">Hypernate Left</button>
-            </div>
-        </div>
-
-        <div class="col-sm" *ngIf="mainToken">
-            <label for="main_token">main</label>
-            <img id="main_token" src="{{url}}{{mainToken.image_url}}" class="img-fluid m-2" alt="main token">
-            
-            <div class="col-sm">
-                <button class="btn btn-secondary mr-2" type="button" (click)="correct(1)">{{mainToken.firstBest}}</button>    
-                <button class="btn btn-secondary mr-2" type="button" (click)="correct(2)">{{mainToken.secondBest}}</button>    
-                <button class="btn btn-secondary mr-2" type="button" (click)="correct(3)">{{mainToken.thirdBest}}</button>
-            </div>
-        </div>
-
-        <div class="col-sm" *ngIf="rightToken">
-            <label for="right_token">right token</label>
-            <img id="right_token" src="{{url}}{{rightToken.image_url}}" class="img-fluid m-2" alt="right token">
-    
-            <div class="col-sm">
-                <button class="btn btn-secondary" type="button" (click)="hypRight()">Hypernate Right</button>
-            </div>
-        </div>
-    </div>
-
-</div>
--->
 <div class="container-fluid">
     <form class="border p-5">
         <div class="card-deck">
         
             <div *ngIf = "leftToken" class="col card">
-                <img id="left_token" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token">
+                <img id="left_token" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
 
                 <div class="card-body">
                     <h5 class="card-title">left token</h5>
@@ -52,7 +15,7 @@
             </div>
 
             <div *ngIf = "mainToken" class="col card">
-                <img id="main_token" class="card-img-top" src="{{url}}{{mainToken.image_url}}"  alt="main token">
+                <img id="main_token" class="card-img-top" src="{{url}}{{mainToken.image_url}}"  alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
 
                 <div class="card-body">
                     <h5 class="card-title">main token</h5>
@@ -74,7 +37,7 @@
             </div>
 
             <div *ngIf = "rightToken" class="col card">
-                <img id="right_token" class="card-img-top" src="{{url}}{{rightToken.image_url}}"  alt="right token">
+                <img id="right_token" class="card-img-top" src="{{url}}{{rightToken.image_url}}"  alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index}}">
 
                 <div class="card-body">
                     <h5 class="card-title">right token</h5>
