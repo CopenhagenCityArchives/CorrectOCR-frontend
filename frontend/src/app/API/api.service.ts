@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IToken } from '../tokens/i-token'
+import { IToken } from '../components/tokens/i-token';
 import { Observable } from 'rxjs';
 
 const url = 'http://localhost:5000/';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../API/api.service';
+import { ApiService } from '../../API/api.service';
 import { Token } from '../tokens/token';
 import { Subscription } from 'rxjs';
 

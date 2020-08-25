@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../API/api.service'
+import { ApiService } from '../../API/api.service';
 @Component({
   selector: 'app-doc-overview',
   templateUrl: './doc-overview.component.html',
