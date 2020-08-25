@@ -14,10 +14,6 @@ export class DocOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.ApiService.getOverview().subscribe((data) => {
       this.documentList = data;
-      console.log(data);
-      this.ApiService.getAllTokensFromDocId("6148").subscribe((data) =>  {
-        console.log("tokensFormDocID", data);
-      })
     });
   }
 
