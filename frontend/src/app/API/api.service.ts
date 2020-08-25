@@ -102,7 +102,7 @@ export class ApiService {
    * Update token with new gold value
    *
    * @param   {IToken}              mainToken  Main Token
-   * @param   {string<Object>}      gold       new gold value
+   * @param   {string}              gold       new gold value
    *
    * @return  {Observable<Object>}             [return Observable]
    */

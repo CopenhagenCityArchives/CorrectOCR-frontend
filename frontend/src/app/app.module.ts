@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { TokensComponent } from './tokens/tokens.component';
 import { DocOverviewComponent } from './doc-overview/doc-overview.component';
 import { DocTokensComponent } from './doc-tokens/doc-tokens.component';
-import { TokenFormDirective } from './directives/token-form.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { TokenFormDirective } from './directives/token-form.directive';
     TokensComponent,
     DocOverviewComponent,
     DocTokensComponent,
-    TokenFormDirective,
   ],
   imports: [
     BrowserModule,

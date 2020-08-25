@@ -40,23 +40,11 @@ export class TokensComponent implements OnInit {
     })
   }
 
-  correct(correction): void {
-    let gold;
-    switch (correction) {
-      case 1:
-        gold = this.mainToken.firstBest;
-        break;
-      case 2:
-        gold = this.mainToken.secondBest;
-        break;
-      case 3:
-        gold = this.mainToken.thirdBest
-        break;
-      default:
-        break;
-    }
+  correct(correction:string): void {
+
+    console.log(correction);
     
-    this.ApiService.postGold(this.mainToken, gold).subscribe((data: JSON) => {
+    this.ApiService.postGold(this.mainToken, correction).toPromise().then((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
     })
@@ -64,7 +52,7 @@ export class TokensComponent implements OnInit {
   }
 
   hypLeft(): void {
-   this.ApiService.postHypernate(this.mainToken, 'left').subscribe((data: JSON) => {
+   this.ApiService.postHypernate(this.mainToken, 'left').toPromise().then((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
     })
@@ -72,7 +60,7 @@ export class TokensComponent implements OnInit {
   }
 
   hypRight(): void {
-    this.ApiService.postHypernate(this.mainToken, 'right').subscribe((data: JSON) => {
+    this.ApiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
     })
