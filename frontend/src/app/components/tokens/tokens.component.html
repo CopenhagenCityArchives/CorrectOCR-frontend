@@ -17,7 +17,7 @@
             </div>
 
             <div *ngIf = "mainToken" class="card bg-light border-dark">
-                <img id="main_token" class="card-img-top" src="{{url}}{{mainToken.image_url}}"  alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
+                <img id="main_token" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
 
                 <div class="card-body">
                     <h5 class="card-title">main token</h5>
@@ -28,9 +28,9 @@
                             <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.thirdBest)"> {{mainToken.thirdBest}}</button>
                         </div>
                         <div class="input-group">
-                            <input #andet id="andet" type="text" class="form-control" placeholder="andet...">
+                            <input [(ngModel)]="andetInputField" id="andet" name="andet" type="text" class="form-control" placeholder="andet...">
                             <div class="input-group-append">
-                                <button class="btn btn-secondary" type="button" (click)="correct(andet.value)" >submit</button>
+                                <button class="btn btn-secondary" type="submit" (click)="correct(andetInputField)">submit</button>
                             </div>
                         </div>
                     </div>

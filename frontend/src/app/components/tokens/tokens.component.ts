@@ -10,13 +10,19 @@ import { Token } from '../tokens/token';
 })
 export class TokensComponent implements OnInit {
   url = 'http://localhost:5000';
+
   @Input() promise?: Promise<Object>;
   @Input() urlList?: Array<Object>;
+
   index: number = 0;
+  andetInputField: string = '';
+
   mainToken: Token;
   leftToken: Token;
   rightToken: Token;
+
   response;
+
   constructor(private route: ActivatedRoute, private ApiService: ApiService) {
    
   }
@@ -79,6 +85,7 @@ export class TokensComponent implements OnInit {
 
   nextToken(): void {
     this.getTokens();
+    this.andetInputField = '';
   }
 
 }
