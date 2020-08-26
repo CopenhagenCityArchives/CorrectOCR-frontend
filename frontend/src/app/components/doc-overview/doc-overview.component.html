@@ -11,18 +11,18 @@
     </thead>
 
     <tbody>
-        <tr tabindex="0" role="button" aria-labelledby="doc-1">
+        <tr *ngFor="let doc of documentList; index as i;" routerLink="/tokens/{{doc.docid}}" routerLinkActive="active" tabindex="0" role="button" [attr.aria-label]="'doc-'+i">
             <td>
                 <h5>doc_id</h5>
-                <h4 id="doc-1">{{documentList[0].docid}}</h4>
+                <h4 id="doc-{{i}}">{{doc.docid}}</h4>
             </td>
             <td>
                 <h5> Status</h5>
-                <span> {{documentList[0].corrected}} ud af {{documentList[0].count}} </span> 
+                <span> {{doc.corrected}} ud af {{doc.count}} </span> 
             </td>
             <td>
                 <h5>Link</h5>
-                <span routerLink="/tokens/{{documentList[0].docid}}" routerLinkActive="active">Link til doc</span>
+                <span>Link til doc -></span>
             </td>
         </tr>
     </tbody>
