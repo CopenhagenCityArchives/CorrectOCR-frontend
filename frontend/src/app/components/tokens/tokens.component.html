@@ -2,7 +2,7 @@
     <form class="border p-5">
         <div class="card-deck">
         
-            <div *ngIf = "leftToken" class="col card">
+            <div *ngIf = "leftToken" class="card bg-light border-dark">
                 <img id="left_token" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
 
                 <div class="card-body">
@@ -11,10 +11,12 @@
                         <button class="btn btn-secondary" type="button" (click)="hypLeft()">Hypernate Left</button>
                     </div>
                 </div>
-
+                <div class="card-footer text-muted">
+                    Token: {{leftToken.doc_ID + ' / ' + leftToken.index}}
+                </div>
             </div>
 
-            <div *ngIf = "mainToken" class="col card">
+            <div *ngIf = "mainToken" class="card bg-light border-dark">
                 <img id="main_token" class="card-img-top" src="{{url}}{{mainToken.image_url}}"  alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
 
                 <div class="card-body">
@@ -33,10 +35,12 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="card-footer text-muted">
+                    Token: {{mainToken.doc_ID + ' / ' + mainToken.index}}
+                </div>
             </div>
 
-            <div *ngIf = "rightToken" class="col card">
+            <div *ngIf = "rightToken" class="card bg-light border-dark">
                 <img id="right_token" class="card-img-top" src="{{url}}{{rightToken.image_url}}"  alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index}}">
 
                 <div class="card-body">
@@ -45,10 +49,13 @@
                         <button class="btn btn-secondary" type="button" (click)="hypRight()">Hypernate Right</button>
                     </div>
                 </div>
-
+                <div class="card-footer text-muted">
+                    Token: {{rightToken.doc_ID + ' / ' + rightToken.index}}
+                </div>
             </div>
 
         </div>
+
     </form>
 </div>
 
