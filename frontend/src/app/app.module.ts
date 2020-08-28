@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { TokensComponent } from './components/tokens/tokens.component'
 import { DocOverviewComponent } from './components/doc-overview/doc-overview.component';
 import { DocTokensComponent } from './components/doc-tokens/doc-tokens.component';
+import { RandomTokenComponent } from './components/random-token/random-token.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { DocTokensComponent } from './components/doc-tokens/doc-tokens.component
     TokensComponent,
     DocOverviewComponent,
     DocTokensComponent,
+    RandomTokenComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,7 @@ import { DocTokensComponent } from './components/doc-tokens/doc-tokens.component
     //ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: AppComponent},
-      {path: 'tokens', component: TokensComponent},
+      {path: 'tokens', component: RandomTokenComponent},
       {path: 'tokens/:docid', component: DocTokensComponent},
       {path: 'doc-overview', component: DocOverviewComponent},
     ]),
