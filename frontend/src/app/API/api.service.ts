@@ -1,44 +1,48 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IToken } from '../components/tokens/i-token';
 import { Observable } from 'rxjs';
 
-const url = 'http://localhost:5000/';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+ private url = 'http://localhost:5000/';
+ private http: HttpClient;
 
   options: {
     responseType: 'json'
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(http: HttpClient, url: string) {
+    this.url = url;
+    this.http = http;
+   }
 
   /**
    * Get a list of documents
    *
    * @return  {Observable<Object>}[return Observable]
    */
-  public getOverview() {
-    return this.http.get(url);
+  public getOverview(): Observable<Object> {
+    return this.http.get(this.url);
   }
   
   /**
    * Get a specific token
    *
-   * @param   {string}              docid  id of document
+   * @param   {number}              docid  id of document
    * @param   {number<Object>}      index  index of token
    *
    * @return  {Observable<Object>}         [return Observable]
    */
-  public getToken(docid:string, index:number): Observable<Object> {
-    return this.http.get(url + docid + '/token-' + index + '.json');;
+  public getToken(docid:number, index:number): Observable<Object> {
+    return this.http.get(this.url + docid + '/token-' + index + '.json');
   }
 
   public getTokenFromInfoUrl(infoUrl:string): Observable<Object> {
-    return this.http.get(url + infoUrl);
+    return this.http.get(this.url + infoUrl);
   }
 
   /**
@@ -49,7 +53,7 @@ export class ApiService {
    * @return  {Observable<Object>}         [return Observable]
    */
   public getAllTokensFromDocId(docid:string): Observable<Object> {
-    return this.http.get(url + docid + '/tokens.json');
+    return this.http.get(this.url + docid + '/tokens.json');
   }
 
   /**
@@ -58,7 +62,7 @@ export class ApiService {
    * @return  {Observable<Object>}         [return Observable]
    */
   public getRandomToken(): Observable<Object> {
-    return this.http.get(url + 'random', this.options);
+    return this.http.get(this.url + 'random', this.options);
   }
 
   /**
@@ -69,7 +73,7 @@ export class ApiService {
    * @return  {Observable<Object>}             [return Observable]
    */
   public getLeftToken(mainToken: IToken): Observable<Object> {
-    return this.http.get(url + mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json', this.options);
+    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json', this.options);
   }
 
   /**
@@ -80,7 +84,7 @@ export class ApiService {
    * @return  {Observable<Object>}             [return Observable]
    */
   public getRightToken(mainToken: IToken): Observable<Object> {
-    return this.http.get(url + mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json', this.options);
+    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json', this.options);
   }
 
   /**
@@ -95,7 +99,7 @@ export class ApiService {
     let body = {
       'hyphenate': hypDir
     };
-    return this.http.request('POST', (url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
+    return this.http.request('POST', (this.url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
   }
 
   /**
@@ -110,7 +114,7 @@ export class ApiService {
     let body = {
       'gold': gold
     };
-    return this.http.request('POST',(url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
+    return this.http.request('POST',(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body});
   }
   
 }
