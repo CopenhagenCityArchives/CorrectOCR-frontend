@@ -1,0 +1,22 @@
+{
+    "1-best": "mod",
+    "1-best prob.": 4.019861444248818e-05,
+    "2-best": "med",
+    "2-best prob.": 4.738839152196306e-07,
+    "3-best": "mor",
+    "3-best prob.": 3.3920068176485074e-07,
+    "4-best": "mos",
+    "4-best prob.": 2.9614730578941817e-07,
+    "Bin": 1,
+    "Decision": "original",
+    "Doc ID": "6148",
+    "Gold": "mod",
+    "Heuristic": "o",
+    "Hyphenated": false,
+    "Index": 330,
+    "Original": "mod",
+    "Selection": "mod",
+    "Token info": "[0, 178.64999389648438, 562.5964965820312, 196.44296264648438, 575.2694702148438, \"mod\", 16, 34, 2]",
+    "Token type": "PDFToken",
+    "image_url": "/6148/token-330.png"
+}

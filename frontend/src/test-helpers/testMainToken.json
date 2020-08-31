@@ -1,0 +1,22 @@
+{
+    "1-best": "et",
+    "1-best prob.": 0.0011109677143394947,
+    "2-best": "st",
+    "2-best prob.": 0.00012121564213884994,
+    "3-best": "ct",
+    "3-best prob.": 1.8460234059602953e-05,
+    "4-best": "gt",
+    "4-best prob.": 8.5158417277853e-06,
+    "Bin": 1,
+    "Decision": "original",
+    "Doc ID": "6148",
+    "Gold": "et",
+    "Heuristic": "o",
+    "Hyphenated": false,
+    "Index": 331,
+    "Original": "et",
+    "Selection": "et",
+    "Token info": "[0, 203.35000610351562, 562.5964965820312, 210.96487426757812, 575.2694702148438, \"et\", 16, 34, 3]",
+    "Token type": "PDFToken",
+    "image_url": "/6148/token-331.png"
+}
