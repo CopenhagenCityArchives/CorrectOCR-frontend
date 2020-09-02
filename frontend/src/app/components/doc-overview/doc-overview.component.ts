@@ -6,15 +6,17 @@ import { ApiService } from '../../API/api.service';
   styleUrls: ['./doc-overview.component.scss']
 })
 export class DocOverviewComponent implements OnInit {
+  private apiService: ApiService;
+  public documentList;
 
-  documentList;
-
-  constructor(private ApiService: ApiService) { }
-
-  ngOnInit(): void {
-    this.ApiService.getOverview().subscribe((data) => {
-      this.documentList = data;
-    });
+  constructor(service: ApiService) { 
+    this.apiService = service;
   }
+
+   ngOnInit() {
+    this.apiService.getOverview().subscribe((data) => {
+      this.documentList = data;
+    })
+   }
 
 }
