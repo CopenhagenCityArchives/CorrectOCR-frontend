@@ -8,17 +8,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
- private url = 'http://localhost:5000/';
- private http: HttpClient;
+
+  private url: string = 'http://localhost:5000/'
+  private http: HttpClient;
 
   options: {
     responseType: 'json'
   };
 
-  constructor(http: HttpClient, url: string) {
-    this.url = url;
+  constructor(http: HttpClient) {
     this.http = http;
-   }
+  }
 
   /**
    * Get a list of documents
