@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../API/api.service';
 import { Token } from '../tokens/token';
+
 
 @Component({
   selector: 'app-tokens',
@@ -11,55 +12,44 @@ import { Token } from '../tokens/token';
 export class TokensComponent implements OnInit {
   url = 'http://localhost:5000';
 
-  @Input() promise?: Promise<Object>;
-  @Input() urlList?: Array<Object>;
+  @Input() public mainToken: Token;
+  @Output() public getNextMainToken = new EventEmitter();
 
-  index: number = 0;
-  andetInputField: string = '';
+  public leftToken: Token;
+  public rightToken: Token;
 
-  mainToken: Token;
-  leftToken: Token;
-  rightToken: Token;
-
-  response;
+  private response: Token;
+  public andetInputField: string = '';
 
   constructor(private route: ActivatedRoute, private ApiService: ApiService) {
    
   }
 
   ngOnInit(): void {
+
   }
 
+
   ngOnChanges() {
-    if (this.urlList) {
-      console.log("urlList", this.urlList);
+    if(this.mainToken){
       this.getTokens();
     }
+    
   }
 
   getTokens(): void {
-    console.log("hit")
     this.route.paramMap.subscribe(params => {
-      this.ApiService.getTokenFromInfoUrl(this.urlList[this.index]['info_url']).subscribe((data: JSON) => {
-        console.log(new Token(data));
-        this.mainToken = new Token(data);
-
-        this.ApiService.getLeftToken(this.mainToken).subscribe((data: JSON) => {
-          this.leftToken = new Token(data);
-        })
-  
-        this.ApiService.getRightToken(this.mainToken).subscribe((data: JSON) => {
-          this.rightToken = new Token(data);
-        })
+      this.ApiService.getLeftToken(this.mainToken).toPromise().then((data: JSON) => {
+        this.leftToken = new Token(data);
+      })
+      this.ApiService.getRightToken(this.mainToken).toPromise().then((data: JSON) => {
+        this.rightToken = new Token(data);
       })
     })
-    this.index ++;
   }
 
   correct(correction:string): void {
-
     console.log(correction);
-    
     this.ApiService.postGold(this.mainToken, correction).toPromise().then((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
@@ -84,8 +74,8 @@ export class TokensComponent implements OnInit {
   }
 
   nextToken(): void {
-    this.getTokens();
     this.andetInputField = '';
+    this.getNextMainToken.emit();
   }
 
 }

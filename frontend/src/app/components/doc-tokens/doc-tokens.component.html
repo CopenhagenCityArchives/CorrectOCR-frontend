@@ -7,6 +7,6 @@
     </a>
 </div>
 
-<app-tokens [urlList] = "uncorrectedList"></app-tokens>
+<app-tokens [mainToken] = "mainToken" (getNextMainToken)="getNextTokenFromList()"></app-tokens>
 
 <router-outlet></router-outlet>

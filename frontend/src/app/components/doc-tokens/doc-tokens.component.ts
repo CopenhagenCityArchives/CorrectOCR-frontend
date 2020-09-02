@@ -17,6 +17,7 @@ export class DocTokensComponent implements OnInit {
   tokenList:Array<object> = new Array;
   correctedList:Array<object>;
   uncorrectedList:Array<object>;
+  index: number = 0;
 
   mainToken: Token;
   leftToken: Token;
@@ -29,7 +30,6 @@ export class DocTokensComponent implements OnInit {
 
   ngOnInit(): void {
     //using mock until response time is improved
-
     this.uncorrectedList = [
       {image_url: "/6148/token-6.png", info_url: "/6148/token-6.json", is_corrected: false, string: "La&s"},
       {image_url: "/6148/token-7.png", info_url: "/6148/token-7.json", is_corrected: false, string: "stter."},
@@ -132,6 +132,7 @@ export class DocTokensComponent implements OnInit {
       {image_url: "/6148/token-846.png", info_url: "/6148/token-846.json", is_corrected: false, string: "Langsted"},
       {image_url: "/6148/token-890.png", info_url: "/6148/token-890.json", is_corrected: false, string: "Wichert,"},
     ]
+    this.getNextTokenFromList();
 
     /*this.route.paramMap.subscribe(async params => {
       this.ApiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data: Array<object>) => {
@@ -157,5 +158,12 @@ export class DocTokensComponent implements OnInit {
 
       })
     })*/
+  }
+
+  public getNextTokenFromList() {
+    this.ApiService.getTokenFromInfoUrl(this.uncorrectedList[this.index]['info_url']).subscribe((data: JSON) => {
+      this.mainToken = new Token(data);
+    })
+    this.index++;
   }
 }

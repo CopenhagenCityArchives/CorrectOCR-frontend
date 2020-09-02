@@ -8,64 +8,18 @@ import { Token } from '../tokens/token';
   styleUrls: ['./random-token.component.scss']
 })
 export class RandomTokenComponent implements OnInit {
-  url = 'http://localhost:5000';
-  mainToken: Token;
-  leftToken: Token;
-  rightToken: Token;
-  response;
-  andetInputField: string = '';
+  randomToken: Token;
 
-  constructor(private ApiService: ApiService) { }
+  constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.getTokens();
+    this.getRandomToken();
   }
 
-  getTokens() {
-    this.ApiService.getRandomToken().subscribe((data: JSON) => {
-      console.log(new Token(data));
-      this.mainToken = new Token(data);
-
-      this.ApiService.getLeftToken(this.mainToken).subscribe((data: JSON) => {
-        this.leftToken = new Token(data);
-      })
-
-      this.ApiService.getRightToken(this.mainToken).subscribe((data: JSON) => {
-        this.rightToken = new Token(data);
-      })
-    })
-  }
-
-  correct(correction:string): void {
-
-    console.log(correction);
-    
-    this.ApiService.postGold(this.mainToken, correction).toPromise().then((data: JSON) => {
-      this.response = new Token(data);
-      console.log(this.response);
-    })
-    this.nextToken();
-  }
-
-  hypLeft(): void {
-   this.ApiService.postHypernate(this.mainToken, 'left').toPromise().then((data: JSON) => {
-      this.response = new Token(data);
-      console.log(this.response);
-    })
-    this.nextToken();
-  }
-
-  hypRight(): void {
-    this.ApiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => {
-      this.response = new Token(data);
-      console.log(this.response);
-    })
-    this.nextToken();
-  }
-
-  nextToken(): void {
-    this.getTokens();
-    this.andetInputField = '';
+  getRandomToken() {
+    this.apiService.getRandomToken().subscribe((data: JSON) => {
+      this.randomToken = new Token(data);
+    });
   }
 
 }
