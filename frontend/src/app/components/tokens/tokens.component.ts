@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../API/api.service';
 import { Token } from '../tokens/token';
@@ -9,10 +9,11 @@ import { Token } from '../tokens/token';
   templateUrl: './tokens.component.html',
   styleUrls: ['./tokens.component.scss']
 })
-export class TokensComponent implements OnInit {
-  url = 'http://localhost:5000';
+export class TokensComponent implements OnChanges {
+  public url = 'http://localhost:5000';
+  private apiService: ApiService;
 
-  @Input() public mainToken: Token;
+  @Input() public mainToken: Token
   @Output() public getNextMainToken = new EventEmitter();
 
   public leftToken: Token;
@@ -21,36 +22,36 @@ export class TokensComponent implements OnInit {
   private response: Token;
   public andetInputField: string = '';
 
-  constructor(private route: ActivatedRoute, private ApiService: ApiService) {
-   
+  constructor(apiService: ApiService) {
+   this.apiService = apiService;
   }
 
   ngOnInit(): void {
-
   }
+ 
 
-
-  ngOnChanges() {
-    if(this.mainToken){
+  ngOnChanges(changes: SimpleChanges) {
+    console.log("onChanges", changes);
+ 
+    if (changes.hasOwnProperty('mainToken')) {
+      this.mainToken = changes.mainToken.currentValue;
       this.getTokens();
     }
-    
   }
 
   getTokens(): void {
-    this.route.paramMap.subscribe(params => {
-      this.ApiService.getLeftToken(this.mainToken).toPromise().then((data: JSON) => {
-        this.leftToken = new Token(data);
-      })
-      this.ApiService.getRightToken(this.mainToken).toPromise().then((data: JSON) => {
-        this.rightToken = new Token(data);
-      })
+    console.log("hit");
+    this.apiService.getLeftToken(this.mainToken).toPromise().then((data: JSON) => {
+      this.leftToken = new Token(data);
+    })
+    this.apiService.getRightToken(this.mainToken).toPromise().then((data: JSON) => {
+      this.rightToken = new Token(data);
     })
   }
 
   correct(correction:string): void {
     console.log(correction);
-    this.ApiService.postGold(this.mainToken, correction).toPromise().then((data: JSON) => {
+    this.apiService.postGold(this.mainToken, correction).toPromise().then((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
     })
@@ -58,7 +59,7 @@ export class TokensComponent implements OnInit {
   }
 
   hypLeft(): void {
-   this.ApiService.postHypernate(this.mainToken, 'left').toPromise().then((data: JSON) => {
+   this.apiService.postHypernate(this.mainToken, 'left').toPromise().then((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
     })
@@ -66,7 +67,7 @@ export class TokensComponent implements OnInit {
   }
 
   hypRight(): void {
-    this.ApiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => {
+    this.apiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => {
       this.response = new Token(data);
       console.log(this.response);
     })
