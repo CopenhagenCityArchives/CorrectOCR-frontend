@@ -21,7 +21,7 @@ services:
       MYSQL_ROOT_PASSWORD: 123456   
       MYSQL_USER: correctocr   
       MYSQL_PASSWORD: 123abc
-      MYSQL_DATABASE: correctocr.db
+      MYSQL_DATABASE: correctocr
     volumes:
       - "./initdb.d:/docker-entrypoint-initdb.d"
     ports:
