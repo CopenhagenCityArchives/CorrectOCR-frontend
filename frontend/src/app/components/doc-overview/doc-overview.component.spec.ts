@@ -10,7 +10,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DocOverviewComponent', () => {
 
-  let url: string = "http://localhost:5000/";
   let apiService: ApiService;
   let client: HttpClient;
 
@@ -21,7 +20,7 @@ describe('DocOverviewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ DocOverviewComponent ],
       imports: [ HttpClientTestingModule, RouterTestingModule ],
-      providers: [ ApiService, {provide: String, useValue: url} ],
+      providers: [ ApiService ],
     }).compileComponents();
   }));
 
