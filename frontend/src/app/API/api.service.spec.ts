@@ -6,7 +6,7 @@ import { IToken } from '../components/tokens/i-token';
 import { Token } from '../components/tokens/token';
 
 describe('ApiService', () => {
-  const url: string = 'localhost:5000/';
+  const url: string = 'http://localhost:5000/';
   let apiService: ApiService;
   let testJSON: JSON = require('../../test-helpers/testMainToken.json');
   let client: HttpClient;
