@@ -11,7 +11,6 @@ services:
       - "./original:/original"
       - "./gold:/gold"
       - "./training:/training"
-      - "./__COCRcache__:/__COCRcache__"
   db:
     container_name: db
     image: mysql:latest
