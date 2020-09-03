@@ -15,13 +15,12 @@ CREATE TABLE token (
 );
 
 CREATE TABLE kbest (
-	id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	doc_id VARCHAR(255) NOT NULL,
 	doc_index INT NOT NULL,
 	k INT NOT NULL,
 	candidate VARCHAR(255) NOT NULL,
-	probability float NOT NULL
---	FOREIGN KEY fk_kbest_token(doc_id, doc_index, kind) REFERENCES token(doc_id, doc_index, kind)
+	probability float NOT NULL,
+	PRIMARY KEY (doc_id, doc_index, k)
 );
 
 CREATE INDEX idx_token_doc_id_doc_index
@@ -31,4 +30,7 @@ CREATE INDEX idx_token_doc_id_kind
 	ON token(doc_id, kind);
 
 CREATE INDEX idx_kbest_doc_id_doc_index
-	ON token(doc_id, doc_index);
+	ON kbest(doc_id, doc_index);
+
+CREATE INDEX idx_kbest_doc_id_doc_index_k
+    ON kbest(doc_id, doc_index, k);
