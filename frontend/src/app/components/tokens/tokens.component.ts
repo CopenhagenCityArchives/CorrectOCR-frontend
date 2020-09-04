@@ -20,7 +20,7 @@ export class TokensComponent implements OnChanges {
   public rightToken: Token;
 
   private response: Token;
-  public andetInputField: string = '';
+  public andetInputField: string;
 
   constructor(apiService: ApiService) {
    this.apiService = apiService;
@@ -31,8 +31,6 @@ export class TokensComponent implements OnChanges {
  
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("onChanges", changes);
- 
     if (changes.hasOwnProperty('mainToken')) {
       this.mainToken = changes.mainToken.currentValue;
       this.getTokens();
@@ -40,11 +38,10 @@ export class TokensComponent implements OnChanges {
   }
 
   getTokens(): void {
-    console.log("hit");
-    this.apiService.getLeftToken(this.mainToken).toPromise().then((data: JSON) => {
+    this.apiService.getLeftToken(this.mainToken).subscribe((data: JSON) => {
       this.leftToken = new Token(data);
     })
-    this.apiService.getRightToken(this.mainToken).toPromise().then((data: JSON) => {
+    this.apiService.getRightToken(this.mainToken).subscribe((data: JSON) => {
       this.rightToken = new Token(data);
     })
   }
