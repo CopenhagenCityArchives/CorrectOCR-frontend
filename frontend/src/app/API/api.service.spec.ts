@@ -132,6 +132,27 @@ describe('ApiService', () => {
     req.flush(require('../../test-helpers/testRightToken.json'));
   });
 
+  it('should send post request when postHypernate() is called', () => {
+    const mainToken: IToken = new Token(testJSON);
+    const hypDir: string = "left";
+    apiService.postHypernate(mainToken, hypDir).subscribe((data:JSON) => {
+      const resToken: Token = new Token(data);
+    });
+    const req = controller.expectOne((url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'));
+    expect(req.request.method).toEqual('POST');
+  })
+
+  it('should send post request when postHypernate() is called', () => {
+    const mainToken: IToken = new Token(testJSON);
+    const gold: string = "sol";
+    apiService.postHypernate(mainToken, gold).subscribe((data:JSON) => {
+      const resToken: Token = new Token(data);
+    });
+    const req = controller.expectOne((url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'));
+    expect(req.request.method).toEqual('POST');
+  })
+
+
 
 
 });
