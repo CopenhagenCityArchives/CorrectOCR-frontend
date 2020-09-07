@@ -15,9 +15,9 @@ describe('TokensComponent', () => {
   let apiService: ApiService;
   let controller: HttpTestingController;
 
-  const testMainToken = of(require('../../../test-helpers/testMainToken.json'));
-  const testLeftToken = of(require('../../../test-helpers/testLeftToken.json'));
-  const testRightToken = of(require('../../../test-helpers/testRightToken.json'));
+  const testMainToken = require('../../../test-helpers/testMainToken.json');
+  const testLeftToken = require('../../../test-helpers/testLeftToken.json');
+  const testRightToken = require('../../../test-helpers/testRightToken.json');
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,17 +44,13 @@ describe('TokensComponent', () => {
   });
 
   it('should create mainToken in DOM when ngOnChanges() is triggered', () => {
-    const testData = of(require('../../../test-helpers/testMainToken.json'));    
+    const testData = new Token(testMainToken);  
     const debug: DebugElement = fixture.debugElement;
-
-    testData.subscribe((data:JSON) => {
-      let token = new Token(data);
-      component.ngOnChanges({
-        mainToken: new SimpleChange(null, token, true)
-      })
-    })
+    component.getTokens = jasmine.createSpy('getTokens Spy').and.returnValue('');
+    component.ngOnChanges({
+      mainToken: new SimpleChange(null, testData, true)
+    });
     fixture.detectChanges();
-
     const mainTokenCard: HTMLElement = debug.query(By.css('#main_token_card')).nativeElement;
     expect(mainTokenCard).toBeDefined();
 
@@ -62,16 +58,12 @@ describe('TokensComponent', () => {
 
 it('should create the 3 expected tokens when getTokens() is triggered', async() => {
     const url = 'http://localhost:5000/';
-    let mainToken: Token;
+    const testData: Token = new Token(testMainToken);
 
-    apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(testLeftToken);
-    apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(testRightToken);
-
-    testMainToken.subscribe((data:JSON) => {
-      mainToken = new Token(data);
-      component.ngOnChanges({
-        mainToken: new SimpleChange(null, mainToken, true)
-      })
+    apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
+    apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(of(testRightToken));
+    component.ngOnChanges({
+      mainToken: new SimpleChange(null, testData, true)
     })
 
     fixture.detectChanges();
@@ -93,9 +85,9 @@ it('should create the 3 expected tokens when getTokens() is triggered', async() 
     expect(rightTokenelm.children[0].getAttribute('title')).toEqual('Token id: 6148/332');
 
     //assert main_token buttons has correct values
-    expect(mainTokenBtns.children[0].innerHTML).toEqual(mainToken.firstBest);
-    expect(mainTokenBtns.children[1].innerHTML).toEqual(mainToken.secondBest)
-    expect(mainTokenBtns.children[2].innerHTML).toEqual(mainToken.thirdBest);
+    expect(mainTokenBtns.children[0].innerHTML).toEqual(testData.firstBest);
+    expect(mainTokenBtns.children[1].innerHTML).toEqual(testData.secondBest)
+    expect(mainTokenBtns.children[2].innerHTML).toEqual(testData.thirdBest);
   });
 
   it('should call the correct function when triggered through nextToken()', () => {
@@ -107,14 +99,11 @@ it('should create the 3 expected tokens when getTokens() is triggered', async() 
 
   it('should clear trigger correct() function upon clicking btn', () => {
     //setup tokens
-    let mainToken: Token;
-    apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(testLeftToken);
-    apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(testRightToken);
-    testMainToken.subscribe((data:JSON) => {
-      mainToken = new Token(data);
-      component.ngOnChanges({
-        mainToken: new SimpleChange(null, mainToken, true)
-      })
+    const mainToken: Token = new Token(testMainToken);
+    apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
+    apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(of(testRightToken));
+    component.ngOnChanges({
+      mainToken: new SimpleChange(null, mainToken, true)
     })
     fixture.detectChanges();
 
@@ -140,14 +129,11 @@ it('should create the 3 expected tokens when getTokens() is triggered', async() 
 
   it('should trigger hypLeft() or hypRight() upon clicking the correct btns', () => {
     //setup tokens
-    let mainToken: Token;
-    apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(testLeftToken);
-    apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(testRightToken);
-    testMainToken.subscribe((data:JSON) => {
-      mainToken = new Token(data);
-      component.ngOnChanges({
-        mainToken: new SimpleChange(null, mainToken, true)
-      })
+    const mainToken: Token = new Token(testMainToken);
+    apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
+    apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(of(testRightToken));
+    component.ngOnChanges({
+      mainToken: new SimpleChange(null, mainToken, true)
     })
     fixture.detectChanges();
 
@@ -165,14 +151,11 @@ it('should create the 3 expected tokens when getTokens() is triggered', async() 
 
   it('should clear dirty inputfield when nextToken() is called', fakeAsync(() => {
     //setup tokens
-    let mainToken: Token;
-    apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(testLeftToken);
-    apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(testRightToken);
-    testMainToken.subscribe((data:JSON) => {
-      mainToken = new Token(data);
-      component.ngOnChanges({
-        mainToken: new SimpleChange(null, mainToken, true)
-      })
+    const mainToken: Token = new Token(testMainToken);
+    apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
+    apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(of(testRightToken));
+    component.ngOnChanges({
+      mainToken: new SimpleChange(null, mainToken, true)
     })
 
     component.andetInputField = 'old value';
@@ -198,6 +181,33 @@ it('should create the 3 expected tokens when getTokens() is triggered', async() 
     expect(component.andetInputField).toEqual('');
 
   }));
+
+  it('should call API.postGold & NextToken() when correct() is called', () => {
+    apiService.postGold = jasmine.createSpy('postGold Spy').and.returnValue(of(testLeftToken));
+    component.nextToken = jasmine.createSpy('nextToken Spy').and.returnValue(of(testRightToken));
+    component.correct('test');
+
+    expect(apiService.postGold).toHaveBeenCalledTimes(1);
+    expect(component.nextToken).toHaveBeenCalledTimes(1);
+  })
+
+  it('should call API.postHypernate when hypLeft() is called', () => {
+    apiService.postHypernate = jasmine.createSpy('postHypernate Spy').and.returnValue(of(testLeftToken));
+    component.nextToken = jasmine.createSpy('nextToken Spy').and.returnValue(of(testRightToken));
+    component.hypLeft();
+
+    expect(apiService.postHypernate).toHaveBeenCalledTimes(1);
+    expect(component.nextToken).toHaveBeenCalledTimes(1);
+  })
+
+  it('should call API.postHypernate when hypRight() is called', () => {
+    apiService.postHypernate = jasmine.createSpy('postHypernate Spy').and.returnValue(of(testLeftToken));
+    component.nextToken = jasmine.createSpy('nextToken Spy').and.returnValue(of(testRightToken));
+    component.hypRight();
+
+    expect(apiService.postHypernate).toHaveBeenCalledTimes(1);
+    expect(component.nextToken).toHaveBeenCalledTimes(1);
+  })
 
 
 });
