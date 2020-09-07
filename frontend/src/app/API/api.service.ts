@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IToken } from '../components/tokens/i-token';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -25,17 +25,8 @@ export class ApiService {
    *
    * @return  {Observable<Object>}[return Observable]
    */
-  /*public getOverview(): Observable<Object> {
-    return this.http.get(this.url);
-  }*/
-
-  /**
-   * get a list of documents !HARDCODED!
-   *
-   * @return  {Observable<Object>}[return Observable]
-   */
   public getOverview(): Observable<Object> {
-    return of(require('../../test-helpers/testDoc_Overview.json'));
+    return this.http.get(this.url);
   }
   
   /**
