@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DocTokensComponent } from './doc-tokens.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ApiService } from 'src/app/API/api.service';
 
 describe('DocTokensComponent', () => {
   let component: DocTokensComponent;
@@ -8,7 +11,9 @@ describe('DocTokensComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocTokensComponent ]
+      declarations: [ DocTokensComponent ],
+      imports: [ HttpClientTestingModule, RouterTestingModule ],
+      providers: [ ApiService ]
     })
     .compileComponents();
   }));
