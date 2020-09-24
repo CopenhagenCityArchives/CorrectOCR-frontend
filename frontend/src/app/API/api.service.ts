@@ -116,7 +116,12 @@ export class ApiService {
    * @return  {Observable<Object>}         [return Observable]
    */
   public getRandomToken(): Observable<Object> {
-    return this.http.get(this.url + 'random', this.options);
+    return this.http.get(this.url + 'random');
+  }
+
+  public getTestToken(): Observable<Object> {
+    console.log("hit: Api");
+    return this.http.get('http://localhost:5000/6000/token-153.json');
   }
 
   /**
@@ -127,7 +132,7 @@ export class ApiService {
    * @return  {Observable<Object>}             [return Observable]
    */
   public getLeftToken(mainToken: IToken): Observable<Object> {
-    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json', this.options);
+    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json');
   }
 
   /**
@@ -138,7 +143,7 @@ export class ApiService {
    * @return  {Observable<Object>}             [return Observable]
    */
   public getRightToken(mainToken: IToken): Observable<Object> {
-    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json', this.options);
+    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json');
   }
 
   /**

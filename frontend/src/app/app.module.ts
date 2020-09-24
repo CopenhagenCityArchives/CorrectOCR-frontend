@@ -12,6 +12,8 @@ import { DocOverviewComponent } from './components/doc-overview/doc-overview.com
 import { DocTokensComponent } from './components/doc-tokens/doc-tokens.component';
 import { RandomTokenComponent } from './components/random-token/random-token.component';
 import { AuthGuard } from './auth/auth.guard';
+import { TokenPipeComponent } from './components/token-pipe/token-pipe.component';
+import { RandomPipeComponent } from './components/random-pipe/random-pipe.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,8 @@ import { AuthGuard } from './auth/auth.guard';
     DocOverviewComponent,
     DocTokensComponent,
     RandomTokenComponent,
+    TokenPipeComponent,
+    RandomPipeComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,6 +34,7 @@ import { AuthGuard } from './auth/auth.guard';
     //ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: AppComponent, canActivate: [AuthGuard]},
+      {path: 'tokens-pipe', component: RandomPipeComponent, canActivate: [AuthGuard]},
       {path: 'tokens', component: RandomTokenComponent, canActivate: [AuthGuard]},
       {path: 'tokens/:docid', component: DocTokensComponent, canActivate: [AuthGuard]},
       {path: 'doc-overview', component: DocOverviewComponent, canActivate: [AuthGuard]},
