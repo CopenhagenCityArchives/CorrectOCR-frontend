@@ -32,8 +32,10 @@ export class TokensComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('mainToken')) {
-      this.mainToken = changes.mainToken.currentValue;
-      this.getTokens();
+      if(changes.mainToken.currentValue != null) {
+        this.mainToken = changes.mainToken.currentValue;
+        this.getTokens();      
+      }
     }
   }
 
