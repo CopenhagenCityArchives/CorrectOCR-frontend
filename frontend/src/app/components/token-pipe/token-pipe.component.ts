@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { defer, forkJoin, Observable, pipe } from 'rxjs';
+import { defer, forkJoin, Observable, pipe, Subscription } from 'rxjs';
 import { catchError, map, retry, share, endWith, finalize, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
 import { Token } from '../tokens/token';
@@ -10,9 +10,10 @@ import { Token } from '../tokens/token';
   templateUrl: './token-pipe.component.html',
   styleUrls: ['./token-pipe.component.scss']
 })
-export class TokenPipeComponent implements OnChanges {
+export class TokenPipeComponent implements OnChanges, OnDestroy {
   public url = 'http://localhost:5000';
   private apiService: ApiService;
+  private subscription: Subscription;
 
   @Input() public mainToken$: Observable<Token>;
   @Output() public getNextMainToken = new EventEmitter();
@@ -20,10 +21,11 @@ export class TokenPipeComponent implements OnChanges {
   public testObs$: Observable<any>;
   public leftToken$: Observable<any>
   public rightToken$: Observable<any>;
-  public mergeMap: Observable<any>;
+  
   public mainToken: Token;
   public leftToken: Token;
   public rightToken: Token;
+  
 
   private response: Token;
   public andetInputField: string;
@@ -48,16 +50,20 @@ export class TokenPipeComponent implements OnChanges {
     }
   }
 
+  ngOnDestroy(): void {
+    // this.subscription.unsubscribe();
+  }
+
   getTokens(): void {
-    forkJoin([this.mainToken$, this.leftToken$, this.rightToken$]).subscribe(results => {
-      console.log(results);
-      this.mainToken = new Token(JSON.parse(JSON.stringify(results[0])));
-      this.leftToken = new Token(JSON.parse(JSON.stringify(results[1])));
-      this.rightToken = new Token(JSON.parse(JSON.stringify(results[2])));
-      console.log(this.mainToken);
-      console.log(this.leftToken);
-      console.log(this.rightToken);
-    })
+    // this.subscription = forkJoin([this.mainToken$, this.leftToken$, this.rightToken$]).subscribe(results => {
+    //   console.log(results);
+    //   this.mainToken = new Token(JSON.parse(JSON.stringify(results[0])));
+    //   this.leftToken = new Token(JSON.parse(JSON.stringify(results[1])));
+    //   this.rightToken = new Token(JSON.parse(JSON.stringify(results[2])));
+    //   console.log(this.mainToken);
+    //   console.log(this.leftToken);
+    //   console.log(this.rightToken);
+    // })
     // this.mainToken$.subscribe((data) => console.log("mainToken$", data));
     // this.leftToken$.subscribe((data) => console.log("leftToken$", data));
     // this.rightToken$.subscribe((data) => console.log("rightToken$", data));
