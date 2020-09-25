@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RandomPipeComponent } from './random-pipe.component';
@@ -8,7 +9,8 @@ describe('RandomPipeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RandomPipeComponent ]
+      declarations: [ RandomPipeComponent ],
+      imports: [ HttpClientTestingModule ]
     })
     .compileComponents();
   }));

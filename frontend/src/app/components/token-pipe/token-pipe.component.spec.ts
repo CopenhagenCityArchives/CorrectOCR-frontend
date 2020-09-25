@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TokenPipeComponent } from './token-pipe.component';
@@ -8,7 +9,8 @@ describe('TokenPipeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TokenPipeComponent ]
+      declarations: [ TokenPipeComponent ],
+      imports: [ HttpClientTestingModule ]
     })
     .compileComponents();
   }));
