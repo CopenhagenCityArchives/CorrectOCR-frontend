@@ -14,6 +14,7 @@ import { RandomTokenComponent } from './components/random-token/random-token.com
 import { AuthGuard } from './auth/auth.guard';
 import { TokenPipeComponent } from './components/token-pipe/token-pipe.component';
 import { RandomPipeComponent } from './components/random-pipe/random-pipe.component';
+import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RandomPipeComponent } from './components/random-pipe/random-pipe.compon
     RandomTokenComponent,
     TokenPipeComponent,
     RandomPipeComponent,
+    TokensPipePipe,
   ],
   imports: [
     BrowserModule,

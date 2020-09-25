@@ -14,7 +14,7 @@ export class TokenPipeComponent implements OnChanges {
   public url = 'http://localhost:5000';
   private apiService: ApiService;
 
-  @Input() public mainToken$: Observable<Token>;
+  @Input() public mainToken$: Observable<any>;
   @Output() public getNextMainToken = new EventEmitter();
 
   public testObs$: Observable<any>;
