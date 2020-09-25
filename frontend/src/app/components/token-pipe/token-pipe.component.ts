@@ -10,10 +10,9 @@ import { Token } from '../tokens/token';
   templateUrl: './token-pipe.component.html',
   styleUrls: ['./token-pipe.component.scss']
 })
-export class TokenPipeComponent implements OnChanges, OnDestroy {
+export class TokenPipeComponent implements OnChanges {
   public url = 'http://localhost:5000';
   private apiService: ApiService;
-  private subscription: Subscription;
 
   @Input() public mainToken$: Observable<Token>;
   @Output() public getNextMainToken = new EventEmitter();
@@ -26,7 +25,6 @@ export class TokenPipeComponent implements OnChanges, OnDestroy {
   public leftToken: Token;
   public rightToken: Token;
   
-
   private response: Token;
   public andetInputField: string;
 
@@ -43,34 +41,16 @@ export class TokenPipeComponent implements OnChanges, OnDestroy {
       if(changes.mainToken$.currentValue != null) {
         // changes.mainToken$.currentValue.pipe(share(), map((value:JSON) => this.mainToken = new Token(value)), this.getTokens())
         const changeObs:Observable<any> = changes.mainToken$.currentValue.pipe(share());
-        this.leftToken$ = changeObs.pipe(share(), mergeMap((mainToken:JSON) => this.apiService.getLeftToken(new Token(mainToken))));
-        this.rightToken$ = changeObs.pipe(share(), mergeMap((mainToken:JSON) => this.apiService.getRightToken(new Token(mainToken))));
+        this.leftToken$ = changeObs.pipe(mergeMap((mainToken:JSON) => this.apiService.getLeftToken(new Token(mainToken))), share());
+        this.rightToken$ = changeObs.pipe(mergeMap((mainToken:JSON) => this.apiService.getRightToken(new Token(mainToken))), share());
         this.getTokens();
       }
     }
   }
 
-  ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
-  }
-
   getTokens(): void {
-    // this.subscription = forkJoin([this.mainToken$, this.leftToken$, this.rightToken$]).subscribe(results => {
-    //   console.log(results);
-    //   this.mainToken = new Token(JSON.parse(JSON.stringify(results[0])));
-    //   this.leftToken = new Token(JSON.parse(JSON.stringify(results[1])));
-    //   this.rightToken = new Token(JSON.parse(JSON.stringify(results[2])));
-    //   console.log(this.mainToken);
-    //   console.log(this.leftToken);
-    //   console.log(this.rightToken);
-    // })
-    // this.mainToken$.subscribe((data) => console.log("mainToken$", data));
-    // this.leftToken$.subscribe((data) => console.log("leftToken$", data));
-    // this.rightToken$.subscribe((data) => console.log("rightToken$", data));
-
-    //let tempToken 
-    //this.leftToken$ = this.apiService.getLeftToken(this.mainToken).pipe(share());
-    //this.rightToken$ = this.apiService.getRightToken(this.mainToken).pipe(share());
+    // this.leftToken$ = this.apiService.getLeftToken(this.mainToken).pipe(share());
+    // this.rightToken$ = this.apiService.getRightToken(this.mainToken).pipe(share());
   }
 
   correct(correction:string): void {
