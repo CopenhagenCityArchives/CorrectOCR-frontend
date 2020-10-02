@@ -35,6 +35,9 @@ export class DocTokensComponent implements OnInit {
         });
         this.correctedList = corrected;
         this.uncorrectedList = uncorrected;
+        
+        this.getNextTokenFromList();
+
       })
     })
   }
