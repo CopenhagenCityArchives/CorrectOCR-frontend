@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IToken } from '../components/tokens/i-token';
 import { Observable, of } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ApiService {
   private http: HttpClient;
 
   options: {
-    responseType: 'json'
+    responseType: 'json',
   };
 
   constructor(http: HttpClient) {
@@ -37,11 +38,15 @@ export class ApiService {
    * @return  {Observable<Object>}         [return Observable]
    */
   public getToken(docid:number, index:number): Observable<Object> {
-    return this.http.get(this.url + docid + '/token-' + index + '.json');
+    return this.http.get(this.url + docid + '/token-' + index + '.json').pipe(
+      retry(3),
+    );
   }
 
   public getTokenFromInfoUrl(infoUrl:string): Observable<Object> {
-    return this.http.get(this.url + infoUrl);
+    return this.http.get(this.url + infoUrl).pipe(
+      retry(3),
+    );
   }
 
   /**
@@ -51,7 +56,7 @@ export class ApiService {
    *
    * @return  {Observable<Object>}         [return Observable]
    */
-  public getAllTokensFromDocId(docid:string): Observable<Object> {
+  /*public getAllTokensFromDocId(docid:string): Observable<Object> {
     let doc_6000: Array<Object> = [
       {"image_url": "/6000/token-6.png",  "info_url": "/6148/token-6.json",  "is_corrected": false, "string": "La&s"},
       {"image_url": "/6000/token-7.png",  "info_url": "/6148/token-7.json",  "is_corrected": false, "string": "stter."},
@@ -103,11 +108,12 @@ export class ApiService {
         break;
     }
 
-  }
+  }*/
   
-  //public getAllTokensFromDocId(docid:string): Observable<Object> {
-  //  return this.http.get(this.url + docid + '/tokens.json');
-  //}
+  public getAllTokensFromDocId(docid:string): Observable<Object> {
+    console.log("API hit")
+   return this.http.get(this.url + docid + '/tokens.json');
+  }
 
 
   /**
@@ -132,7 +138,9 @@ export class ApiService {
    * @return  {Observable<Object>}             [return Observable]
    */
   public getLeftToken(mainToken: IToken): Observable<Object> {
-    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json');
+    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json').pipe(
+      retry(3),
+    );
   }
 
   /**
@@ -143,7 +151,9 @@ export class ApiService {
    * @return  {Observable<Object>}             [return Observable]
    */
   public getRightToken(mainToken: IToken): Observable<Object> {
-    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json');
+    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json').pipe(
+      retry(3),
+    );
   }
 
   /**
