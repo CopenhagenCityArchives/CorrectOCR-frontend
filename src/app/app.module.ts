@@ -35,7 +35,7 @@ import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
     FormsModule,
     //ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: '', component: AppComponent, canActivate: [AuthGuard]},
+      {path: '', component: DocOverviewComponent, canActivate: [AuthGuard]},
       {path: 'tokens-pipe', component: RandomPipeComponent, canActivate: [AuthGuard]},
       {path: 'tokens', component: RandomTokenComponent, canActivate: [AuthGuard]},
       {path: 'tokens/:docid', component: DocTokensComponent, canActivate: [AuthGuard]},
