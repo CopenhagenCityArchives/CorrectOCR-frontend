@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 })
 export class ApiService {
 
-  private url: string = 'http://localhost:5000/';
+  private url: string = 'https://correctocr-api.kbharkiv.dk/';
   private http: HttpClient;
 
   options: {
