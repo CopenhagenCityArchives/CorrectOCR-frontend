@@ -31,7 +31,7 @@ before_deploy:
 
 deploy:
   - provider: s3
-    access_key_id: ${AWS_ACCESS_KEY}
+    access_key_id: ${AWS_ACCESS_KEY_ID}
     secret_access_key: ${AWS_SECRET_ACCESS_KEY}
     bucket: static.kbharkiv.dk
     cache_control: 'no-cache'
