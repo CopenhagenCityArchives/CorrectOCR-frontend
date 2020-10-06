@@ -16,12 +16,18 @@ addons:
     packages:
       - google-chrome-stable
 
+
 install:
   - npm install
 
 script:
   - npm run build -- --prod
   #- npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+
+before_deploy: 
+  - pip install --user awscli # install aws cli w/o sudo
+  - export PATH=$PATH:$HOME/.local/bin # put aws in the path
+  - aws s3 rm s3://static.kbharkiv.dk/correctocr/  --recursive # empty destination folder in S3 bucket
 
 deploy:
   - provider: s3
