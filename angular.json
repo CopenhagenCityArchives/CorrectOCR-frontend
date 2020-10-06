@@ -10,7 +10,7 @@
           "style": "scss"
         }
       },
-      "root": "",
+      "root": "/correctocr",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
