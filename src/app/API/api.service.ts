@@ -111,7 +111,6 @@ export class ApiService {
   }*/
   
   public getAllTokensFromDocId(docid:string): Observable<Object> {
-    console.log("API hit")
    return this.http.get(this.url + docid + '/tokens.json');
   }
 
@@ -126,7 +125,6 @@ export class ApiService {
   }
 
   public getTestToken(): Observable<Object> {
-    console.log("hit: Api");
     return this.http.get('http://localhost:5000/6000/token-153.json');
   }
 

@@ -12,7 +12,7 @@ export class DocTokensComponent implements OnInit {
   public tokenList:Array<object> = new Array;
   public correctedList:Array<object>;
   public uncorrectedList:Array<object>;
-  private index: number = 0;
+  public index: number = 0;
 
   public mainToken: Token;
 
@@ -22,23 +22,25 @@ export class DocTokensComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.paramMap.subscribe(params => {
-      this.apiService.getAllTokensFromDocId(params.get("docid")).subscribe((data: Array<object>) => {
-        this.tokenList = data;
-        let corrected: Array<Object> = new Array;
-        let uncorrected: Array<object> = new Array;
-        this.tokenList.map((token) => {
-          if(token['is_corrected']) {
-            corrected.push(token);
-          } else {
-            uncorrected.push(token);
-          }
-        });
-        this.correctedList = corrected;
-        this.uncorrectedList = uncorrected;
-        
-        this.getNextTokenFromList();
+      if(params.has("docid")) {
+        this.apiService.getAllTokensFromDocId(params.get("docid")).subscribe((data: Array<object>) => {
+          this.tokenList = data;
+          let corrected: Array<Object> = new Array;
+          let uncorrected: Array<object> = new Array;
+          this.tokenList.map((token) => {
+            if(token['is_corrected']) {
+              corrected.push(token);
+            } else {
+              uncorrected.push(token);
+            }
+          });
+          this.correctedList = corrected;
+          this.uncorrectedList = uncorrected;
+          
+          this.getNextTokenFromList();
+        })
+      }
 
-      })
     })
   }
 
