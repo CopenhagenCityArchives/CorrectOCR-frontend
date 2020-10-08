@@ -4,6 +4,7 @@ import { defer, forkJoin, Observable, pipe, Subscription } from 'rxjs';
 import { catchError, map, retry, share, endWith, finalize, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
 import { Token } from '../tokens/token';
+import { environment } from '../../../environments/environment'
 
 @Component({
   selector: 'app-token-pipe',
@@ -11,7 +12,7 @@ import { Token } from '../tokens/token';
   styleUrls: ['./token-pipe.component.scss']
 })
 export class TokenPipeComponent implements OnChanges {
-  public url = 'https://correctocr-api.kbharkiv.dk/';
+  public url: string = environment.apiUrl;
   private apiService: ApiService;
 
   @Input() public mainToken$: Observable<any>;

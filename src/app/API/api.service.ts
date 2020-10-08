@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { IToken } from '../components/tokens/i-token';
 import { Observable, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private url: string = 'https://correctocr-api.kbharkiv.dk/';
+  private url: string = environment.apiUrl;
   private http: HttpClient;
 
   options: {

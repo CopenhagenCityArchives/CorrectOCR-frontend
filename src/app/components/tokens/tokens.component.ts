@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../API/api.service';
 import { Token } from '../tokens/token';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { Token } from '../tokens/token';
   styleUrls: ['./tokens.component.scss']
 })
 export class TokensComponent implements OnChanges {
-  public url = 'https://correctocr-api.kbharkiv.dk';
+  public url: string = environment.apiUrl;
   private apiService: ApiService;
 
   @Input() public mainToken: Token

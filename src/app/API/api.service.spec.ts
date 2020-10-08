@@ -4,9 +4,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { IToken } from '../components/tokens/i-token';
 import { Token } from '../components/tokens/token';
+import { environment } from '../../environments/environment';
 
 describe('ApiService', () => {
-  const url: string = 'https://correctocr-api.kbharkiv.dk/';
+  const url: string = environment.apiUrl;
   let apiService: ApiService;
   let testJSON: JSON = require('../../test-helpers/testMainToken.json');
   let client: HttpClient;

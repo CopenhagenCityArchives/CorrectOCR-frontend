@@ -8,13 +8,14 @@ import { SimpleChange, DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/environment'
 
 describe('TokensComponent', () => {
   let component: TokensComponent;
   let fixture: ComponentFixture<TokensComponent>;
   let apiService: ApiService;
   let controller: HttpTestingController;
-  const url = 'https://correctocr-api.kbharkiv.dk/';
+  const url: string = environment.apiUrl;
   const testMainToken = require('../../../test-helpers/testMainToken.json');
   const testLeftToken = require('../../../test-helpers/testLeftToken.json');
   const testRightToken = require('../../../test-helpers/testRightToken.json');
@@ -75,9 +76,9 @@ it('should create the 3 expected tokens when getTokens() is triggered', async() 
     const mainTokenBtns: HTMLElement = debug.query(By.css('#main_btn_group')).nativeElement;
 
     //assert tokens has correct image values (see test helpers for token values)
-    expect(mainTokenElm.children[0].getAttribute('src')).toEqual(url + '6148/token-331.png');
-    expect(leftTokenElm.children[0].getAttribute('src')).toEqual(url + '6148/token-330.png');
-    expect(rightTokenelm.children[0].getAttribute('src')).toEqual(url + '6148/token-332.png');
+    expect(mainTokenElm.children[0].getAttribute('src')).toEqual(url + '/6148/token-331.png');
+    expect(leftTokenElm.children[0].getAttribute('src')).toEqual(url + '/6148/token-330.png');
+    expect(rightTokenelm.children[0].getAttribute('src')).toEqual(url + '/6148/token-332.png');
 
     expect(mainTokenElm.children[0].getAttribute('title')).toEqual('Token id: 6148/331');
     expect(leftTokenElm.children[0].getAttribute('title')).toEqual('Token id: 6148/330');
