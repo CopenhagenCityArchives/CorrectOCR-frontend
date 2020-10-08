@@ -15,6 +15,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { TokenPipeComponent } from './components/token-pipe/token-pipe.component';
 import { RandomPipeComponent } from './components/random-pipe/random-pipe.component';
 import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
+import { DocTokensPipeComponent } from './components/doc-tokens-pipe/doc-tokens-pipe.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
     TokenPipeComponent,
     RandomPipeComponent,
     TokensPipePipe,
+    DocTokensPipeComponent,
   ],
   imports: [
     BrowserModule,
