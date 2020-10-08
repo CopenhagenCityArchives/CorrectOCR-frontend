@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  auth0Redirect: "static.kbharkiv.dk/correctocr/"
 };
