@@ -11,7 +11,7 @@ import { Token } from '../tokens/token';
   styleUrls: ['./token-pipe.component.scss']
 })
 export class TokenPipeComponent implements OnChanges {
-  public url = 'http://localhost:5000';
+  public url = 'https://correctocr-api.kbharkiv.dk/';
   private apiService: ApiService;
 
   @Input() public mainToken$: Observable<any>;

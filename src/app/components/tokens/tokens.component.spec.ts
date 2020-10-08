@@ -14,7 +14,7 @@ describe('TokensComponent', () => {
   let fixture: ComponentFixture<TokensComponent>;
   let apiService: ApiService;
   let controller: HttpTestingController;
-
+  const url = 'https://correctocr-api.kbharkiv.dk/';
   const testMainToken = require('../../../test-helpers/testMainToken.json');
   const testLeftToken = require('../../../test-helpers/testLeftToken.json');
   const testRightToken = require('../../../test-helpers/testRightToken.json');
@@ -57,7 +57,6 @@ describe('TokensComponent', () => {
   })
 
 it('should create the 3 expected tokens when getTokens() is triggered', async() => {
-    const url = 'http://localhost:5000/';
     const testData: Token = new Token(testMainToken);
 
     apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
