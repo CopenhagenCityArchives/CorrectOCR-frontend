@@ -16,7 +16,6 @@ export class AuthService {
       domain: "login.kbharkiv.dk",
       client_id: "79sOSo4I5JVPustte0a3Ue79yOUM2ZAU",
       redirect_uri: environment.auth0Redirect
-      // redirect_uri: `${window.location.origin}`
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -40,7 +39,6 @@ export class AuthService {
   loggedIn: boolean = null;
 
   constructor(private router: Router) {
-    console.log(environment.auth0Redirect)
     // On initial load, check authentication state with authorization server
     // Set up local auth streams if user is already authenticated
     this.localAuthSetup();
