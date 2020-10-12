@@ -19,12 +19,9 @@ export class TokenPipeComponent implements OnChanges {
   @Output() public getNextMainToken = new EventEmitter();
 
   public testObs$: Observable<any>;
+  public mainToken: Token;
   public leftToken$: Observable<any>
   public rightToken$: Observable<any>;
-  
-  public mainToken: Token;
-  public leftToken: Token;
-  public rightToken: Token;
   
   private response: Token;
   public andetInputField: string;
@@ -41,42 +38,37 @@ export class TokenPipeComponent implements OnChanges {
     if (changes.hasOwnProperty('mainToken$')) {
       if(changes.mainToken$.currentValue != null) {
         // changes.mainToken$.currentValue.pipe(share(), map((value:JSON) => this.mainToken = new Token(value)), this.getTokens())
-        const changeObs:Observable<any> = changes.mainToken$.currentValue.pipe(share());
-        this.leftToken$ = changeObs.pipe(mergeMap((mainToken:JSON) => this.apiService.getLeftToken(new Token(mainToken))), share());
-        this.rightToken$ = changeObs.pipe(mergeMap((mainToken:JSON) => this.apiService.getRightToken(new Token(mainToken))), share());
-        this.getTokens();
+        const changes$:Observable<any> = changes.mainToken$.currentValue.pipe(share());
+        changes$.subscribe((data:JSON) => this.mainToken = new Token(data));
+        this.leftToken$ = changes$.pipe(mergeMap((mainToken:JSON) => this.apiService.getLeftToken(new Token(mainToken))), share());
+        this.rightToken$ = changes$.pipe(mergeMap((mainToken:JSON) => this.apiService.getRightToken(new Token(mainToken))), share());
       }
     }
   }
 
-  getTokens(): void {
-    // this.leftToken$ = this.apiService.getLeftToken(this.mainToken).pipe(share());
-    // this.rightToken$ = this.apiService.getRightToken(this.mainToken).pipe(share());
-  }
-
   correct(correction:string): void {
-    // console.log(correction);
-    // this.apiService.postGold(this.mainToken, correction).toPromise().then((data: JSON) => {
-    //   this.response = new Token(data);
-    //   console.log(this.response);
-    // })
+    console.log(correction);
+    this.apiService.postGold(this.mainToken, correction).toPromise().then((data: JSON) => {
+      this.response = new Token(data);
+      console.log(this.response);
+    })
     this.nextToken();
   }
 
   hypLeft(): void {
-  //  this.apiService.postHypernate(this.mainToken, 'left').toPromise().then((data: JSON) => {
-  //     this.response = new Token(data);
-  //     console.log(this.response);
-  //   })
-  //   this.nextToken();
+   this.apiService.postHypernate(this.mainToken, 'left').toPromise().then((data: JSON) => {
+      this.response = new Token(data);
+      console.log(this.response);
+    })
+    this.nextToken();
   }
 
   hypRight(): void {
-    // this.apiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => {
-    //   this.response = new Token(data);
-    //   console.log(this.response);
-    // })
-    // this.nextToken();
+    this.apiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => {
+      this.response = new Token(data);
+      console.log(this.response);
+    })
+    this.nextToken();
   }
 
   nextToken(): void {
