@@ -20,7 +20,6 @@ export class RandomPipeComponent implements OnInit {
   }
 
   getRandomToken() {
-    console.log("hit: getRandomToken");
     this.randomToken$ = this.apiService.getRandomToken().pipe(share());
   }
 
