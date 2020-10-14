@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 import { AppComponent } from './app.component';
 import { TokensComponent } from './components/tokens/tokens.component'
 import { DocOverviewComponent } from './components/doc-overview/doc-overview.component';
@@ -35,6 +37,7 @@ import { DocTokensPipeComponent } from './components/doc-tokens-pipe/doc-tokens-
     HttpClientModule,
     HttpClientJsonpModule,
     FormsModule,
+    PdfViewerModule,
     //ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: DocOverviewComponent, canActivate: [AuthGuard]},

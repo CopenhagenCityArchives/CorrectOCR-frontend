@@ -4,7 +4,7 @@ import { defer, forkJoin, Observable, pipe, Subscription } from 'rxjs';
 import { catchError, map, retry, share, endWith, finalize, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
 import { Token } from '../tokens/token';
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-token-pipe',
@@ -14,11 +14,11 @@ import { environment } from '../../../environments/environment'
 export class TokenPipeComponent implements OnChanges {
   public url: string = environment.apiUrl;
   private apiService: ApiService;
+  public documentSrc: any = 'https://api.kbharkiv.dk/asset/6000';
 
   @Input() public mainToken$: Observable<any>;
   @Output() public getNextMainToken = new EventEmitter();
 
-  public testObs$: Observable<any>;
   public mainToken: Token;
   public leftToken$: Observable<any>
   public rightToken$: Observable<any>;
@@ -37,11 +37,10 @@ export class TokenPipeComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('mainToken$')) {
       if(changes.mainToken$.currentValue != null) {
-        // changes.mainToken$.currentValue.pipe(share(), map((value:JSON) => this.mainToken = new Token(value)), this.getTokens())
         const changes$:Observable<any> = changes.mainToken$.currentValue.pipe(share());
-        changes$.subscribe((data:JSON) => this.mainToken = new Token(data));
         this.leftToken$ = changes$.pipe(mergeMap((mainToken:JSON) => this.apiService.getLeftToken(new Token(mainToken))), share());
         this.rightToken$ = changes$.pipe(mergeMap((mainToken:JSON) => this.apiService.getRightToken(new Token(mainToken))), share());
+        //this.setDocumentUrl();
       }
     }
   }
@@ -76,5 +75,19 @@ export class TokenPipeComponent implements OnChanges {
     this.getNextMainToken.emit();
   }
 
+  setDocumentUrl(): void {
+    let doc_ID: any;
+    if (this.mainToken) {
+      doc_ID = this.mainToken.doc_ID
+    } else {
+      this.mainToken$.subscribe((data:JSON) => doc_ID = data['Doc ID']);
+    }
+    console.log("docUrl: ", doc_ID);
+
+    this.documentSrc = {
+      url: environment.documentBaseUrl + doc_ID,
+    }
+  }
+  
 }
 

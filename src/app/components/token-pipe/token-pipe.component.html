@@ -66,6 +66,15 @@
         </div>
     </form>
 </div>
+<div class="container-fluid">
+    <div *ngIf="mainToken$ | async | tokensPipe as mainToken">
+        <pdf-viewer
+            [src] = documentSrc
+            [render-text]="true"
+            style="display: block;">
+        </pdf-viewer>
+    </div>
+</div>
 
 
 
