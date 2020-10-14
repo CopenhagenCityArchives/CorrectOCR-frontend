@@ -13,8 +13,8 @@ import { environment } from '../../../environments/environment';
 })
 export class TokenPipeComponent implements OnChanges {
   public url: string = environment.apiUrl;
+  public documentSrc: string;
   private apiService: ApiService;
-  public documentSrc: any = 'https://api.kbharkiv.dk/asset/6000';
 
   @Input() public mainToken$: Observable<any>;
   @Output() public getNextMainToken = new EventEmitter();
@@ -23,7 +23,6 @@ export class TokenPipeComponent implements OnChanges {
   public leftToken$: Observable<any>
   public rightToken$: Observable<any>;
   
-  private response: Token;
   public andetInputField: string;
 
   constructor(apiService: ApiService) {
@@ -34,39 +33,34 @@ export class TokenPipeComponent implements OnChanges {
 
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  async ngOnChanges(changes: SimpleChanges) {
     if (changes.hasOwnProperty('mainToken$')) {
       if(changes.mainToken$.currentValue != null) {
         const changes$:Observable<any> = changes.mainToken$.currentValue.pipe(share());
         this.leftToken$ = changes$.pipe(mergeMap((mainToken:JSON) => this.apiService.getLeftToken(new Token(mainToken))), share());
         this.rightToken$ = changes$.pipe(mergeMap((mainToken:JSON) => this.apiService.getRightToken(new Token(mainToken))), share());
-        //this.setDocumentUrl();
+        let token = await changes$.toPromise().then((data:JSON) => new Token(data));
+        this.mainToken = token;
+        this.setDocumentUrl();
       }
     }
   }
 
-  correct(correction:string): void {
-    console.log(correction);
-    this.apiService.postGold(this.mainToken, correction).toPromise().then((data: JSON) => {
-      this.response = new Token(data);
-      console.log(this.response);
-    })
+  public async correct(correction:string): Promise<void> {
+    let response = await this.apiService.postGold(this.mainToken, correction).toPromise().then((data:JSON) => new Token(data));
+    console.log("correct Response", response);
     this.nextToken();
   }
 
-  hypLeft(): void {
-   this.apiService.postHypernate(this.mainToken, 'left').toPromise().then((data: JSON) => {
-      this.response = new Token(data);
-      console.log(this.response);
-    })
+  public async hypLeft(): Promise<void> {
+    let response = await this.apiService.postHypernate(this.mainToken, 'left').toPromise().then((data:JSON) => new Token(data));
+    console.log("hypLeft response", response);
     this.nextToken();
   }
 
-  hypRight(): void {
-    this.apiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => {
-      this.response = new Token(data);
-      console.log(this.response);
-    })
+  public async hypRight(): Promise<void> {
+    let response = await this.apiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => new Token(data));
+    console.log("hypRight response", response);
     this.nextToken();
   }
 
@@ -75,19 +69,7 @@ export class TokenPipeComponent implements OnChanges {
     this.getNextMainToken.emit();
   }
 
-  setDocumentUrl(): void {
-    let doc_ID: any;
-    if (this.mainToken) {
-      doc_ID = this.mainToken.doc_ID
-    } else {
-      this.mainToken$.subscribe((data:JSON) => doc_ID = data['Doc ID']);
-    }
-    console.log("docUrl: ", doc_ID);
-
-    this.documentSrc = {
-      url: environment.documentBaseUrl + doc_ID,
-    }
+  async setDocumentUrl() {
+    this.documentSrc = environment.documentBaseUrl + this.mainToken.doc_ID;
   }
-  
 }
-
