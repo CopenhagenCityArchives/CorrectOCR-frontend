@@ -43,7 +43,7 @@ import { DocTokensPipeComponent } from './components/doc-tokens-pipe/doc-tokens-
       {path: '', component: DocOverviewComponent, canActivate: [AuthGuard]},
       {path: 'tokens-pipe', component: RandomPipeComponent, canActivate: [AuthGuard]},
       {path: 'tokens', component: RandomTokenComponent, canActivate: [AuthGuard]},
-      {path: 'tokens/:docid', component: DocTokensComponent, canActivate: [AuthGuard]},
+      {path: 'tokens/:docid', component: DocTokensPipeComponent, canActivate: [AuthGuard]},
       {path: 'doc-overview', component: DocOverviewComponent, canActivate: [AuthGuard]},
     ]),
     NgbModule
