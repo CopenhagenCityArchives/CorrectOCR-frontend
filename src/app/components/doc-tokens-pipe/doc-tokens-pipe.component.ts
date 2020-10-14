@@ -21,26 +21,25 @@ export class DocTokensPipeComponent implements OnInit {
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(async params => {
       if(params.has("docid")) {
-        this.apiService.getAllTokensFromDocId(params.get("docid")).subscribe((data: Array<object>) => {
-          this.tokenList = data;
-          let corrected: Array<Object> = new Array;
-          let uncorrected: Array<object> = new Array;
-          this.tokenList.map((token) => {
-            if(token['is_corrected']) {
-              corrected.push(token);
-            } else {
-              uncorrected.push(token);
-            }
-          });
-          this.correctedList = corrected;
-          this.uncorrectedList = uncorrected;
-          
-          this.getNextTokenFromList();
-        })
+        let getAllTokensPromise: Array<object>;
+        let corrected: Array<object> = new Array;
+        let uncorrected: Array<object> = new Array;
+        await this.apiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data:Array<object>) => getAllTokensPromise = data);
+        
+        getAllTokensPromise.map((token) => {
+          if(token['is_corrected']) {
+            corrected.push(token);
+          } else {
+            uncorrected.push(token);
+          }
+        });
+        this.correctedList = corrected;
+        this.uncorrectedList = uncorrected;      
+        this.getNextTokenFromList();
       }
     })
   }
