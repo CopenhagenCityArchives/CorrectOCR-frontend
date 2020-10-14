@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   auth0Redirect: `${window.location.origin}`,
-  apiUrl: "http://localhost:5000/"
+  apiUrl: "http://localhost:5000/",
+  documentBaseUrl: "https://api.kbharkiv.dk/asset/"
 };
 
 /*
