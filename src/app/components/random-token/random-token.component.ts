@@ -1,6 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../API/api.service';
-import { Token } from '../tokens/token';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
+import { ApiService } from 'src/app/API/api.service';
 
 @Component({
   selector: 'app-random-token',
@@ -8,7 +10,7 @@ import { Token } from '../tokens/token';
   styleUrls: ['./random-token.component.scss']
 })
 export class RandomTokenComponent implements OnInit {
-  randomToken: Token;
+  randomToken$: Observable<Object>;
 
   constructor(private apiService: ApiService) { }
 
@@ -17,10 +19,7 @@ export class RandomTokenComponent implements OnInit {
   }
 
   getRandomToken() {
-    this.apiService.getRandomToken().subscribe((data: JSON) => {
-      this.randomToken = new Token(data);
-    });
+    this.randomToken$ = this.apiService.getRandomToken().pipe(share());
   }
 
 }
-

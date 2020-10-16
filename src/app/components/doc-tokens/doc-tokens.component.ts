@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../../API/api.service';
+import { Observable } from 'rxjs';
+import { share } from 'rxjs/operators';
+import { ApiService } from 'src/app/API/api.service';
 import { Token } from '../tokens/token';
 
 @Component({
@@ -14,40 +16,37 @@ export class DocTokensComponent implements OnInit {
   public uncorrectedList:Array<object>;
   public index: number = 0;
 
-  public mainToken: Token;
+  public mainToken$: Observable<Object>;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
 
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(async params => {
       if(params.has("docid")) {
-        this.apiService.getAllTokensFromDocId(params.get("docid")).subscribe((data: Array<object>) => {
-          this.tokenList = data;
-          let corrected: Array<Object> = new Array;
-          let uncorrected: Array<object> = new Array;
-          this.tokenList.map((token) => {
-            if(token['is_corrected']) {
-              corrected.push(token);
-            } else {
-              uncorrected.push(token);
-            }
-          });
-          this.correctedList = corrected;
-          this.uncorrectedList = uncorrected;
-          
-          this.getNextTokenFromList();
-        })
+        let getAllTokensPromise: Array<object>;
+        let corrected: Array<object> = new Array;
+        let uncorrected: Array<object> = new Array;
+        await this.apiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data:Array<object>) => getAllTokensPromise = data);
+        
+        getAllTokensPromise.map((token) => {
+          if(token['is_corrected']) {
+            corrected.push(token);
+          } else {
+            uncorrected.push(token);
+          }
+        });
+        this.tokenList = getAllTokensPromise;
+        this.correctedList = corrected;
+        this.uncorrectedList = uncorrected;      
+        this.getNextTokenFromList();
       }
-
     })
   }
 
   public getNextTokenFromList() {
-    this.apiService.getTokenFromInfoUrl(this.uncorrectedList[this.index]['info_url']).subscribe((data: JSON) => {
-      this.mainToken = new Token(data);
-    })
+    this.mainToken$ = this.apiService.getTokenFromInfoUrl(this.uncorrectedList[this.index]['info_url']).pipe(share());
     this.index++;
   }
 }

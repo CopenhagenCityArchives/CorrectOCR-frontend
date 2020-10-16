@@ -1,12 +1,7 @@
 <div class="col">
-    <h1>doc-tokens WIP</h1>
-
-
-    <a routerLink="/doc-overview" routerLinkActive="active">
-        <-- til doc-overview
-    </a>
+    <h1>doc-tokens-pipe WIP</h1>
 </div>
 
-<app-tokens [mainToken] = "mainToken" (getNextMainToken)="getNextTokenFromList()"></app-tokens>
+<app-tokens [mainToken$] = "mainToken$" (getNextMainToken)="getNextTokenFromList()" ></app-tokens>
 
 <router-outlet></router-outlet>

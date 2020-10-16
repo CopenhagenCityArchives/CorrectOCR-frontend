@@ -1,14 +1,13 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
-
-import { DocTokensComponent } from './doc-tokens.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ApiService } from 'src/app/API/api.service';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { ActivatedRouteStub } from 'src/test-helpers/activated-route-stub';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { ApiService } from 'src/app/API/api.service';
+import { ActivatedRouteStub } from 'src/test-helpers/activated-route-stub';
+import { DocTokensComponent } from './doc-tokens.component';
 
-describe('DocTokensComponent', () => {
+describe('DocTokensPipeComponent', () => {
   let apiService: ApiService;
   let component: DocTokensComponent;
   let fixture: ComponentFixture<DocTokensComponent>;
@@ -49,11 +48,14 @@ describe('DocTokensComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should hold a list of token info after ngInit has run', () => {
+  it('should hold a list of token info after ngInit has run', fakeAsync(() => {
     activatedRoute.setParamMap({docid: "6000"});
+    component.ngOnInit();
+    tick();
     fixture.detectChanges();
+    expect(getAllTokensFromDocIdSpy).toHaveBeenCalled();
     expect(component.tokenList.length).toBeGreaterThan(0);
-  });
+  }));
 
   it('should get correct value from paramMap after ngOnInit() is called', () => {
     activatedRoute.setParamMap({docid: "6000"});
@@ -61,13 +63,15 @@ describe('DocTokensComponent', () => {
     expect(apiService.getAllTokensFromDocId).toHaveBeenCalledWith("6000");
   });
 
-  it('should hold a TokenList, Uncorrected & Corrected list of tokens with an expected length after ngOnInit() is called ', () => {
+  it('should hold a TokenList, Uncorrected & Corrected list of tokens with an expected length after ngOnInit() is called ', fakeAsync(() => {
     activatedRoute.setParamMap({docid: "6000"});
+    component.ngOnInit();
+    tick();
     fixture.detectChanges();
     expect(component.tokenList.length).toBe(10);
     expect(component.uncorrectedList.length).toBe(6);
     expect(component.correctedList.length).toBe(4);
-  });
+  }));
 
 });
 
@@ -108,14 +112,15 @@ describe('DocTokensComponent calls', () => {
     getTokenFromInfoUrlSpy.calls.reset();
   })
 
-  it('should call getNextTokenFromList with expected params from component.uncorrectedList when called multiple times', () => {
+  it('should call getNextTokenFromList with expected params from component.uncorrectedList when called multiple times', fakeAsync(() => {
     activatedRoute.setParamMap({docid: "6000"});
-
     expect(getNextTokenFromListSpy).toHaveBeenCalledTimes(0);
-    expect(component.index).toBe(0)
+    expect(component.index).toBe(0);
+    component.ngOnInit();
+    tick();
     fixture.detectChanges();
     const testData:Array<Object> = component.uncorrectedList;
-
+    
     expect(getNextTokenFromListSpy).toHaveBeenCalledTimes(1);
     expect(apiService.getTokenFromInfoUrl).toHaveBeenCalledWith(testData[0]['info_url']);
     expect(component.index).toBe(1)
@@ -130,5 +135,5 @@ describe('DocTokensComponent calls', () => {
     expect(apiService.getTokenFromInfoUrl).toHaveBeenCalledWith(testData[2]['info_url']);
     expect(component.index).toBe(3)
 
-  });
+  }));
 });

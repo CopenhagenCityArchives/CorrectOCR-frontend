@@ -1,12 +1,7 @@
 <div class="col">
-    <h1>random-tokens WIP</h1>
-
-    <a routerLink="/doc-overview" routerLinkActive="active">
-        <-- til doc-overview
-    </a>
-    
+    <h1>Random-tokens WIP</h1>
 </div>
 
-<app-tokens [mainToken] = "randomToken" (getNextMainToken)="getRandomToken()" ></app-tokens>
+<app-tokens [mainToken$] = "randomToken$" (getNextMainToken)="getRandomToken()" ></app-tokens>
 
 <router-outlet></router-outlet>
