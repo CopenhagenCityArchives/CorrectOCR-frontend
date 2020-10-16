@@ -10,7 +10,7 @@
         </tr>
     </thead>
 
-    <tbody>
+    <tbody *ngIf="documentList$ | async as documentList">
         <tr *ngFor="let doc of documentList; index as i;" id="tr-{{doc.docid}}" routerLink="/tokens/{{doc.docid}}" routerLinkActive="active" tabindex="0" role="button" [attr.aria-label]="'doc-'+i">
             <td>
                 <h5>doc_id</h5>
