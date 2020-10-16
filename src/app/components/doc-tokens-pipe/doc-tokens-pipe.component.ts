@@ -37,6 +37,7 @@ export class DocTokensPipeComponent implements OnInit {
             uncorrected.push(token);
           }
         });
+        this.tokenList = getAllTokensPromise;
         this.correctedList = corrected;
         this.uncorrectedList = uncorrected;      
         this.getNextTokenFromList();

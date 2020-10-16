@@ -177,31 +177,34 @@ describe('TokenPipeComponent', () => {
 
   }));
 
-  it('should call API.postGold & NextToken() when correct() is called', () => {
+  it('should call API.postGold & NextToken() when correct() is called', fakeAsync(() => {
     apiService.postGold = jasmine.createSpy('postGold Spy').and.returnValue(of(testLeftToken));
     component.nextToken = jasmine.createSpy('nextToken Spy').and.returnValue(of(testRightToken));
     component.correct('test');
+    tick();
 
     expect(apiService.postGold).toHaveBeenCalledTimes(1);
     expect(component.nextToken).toHaveBeenCalledTimes(1);
-  })
+  }));
 
-  it('should call API.postHypernate when hypLeft() is called', () => {
+  it('should call API.postHypernate when hypLeft() is called', fakeAsync(() => {
     apiService.postHypernate = jasmine.createSpy('postHypernate Spy').and.returnValue(of(testLeftToken));
     component.nextToken = jasmine.createSpy('nextToken Spy').and.returnValue(of(testRightToken));
     component.hypLeft();
+    tick();
 
     expect(apiService.postHypernate).toHaveBeenCalledTimes(1);
     expect(component.nextToken).toHaveBeenCalledTimes(1);
-  })
+  }));
 
-  it('should call API.postHypernate when hypRight() is called', () => {
+  it('should call API.postHypernate when hypRight() is called', fakeAsync(() => {
     apiService.postHypernate = jasmine.createSpy('postHypernate Spy').and.returnValue(of(testLeftToken));
     component.nextToken = jasmine.createSpy('nextToken Spy').and.returnValue(of(testRightToken));
     component.hypRight();
+    tick();
 
     expect(apiService.postHypernate).toHaveBeenCalledTimes(1);
     expect(component.nextToken).toHaveBeenCalledTimes(1);
-  })
+  }));
 
 });
