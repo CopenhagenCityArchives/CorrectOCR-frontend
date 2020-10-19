@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { PdfJsViewerModule  } from 'ng2-pdfjs-viewer';
 
 import { AppComponent } from './app.component';
 import { TokensComponent } from './components/tokens/tokens.component'
@@ -15,6 +16,8 @@ import { DocTokensComponent } from './components/doc-tokens/doc-tokens.component
 import { RandomTokenComponent } from './components/random-token/random-token.component';
 import { AuthGuard } from './auth/auth.guard';
 import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
+import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
+
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
     DocTokensComponent,
     RandomTokenComponent,
     TokensPipePipe,
+    PdfViewerComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +36,7 @@ import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
     HttpClientJsonpModule,
     FormsModule,
     PdfViewerModule,
+    PdfJsViewerModule,
     //ReactiveFormsModule,
     RouterModule.forRoot([
       {path: '', component: DocOverviewComponent, canActivate: [AuthGuard]},

@@ -66,14 +66,33 @@
         </div>
     </form>
 </div>
-<div class="container-fluid">
-    <div *ngIf="mainToken$ | async | tokensPipe as mainToken">
-        <pdf-viewer
-            [src] = documentSrc
-            [render-text]="true"
-            style="display: block;">
-        </pdf-viewer>
-    </div>
+<div class="container-fluid" *ngIf="mainToken$ | async | tokensPipe as mainToken">
+    <h2>Main Token information</h2>
+    <section class="row">
+                
+        <div class="col-lg-6">
+            <app-pdf-viewer [src] = "documentSrc" [page] = "3">
+            </app-pdf-viewer>
+        </div>
+
+        <div class="col-lg-6">
+            <h4 id="metadata">Metadata</h4>
+            <table class="table-responsive d-sm-table table-striped" aria-labelledby="metadata">
+                <caption class="sr-only">Data om token</caption>
+                <tbody>
+                    <tr *ngFor="let item of mainToken | keyvalue">
+                        <th>
+                            {{item.key}}
+                        </th>
+                        <td>
+                            {{item.value}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
 </div>
 
 

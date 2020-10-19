@@ -72,6 +72,7 @@ export class TokensComponent implements OnChanges {
   }
 
   async setDocumentUrl() {
-    this.documentSrc = environment.documentBaseUrl + this.mainToken.doc_ID;
+      this.documentSrc = String(this.mainToken.doc_ID) + '.pdf';
+      console.log("doc_ID", this.documentSrc)
   }
 }
