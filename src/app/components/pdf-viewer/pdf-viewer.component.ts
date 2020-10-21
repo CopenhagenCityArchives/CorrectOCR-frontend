@@ -11,7 +11,7 @@ export class PdfViewerComponent implements OnInit {
   @Input() public src: string;
   @Input() public page: number;
 
-  constructor(private apiService: ApiService) { }
+  constructor() { }
 
   ngOnInit(): void {
 
