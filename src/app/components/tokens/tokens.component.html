@@ -2,10 +2,10 @@
     <a routerLink="/doc-overview" routerLinkActive="active">
         <-- til doc-overview
     </a>
-    <form class="border p-5">
-        <div class="card-deck">
+    <form class="border row p-sm-5 justify-content-center">
+        <div class="card-deck col-lg">
 
-            <div id="left_token_card" class="card bg-light border-dark">
+            <div id="left_token_card" class="card bg-light border-dark mb-sm-2">
                 <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken">
                     <img id="left_token_img" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
 
@@ -21,7 +21,7 @@
                 </ng-container>
             </div>
 
-            <div id="main_token_card" class="card bg-light border-dark">
+            <div id="main_token_card" class="card bg-light border-dark mb-sm-2">
                 <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
                     <img id="main_token_img" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
 
@@ -29,8 +29,8 @@
                         <h5 class="card-title">main token</h5>
                         <div class="card-text">
                             <div id="main_btn_group" class="mb-2">
-                                <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.firstBest)" >{{mainToken.firstBest}}</button>    
-                                <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.secondBest)">{{mainToken.secondBest}}</button>    
+                                <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.firstBest)" >{{mainToken.firstBest}}</button>
+                                <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.secondBest)">{{mainToken.secondBest}}</button>
                                 <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.thirdBest)" >{{mainToken.thirdBest}}</button>
                             </div>
                             <div class="input-group">
@@ -47,9 +47,9 @@
                 </ng-container>
             </div>
 
-            <div id="right_token_card" class="card bg-light border-dark">
+            <div id="right_token_card" class="card bg-light border-dark mb-sm-2">
                 <ng-container *ngIf="rightToken$ | async | tokensPipe as rightToken">
-                    <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}"  alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
+                    <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}" alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
 
                     <div class="card-body">
                         <h5 class="card-title">right token</h5>
@@ -70,7 +70,7 @@
     <h2>Main Token information</h2>
     <section class="row">
 
-        <div class="col-lg-6">
+        <div class="col-lg-6 pdf-viewer-container">
             <app-pdf-viewer [src] = "documentSrc" [page] = "3">
             </app-pdf-viewer>
         </div>

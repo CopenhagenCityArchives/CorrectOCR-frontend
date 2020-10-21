@@ -1,4 +1,8 @@
-.viewer-container {
+.pdf-view-container {
     width: auto;
-    height: 100%;
+    height: 850px;
+
+    @media ( min-width: 992px ) {
+        height: 100%;
+    }
 }

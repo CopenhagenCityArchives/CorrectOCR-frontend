@@ -1,4 +1,4 @@
-<div class="row viewer-container">
+<div class="row pdf-view-container">
     <!-- <div class="col">
         <pdf-viewer
             [src]           = pdfSrc
@@ -11,14 +11,14 @@
         </pdf-viewer>
     </div> -->
 
-    <div class="col h-100">
+    <div class="col">
         <ng2-pdfjs-viewer
             pdfSrc="{{src}}"
             [page]="page"
             [useOnlyCssZoom]="true"
             [showSpinner]="true"
         >
-    </ng2-pdfjs-viewer>
+        </ng2-pdfjs-viewer>
     </div>
 
 </div>
