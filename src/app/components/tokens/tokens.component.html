@@ -71,7 +71,7 @@
     <section class="row">
 
         <div class="col-lg-6 pdf-viewer-container">
-            <app-pdf-viewer [src] = "documentSrc" [page] = "3">
+            <app-pdf-viewer [src] = "documentSrc" [page] = "mainToken.page + 1" [frame] = mainToken.frame>
             </app-pdf-viewer>
         </div>
 
