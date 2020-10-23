@@ -22,9 +22,9 @@ export class PdfViewerComponent implements OnInit {
 
   private getTokenFrame() {
     let tokenFrame;
-    const zoomLevel = "500";
-    const xOffset = this.frame[0].toString();
-    const yOffset = this.frame[1].toString();
+    const zoomLevel = "auto";
+    const xOffset = this.frame[0];
+    const yOffset = this.frame[2];
     
     tokenFrame = `${zoomLevel},${xOffset},${yOffset}`;
     console.log("custom", tokenFrame);
