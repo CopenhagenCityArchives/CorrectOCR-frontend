@@ -11,7 +11,7 @@ import { Token } from './token';
 import { TokensComponent } from './tokens.component';
 import { TokensPipePipe } from '../../custom-pipes/tokens-pipe.pipe';
 
-describe('TokenPipeComponent', () => {
+describe('TokensComponent', () => {
   let component: TokensComponent;
   let fixture: ComponentFixture<TokensComponent>;
   let apiService: ApiService;
@@ -54,15 +54,14 @@ describe('TokenPipeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create mainToken in DOM when ngOnChanges() is triggered', () => {
+  it('should create mainToken in DOM when ngOnChanges() is triggered with a mainToken$', () => {
     apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
     apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(of(testRightToken));
     const debug: DebugElement = fixture.debugElement;
-
     fixture.detectChanges();
     const mainTokenCard: HTMLElement = debug.query(By.css('#main_token_card')).nativeElement;
     expect(mainTokenCard).toBeDefined();
-
+    expect(component.mainToken$).toEqual(testMainToken$);
   })
 
   it('should create the 3 expected tokens when getTokens() is triggered', async() => {
