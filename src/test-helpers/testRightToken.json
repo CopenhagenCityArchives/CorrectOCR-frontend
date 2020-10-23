@@ -7,15 +7,28 @@
     "3-best prob.": 0.00036572793032974005,
     "4-best": ",",
     "4-best prob.": 0.00010818139708135277,
+    "Annotation info": "[{}]",
     "Bin": 7,
     "Decision": "annotator",
+    "Discarded": 0,
     "Doc ID": "6148",
+    "Frame": [
+        215.64999389648438,
+        562.5964965820312,
+        219.89996337890625,
+        575.2694702148438
+    ],
     "Gold": "",
     "Heuristic": "a",
-    "Hyphenated": false,
+    "Hyphenated": 0,
     "Index": 332,
     "Original": "6",
-    "Selection": [1, 2, 3],
+    "Page": 0,
+    "Selection": [
+        1,
+        2,
+        3
+    ],
     "Token info": "[0, 215.64999389648438, 562.5964965820312, 219.89996337890625, 575.2694702148438, \"6\", 16, 34, 4]",
     "Token type": "PDFToken",
     "image_url": "/6148/token-332.png"
