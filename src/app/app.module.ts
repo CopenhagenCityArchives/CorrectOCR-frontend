@@ -17,6 +17,7 @@ import { RandomTokenComponent } from './components/random-token/random-token.com
 import { AuthGuard } from './auth/auth.guard';
 import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
 import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
+import { SpecificTokenComponent } from './components/specific-token/specific-token.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component
     RandomTokenComponent,
     TokensPipePipe,
     PdfViewerComponent,
+    SpecificTokenComponent,
   ],
   imports: [
     BrowserModule,
