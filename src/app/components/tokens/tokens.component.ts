@@ -45,9 +45,9 @@ export class TokensComponent implements OnChanges {
         this.mainToken = token;
         this.setDocumentUrl();
       }
-      return;
+      return
     }
-    return;
+    return
   }
 
   public async correct(correction:string): Promise<void> {

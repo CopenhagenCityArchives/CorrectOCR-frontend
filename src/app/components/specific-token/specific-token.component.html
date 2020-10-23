@@ -1,1 +1,7 @@
-<p>specific-token works!</p>
+<div class="col">
+    <h1>Specific-tokens WIP</h1>
+</div>
+
+<app-tokens [mainToken$] = "mainToken$" (getNextMainToken)="redirectToUrl()" ></app-tokens>
+
+<router-outlet></router-outlet>

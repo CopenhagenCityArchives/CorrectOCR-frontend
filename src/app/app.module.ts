@@ -44,6 +44,7 @@ import { SpecificTokenComponent } from './components/specific-token/specific-tok
       {path: '', component: DocOverviewComponent, canActivate: [AuthGuard]},
       {path: 'tokens', component: RandomTokenComponent, canActivate: [AuthGuard]},
       {path: 'tokens/:docid', component: DocTokensComponent, canActivate: [AuthGuard]},
+      {path: 'tokens/:docid/:token-index', component: SpecificTokenComponent, canActivate: [AuthGuard]},
       {path: 'doc-overview', component: DocOverviewComponent, canActivate: [AuthGuard]},
     ]),
     NgbModule
