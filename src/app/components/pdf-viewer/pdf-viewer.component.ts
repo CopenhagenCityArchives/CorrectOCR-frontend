@@ -16,7 +16,6 @@ export class PdfViewerComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.frame);
     this.getTokenFrame();
   }
 
