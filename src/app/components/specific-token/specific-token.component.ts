@@ -18,8 +18,8 @@ export class SpecificTokenComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
-      if(params.has('token-index')) {
-        this.tokenIndex = params.get('token-index');
+      if(params.has('tokenindex')) {
+        this.tokenIndex = params.get('tokenindex');
       }
       if (params.has('docid')) {
         this.docId = params.get('docid');
