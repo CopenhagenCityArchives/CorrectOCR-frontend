@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { PdfViewerModule, PDFViewerParams } from 'ng2-pdf-viewer';
 import { ApiService } from 'src/app/API/api.service';
 
 @Component({
@@ -6,28 +7,38 @@ import { ApiService } from 'src/app/API/api.service';
   templateUrl: './pdf-viewer.component.html',
   styleUrls: ['./pdf-viewer.component.scss']
 })
-export class PdfViewerComponent implements OnInit {
+export class PdfViewerComponent implements OnInit, AfterViewInit {
 
   @Input() public src: string;
   @Input() public page: number;
   @Input() public frame: number[];
-  public tokenFrame: string;
-
+  @ViewChild('pdfViewer') pdf;
+  public tokenFrame: string[];
   constructor() { }
 
   ngOnInit(): void {
     this.getTokenFrame();
   }
 
+  ngAfterViewInit(): void {
+     console.log(this.pdf);
+  }
+
   private getTokenFrame() {
     let tokenFrame;
-    const zoomLevel = "auto";
+    const zoomLevel = "350";
     const xOffset = this.frame[0];
-    const yOffset = this.frame[2];
+    const yOffset = this.frame[1];
     
-    tokenFrame = `${zoomLevel},${xOffset},${yOffset}`;
+    tokenFrame = [zoomLevel, xOffset.toString(), yOffset.toString()];
     console.log("custom", tokenFrame);
     this.tokenFrame = tokenFrame;
+  }
+
+  public getPDFInfo() {
+    console.log("hit");
+    console.log(event);
+    console.log("wow",this.pdf)
   }
 
 
