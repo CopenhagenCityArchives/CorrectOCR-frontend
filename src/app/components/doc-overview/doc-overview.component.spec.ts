@@ -90,8 +90,7 @@ describe('DocOverviewComponent', () => {
     fixture.detectChanges();
     
     const tableRow1: HTMLTableRowElement = debug.query(By.css('#tr-6148')).nativeElement;
-    const tableRow2: HTMLTableRowElement = debug.query(By.css('#tr-9999')).nativeElement;
-
+    const tableRow2: HTMLTableRowElement = debug.query(By.css('#tr-9999')).nativeElement; 
     expect(tableRow1.attributes.getNamedItem("ng-reflect-router-link").value).toMatch('/tokens/6148');
     expect(tableRow2.attributes.getNamedItem("ng-reflect-router-link").value).toMatch('/tokens/9999');
     

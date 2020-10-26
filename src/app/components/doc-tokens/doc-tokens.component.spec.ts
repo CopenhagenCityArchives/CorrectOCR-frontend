@@ -7,7 +7,7 @@ import { ApiService } from 'src/app/API/api.service';
 import { ActivatedRouteStub } from 'src/test-helpers/activated-route-stub';
 import { DocTokensComponent } from './doc-tokens.component';
 
-describe('DocTokensPipeComponent', () => {
+describe('DocTokensComponent', () => {
   let apiService: ApiService;
   let component: DocTokensComponent;
   let fixture: ComponentFixture<DocTokensComponent>;
