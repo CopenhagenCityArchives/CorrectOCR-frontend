@@ -24,7 +24,7 @@ export class ApiService {
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
+      console.error('An error occurred:', error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong.
@@ -34,7 +34,7 @@ export class ApiService {
     }
     // Return an observable with a user-facing error message.
     return throwError(
-      "an error occurred: ", error.error.message);
+      "an error occurred: ", error.error);
   }
 
   /**
@@ -57,15 +57,21 @@ export class ApiService {
   public getToken(docid:number, index:number): Observable<Object> {
     return this.http.get(this.url + docid + '/token-' + index + '.json').pipe(
       retry(3),
-      catchError(this.handleError)
-    );
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
   }
 
   public getTokenFromInfoUrl(infoUrl:string): Observable<Object> {
     return this.http.get(this.url + infoUrl).pipe(
       retry(3),
-      catchError(this.handleError)
-    );
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
   }
 
   /**
@@ -92,8 +98,11 @@ export class ApiService {
   public getRandomToken(): Observable<Object> {
     return this.http.get(this.url + 'random').pipe(
       retry(3),
-      catchError(this.handleError)
-    );
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
   }
 
   /**
@@ -106,8 +115,11 @@ export class ApiService {
   public getLeftToken(mainToken: IToken): Observable<Object> {
     return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index - 1) + '.json').pipe(
       retry(3),
-      catchError(this.handleError)
-    );
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
   }
 
   /**
@@ -120,8 +132,11 @@ export class ApiService {
   public getRightToken(mainToken: IToken): Observable<Object> {
     return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json').pipe(
       retry(3),
-      catchError(this.handleError)
-    );
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
   }
 
   /**
@@ -135,8 +150,11 @@ export class ApiService {
   public postHypernate(mainToken: IToken, hypDir: string): Observable<Object> {
     let body = { 'hyphenate': hypDir };
     return this.http.request('POST', (this.url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body}).pipe(
-      catchError(this.handleError)
-    );
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
   }
 
   /**
@@ -150,7 +168,19 @@ export class ApiService {
   public postGold(mainToken: IToken, gold: string): Observable<Object> {
     let body = { 'gold': gold };
     return this.http.request('POST',(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body}).pipe(
-      catchError(this.handleError)
-    );
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
+  }
+
+  public discardToken(mainToken: IToken): Observable<Object> {
+     return this.http.request('POST', (this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json')).pipe(
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
   }
 }

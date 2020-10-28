@@ -84,23 +84,6 @@ describe('ApiService', () => {
     req.flush(testJSON);
   });
 
-  //TODO reimplement when backend is fixed
-  /*it('should get expected list of tokens from getAllTokensFromDocId() (HTTPClient called once)', () => {
-    const testData: Array<Object> = [
-      {image_url: "/6148/token-6.png", info_url: "/6148/token-6.json", is_corrected: false, string: "La&s"},
-      {image_url: "/6148/token-7.png", info_url: "/6148/token-7.json", is_corrected: false, string: "stter."},
-      {image_url: "/6148/token-10.png", info_url: "/6148/token-10.json", is_corrected: false, string: "anskrør,"}
-    ];
-
-    apiService.getAllTokensFromDocId('6148').subscribe((data: Array<object>) => {
-      expect(data).toEqual(testData);
-    });
-
-    const req = controller.expectOne(url + '6148' + '/tokens.json');
-    expect(req.request.method).toEqual('GET');
-    req.flush(testData);
-  });*/
-
   it('should get a token from getRandomToken() (HTTPClient called once)', () => {
     const testData: IToken = new Token(testJSON);
     apiService.getRandomToken().subscribe((data: JSON) => {
@@ -144,17 +127,23 @@ describe('ApiService', () => {
     expect(req.request.method).toEqual('POST');
   })
 
-  it('should send post request when postHypernate() is called', () => {
+  it('should send post request when postGold() is called', () => {
     const mainToken: IToken = new Token(testJSON);
     const gold: string = "sol";
-    apiService.postHypernate(mainToken, gold).subscribe((data:JSON) => {
+    apiService.postGold(mainToken, gold).subscribe((data:JSON) => {
       const resToken: Token = new Token(data);
     });
     const req = controller.expectOne((url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'));
     expect(req.request.method).toEqual('POST');
+  });
+
+  it('should send post request when discardToken() is called', () => {
+    const mainToken: IToken = new Token(testJSON);
+    apiService.discardToken(mainToken).subscribe((data:JSON) => {
+      const resToken: Token = new Token(data);
+    });
+    const req = controller.expectOne((url + mainToken.doc_ID + '/token-' + mainToken.index + '.json'));
+    expect(req.request.method).toEqual('POST');
   })
-
-
-
 
 });
