@@ -176,7 +176,8 @@ export class ApiService {
   }
 
   public discardToken(mainToken: IToken): Observable<Object> {
-     return this.http.request('POST', (this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json')).pipe(
+    const body = {'discard':true};
+     return this.http.request('POST', (this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json'), {body: body}).pipe(
       catchError(err => {
         console.log('Error encountered, rethrowing it...', err)
         return this.handleError(err);
