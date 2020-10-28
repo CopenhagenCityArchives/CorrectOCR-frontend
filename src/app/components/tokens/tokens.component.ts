@@ -36,7 +36,6 @@ export class TokensComponent implements OnChanges {
   }
 
   async ngOnChanges(changes: SimpleChanges) {
-    console.log("Change")
     if (changes.hasOwnProperty('mainToken$')) {
       if(changes.mainToken$.currentValue != null) {
         const changes$:Observable<any> = changes.mainToken$.currentValue.pipe(share());
