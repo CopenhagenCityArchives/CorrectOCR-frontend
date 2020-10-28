@@ -68,10 +68,20 @@
         </div>
         
         <div class="row justify-content-center">
+            <button class="col-4 btn btn-secondary mr-2" type="button" (click)="refreshToken()">Refresh Token</button>
+            
             <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
                 <button class="col-4 btn btn-danger mr-2" type="button" (click)="discardToken()">SLET TOKEN</button>
             </ng-container>
-            <button class="col-4 btn btn-secondary mr-2" type="button" (click)="refreshToken()">Refresh Token</button>
+
+        </div>
+
+        <div class="row justify-content-center m-4" *ngIf="docTotal">
+            <div class="col">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': docCorrected/docTotal*100 +'%' }" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal">{{docCorrected}} / {{docTotal}}</div>
+                </div>
+            </div>
         </div>
 
     </form>

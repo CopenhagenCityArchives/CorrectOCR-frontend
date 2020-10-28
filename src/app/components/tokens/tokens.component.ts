@@ -18,6 +18,8 @@ export class TokensComponent implements OnChanges {
   public documentSrc: string;
   private apiService: ApiService;
 
+  @Input() public docTotal?: number;
+  @Input() public docCorrected?: number;
   @Input() public mainToken$: Observable<any>;
   @Output() public getNextMainToken = new EventEmitter();
 
@@ -56,6 +58,12 @@ export class TokensComponent implements OnChanges {
     this.mainToken = token;
   }
 
+  nextToken(): void {
+    this.andetInputField = '';
+    this.docCorrected++;
+    this.getNextMainToken.emit();
+  }
+
   public async correct(correction:string): Promise<void> {
     let response = await this.apiService.postGold(this.mainToken, correction).toPromise().then((data:JSON) => new Token(data));
     console.log("correct Response", response);
@@ -72,11 +80,6 @@ export class TokensComponent implements OnChanges {
     let response = await this.apiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => new Token(data));
     console.log("hypRight response", response);
     this.nextToken();
-  }
-
-  nextToken(): void {
-    this.andetInputField = '';
-    this.getNextMainToken.emit();
   }
 
   public async refreshToken(): Promise<void> {

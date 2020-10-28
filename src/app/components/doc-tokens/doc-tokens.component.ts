@@ -15,6 +15,7 @@ export class DocTokensComponent implements OnInit {
   public correctedList:Array<object>;
   public uncorrectedList:Array<object>;
   public index: number = 0;
+  public docProgress: object;
 
   public mainToken$: Observable<Object>;
 
@@ -39,7 +40,8 @@ export class DocTokensComponent implements OnInit {
         });
         this.tokenList = getAllTokensPromise;
         this.correctedList = corrected;
-        this.uncorrectedList = uncorrected;      
+        this.uncorrectedList = uncorrected;
+        this.docProgress = {total: this.tokenList.length, corrected: this.correctedList.length}
         this.getNextTokenFromList();
       }
     })

@@ -2,6 +2,6 @@
     <h1>doc-tokens-pipe WIP</h1>
 </div>
 
-<app-tokens [mainToken$] = "mainToken$" (getNextMainToken)="getNextTokenFromList()" ></app-tokens>
+<app-tokens [mainToken$] = "mainToken$" [(docTotal)]="tokenList.length" [(docCorrected)]="correctedList.length" (getNextMainToken)="getNextTokenFromList()" ></app-tokens>
 
 <router-outlet></router-outlet>
