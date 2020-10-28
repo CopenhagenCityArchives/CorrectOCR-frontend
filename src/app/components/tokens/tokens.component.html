@@ -7,7 +7,7 @@
             <div class="col-lg card-deck">
 
                 <div id="left_token_card" class="card bg-light border-dark mb-sm-2">
-                    <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken">
+                    <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken; else loadingIndicator">
                         <img id="left_token_img" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
     
                         <div class="card-body">
@@ -23,7 +23,7 @@
                 </div>
     
                 <div id="main_token_card" class="card bg-light border-dark mb-sm-2">
-                    <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
+                    <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken; else loadingIndicator">
                         <img id="main_token_img" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
     
                         <div class="card-body">
@@ -49,7 +49,7 @@
                 </div>
     
                 <div id="right_token_card" class="card bg-light border-dark mb-sm-2">
-                    <ng-container *ngIf="rightToken$ | async | tokensPipe as rightToken">
+                    <ng-container *ngIf="rightToken$ | async | tokensPipe as rightToken; else loadingIndicator">
                         <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}" alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
     
                         <div class="card-body">
@@ -108,6 +108,10 @@
     </ng-container>
 </div>
 
-
+<ng-template #loadingIndicator>
+    <div class="spinner-border text-primary m-5 align-self-center" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</ng-template>
 
 <router-outlet></router-outlet>
