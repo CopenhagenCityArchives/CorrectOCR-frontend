@@ -61,7 +61,6 @@ describe('TokensComponent', () => {
     fixture.detectChanges();
     const mainTokenCard: HTMLElement = debug.query(By.css('#main_token_card')).nativeElement;
     expect(mainTokenCard).toBeDefined();
-    expect(component.mainToken$).toEqual(testMainToken$);
   })
 
   it('should create the 3 expected tokens when getTokens() is triggered', async() => {
@@ -101,7 +100,7 @@ describe('TokensComponent', () => {
     expect(component.getNextMainToken.emit).toHaveBeenCalledTimes(1);
   })
 
-  it('should clear trigger correct() function upon clicking btn', () => {
+  it('should trigger correct() function upon clicking btn', () => {
     const testData = new Token(testMainToken);
 
     apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
@@ -112,7 +111,6 @@ describe('TokensComponent', () => {
     const debug: DebugElement = fixture.debugElement;
     const btnGroupDe: DebugElement = debug.query(By.css('#main_btn_group'));
     expect(btnGroupDe.children.length).toEqual(3);
-
     const btnFirstBest: HTMLButtonElement = btnGroupDe.children[0].nativeElement;
     const btnSecondBest: HTMLButtonElement = btnGroupDe.children[1].nativeElement;
     const btnThirdBest: HTMLButtonElement = btnGroupDe.children[2].nativeElement;

@@ -57,11 +57,13 @@ describe('DocTokensComponent', () => {
     expect(component.tokenList.length).toBeGreaterThan(0);
   }));
 
-  it('should get correct value from paramMap after ngOnInit() is called', () => {
+  it('should get correct value from paramMap after ngOnInit() is called', fakeAsync(() => {
     activatedRoute.setParamMap({docid: "6000"});
+    component.ngOnInit();
+    tick();
     fixture.detectChanges();
     expect(apiService.getAllTokensFromDocId).toHaveBeenCalledWith("6000");
-  });
+  }));
 
   it('should hold a TokenList, Uncorrected & Corrected list of tokens with an expected length after ngOnInit() is called ', fakeAsync(() => {
     activatedRoute.setParamMap({docid: "6000"});
