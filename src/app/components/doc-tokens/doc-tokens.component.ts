@@ -31,7 +31,6 @@ export class DocTokensComponent implements OnInit {
         await this.apiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data:Array<object>) => getAllTokensPromise = data);
         
         getAllTokensPromise.map((token) => {
-          console.log(token)
           if(token['is_corrected']) {
             corrected.push(token);
           } else if (token['is_discarded'] === 0) {
