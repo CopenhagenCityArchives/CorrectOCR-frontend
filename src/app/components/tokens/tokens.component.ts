@@ -20,6 +20,8 @@ export class TokensComponent implements OnChanges {
 
   @Input() public docTotal?: number;
   @Input() public docCorrected?: number;
+  public sessionCorrected: number;
+
   @Input() public mainToken$: Observable<any>;
   @Output() public getNextMainToken = new EventEmitter();
 
@@ -28,13 +30,17 @@ export class TokensComponent implements OnChanges {
   public rightToken$: Observable<any>;
   
   public andetInputField: string;
+  public toggleMetadata: boolean;
 
   constructor(apiService: ApiService) {
     this.apiService = apiService;
   }
 
   ngOnInit(): void {
-
+    if (!this.sessionCorrected) {
+      this.sessionCorrected = 0;
+    }
+    this.toggleMetadata = false;
   }
 
   async ngOnChanges(changes: SimpleChanges) {
@@ -60,7 +66,7 @@ export class TokensComponent implements OnChanges {
 
   nextToken(): void {
     this.andetInputField = '';
-    this.docCorrected++;
+    this.sessionCorrected++;
     this.getNextMainToken.emit();
   }
 

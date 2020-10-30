@@ -33,6 +33,7 @@
                                     <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.firstBest)" >{{mainToken.firstBest}}</button>
                                     <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.secondBest)">{{mainToken.secondBest}}</button>
                                     <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.thirdBest)" >{{mainToken.thirdBest}}</button>
+                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.fourthBest)" >{{mainToken.fourthBest}}</button>
                                 </div>
                                 <div class="input-group">
                                     <input [(ngModel)]="andetInputField" id="andet" name="andet" type="text" class="form-control" placeholder="andet...">
@@ -72,14 +73,17 @@
             
             <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
                 <button class="col-4 btn btn-danger mr-2" type="button" (click)="discardToken()">SLET TOKEN</button>
+                <button id="toggleMetaData" class="btn btn-secondary" type="button" (click)="toggleMetadata = !toggleMetadata">Vis metadata</button>
             </ng-container>
 
         </div>
 
         <div class="row justify-content-center m-4" *ngIf="docTotal">
             <div class="col">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': docCorrected/docTotal*100 +'%' }" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal">{{docCorrected}} / {{docTotal}}</div>
+                <label for="docProgress">Du har rettet: {{sessionCorrected}} tokens, ud af de resterende: {{docTotal}}</label>
+                <div id="docProgress" class="progress">
+                    <!-- <div class="progress-bar" role="progressbar" [ngStyle]="{'width': docCorrected/docTotal*100 +'%' }" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal">{{docCorrected}} / {{docTotal}}</div> -->
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 +'%' }" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal"></div>
                 </div>
             </div>
         </div>
@@ -87,36 +91,40 @@
     </form>
 
 </div>
-<div class="container-fluid" *ngIf="mainToken$ | async | tokensPipe as mainToken">
-    <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken" >
-    <h2>Main Token information</h2>
-    <section class="row">
-    
-        <div class="col-lg-6 pdf-viewer-container">
-            <app-pdf-viewer [src] = "documentSrc" [page] = "mainToken.page + 1" [frame] = leftToken.frame>
-            </app-pdf-viewer>
-        </div>
 
-        <div class="col-lg-6">
-            <h4 id="metadata">Metadata</h4>
-            <table class="table table-responsive d-table table-striped" aria-labelledby="metadata">
-                <caption class="sr-only">Data om token</caption>
-                <tbody>
-                    <tr *ngFor="let item of mainToken | keyvalue">
-                        <th>
-                            {{item.key}}
-                        </th>
-                        <td>
-                            {{item.value}}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-     
-    </section>
-    </ng-container>
+<div *ngIf="toggleMetadata">
+    <div class="container-fluid" *ngIf="mainToken$ | async | tokensPipe as mainToken">
+        <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken" >
+        <h2>Main Token information</h2>
+        <section class="row">
+        
+            <div class="col-lg-6 pdf-viewer-container">
+                <app-pdf-viewer [src] = "documentSrc" [page] = "mainToken.page + 1" [frame] = leftToken.frame>
+                </app-pdf-viewer>
+            </div>
+    
+            <div class="col-lg-6">
+                <h4 id="metadata">Metadata</h4>
+                <table class="table table-responsive d-table table-striped" aria-labelledby="metadata">
+                    <caption class="sr-only">Data om token</caption>
+                    <tbody>
+                        <tr *ngFor="let item of mainToken | keyvalue">
+                            <th>
+                                {{item.key}}
+                            </th>
+                            <td>
+                                {{item.value}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+         
+        </section>
+        </ng-container>
+    </div>
 </div>
+
 
 <ng-template #loadingIndicator>
     <div class="spinner-border text-primary m-5 align-self-center" role="status">
