@@ -12,6 +12,7 @@ export class Token implements IToken {
     bin: number;
     decision: string;
     doc_ID: number;
+    discarded: number;
     frame: number[];
     gold: string;
     heuristic: string;
@@ -35,6 +36,7 @@ export class Token implements IToken {
         this.fourthProb = json['4-best prob.'];
         this.bin        = json['Bin'];
         this.decision   = json['Decision'];
+        this.discarded  = json['Discarded'];
         this.doc_ID     = json['Doc ID'];
         this.frame      = json['Frame'];
         this.gold       = json['Gold'];
