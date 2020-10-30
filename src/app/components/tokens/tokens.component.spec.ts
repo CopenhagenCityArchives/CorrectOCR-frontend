@@ -110,10 +110,11 @@ describe('TokensComponent', () => {
 
     const debug: DebugElement = fixture.debugElement;
     const btnGroupDe: DebugElement = debug.query(By.css('#main_btn_group'));
-    expect(btnGroupDe.children.length).toEqual(3);
+    expect(btnGroupDe.children.length).toEqual(4);
     const btnFirstBest: HTMLButtonElement = btnGroupDe.children[0].nativeElement;
     const btnSecondBest: HTMLButtonElement = btnGroupDe.children[1].nativeElement;
     const btnThirdBest: HTMLButtonElement = btnGroupDe.children[2].nativeElement;
+    const btnFourthBest: HTMLButtonElement = btnGroupDe.children[3].nativeElement;
 
     component.correct = jasmine.createSpy('correct spy');
     btnFirstBest.click();
@@ -125,6 +126,9 @@ describe('TokensComponent', () => {
     btnThirdBest.click();
     expect(component.correct).toHaveBeenCalledTimes(3);
     expect(component.correct).toHaveBeenCalledWith(testData.thirdBest);
+    btnFourthBest.click();
+    expect(component.correct).toHaveBeenCalledTimes(4);
+    expect(component.correct).toHaveBeenCalledWith(testData.fourthBest);
   })
 
   it('should trigger hypLeft() or hypRight() upon clicking the correct btns', () => {
