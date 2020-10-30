@@ -1,7 +1,8 @@
 <div class="col">
     <h1>doc-tokens-pipe WIP</h1>
 </div>
-
-<app-tokens [mainToken$] = "mainToken$" [(docTotal)]="tokenList.length" [(docCorrected)]="correctedList.length" (getNextMainToken)="getNextTokenFromList()" ></app-tokens>
+<div *ngIf="mainToken$ | async">
+    <app-tokens [mainToken$] = "mainToken$" [(docTotal)]="uncorrectedList.length" [(docCorrected)]="correctedList.length" (getNextMainToken)="getNextTokenFromList()"></app-tokens>
+</div>
 
 <router-outlet></router-outlet>

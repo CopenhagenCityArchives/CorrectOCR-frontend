@@ -16,14 +16,12 @@ export class DocTokensComponent implements OnInit {
   public uncorrectedList:Array<object>;
   public index: number = 0;
   public docProgress: object;
-
   public mainToken$: Observable<Object>;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
 
   ngOnInit() {
-
     this.route.paramMap.subscribe(async params => {
       if(params.has("docid")) {
         let getAllTokensPromise: Array<object>;
