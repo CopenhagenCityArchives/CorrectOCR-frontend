@@ -1,7 +1,7 @@
 <h1>Dokument oversigt</h1>
 
 <table class="table table-striped table-hover" role="navigation" aria-label="dokument oversigt" >
-    <caption class="sr-only">dokument ovesigt</caption>
+    <caption class="sr-only">Dokumentoversigt</caption>
     <thead>
         <tr class="d-none d-md-table-row">
             <th scope="col">Dokument</th>
@@ -13,16 +13,13 @@
     <tbody *ngIf="documentList$ | async as documentList">
         <tr *ngFor="let doc of documentList; index as i;" id="tr-{{doc.docid}}" routerLink="/tokens/{{doc.docid}}" routerLinkActive="active" tabindex="0" role="button" [attr.aria-label]="'doc-'+i">
             <td>
-                <h5>doc_id</h5>
                 <h4 id="doc-{{i}}">{{doc.docid}}</h4>
             </td>
             <td>
-                <h5> Status</h5>
-                <span> {{doc.corrected}} ud af {{doc.count}} </span> 
+                <span>{{doc.corrected}} ud af {{doc.count}}</span> 
             </td>
             <td>
-                <h5>Link</h5>
-                <a>Link til doc --></a>
+                <a>Link til dokument --></a>
             </td>
         </tr>
     </tbody>
