@@ -71,11 +71,11 @@ describe('DocOverviewComponent', () => {
     expect(tableRow1.cells.length).toEqual(3);
     expect(tableRow1.cells.length).toEqual(3);
 
-    expect(tableRow1.cells[0].children[1].textContent).toMatch('6148');
-    expect(tableRow1.cells[1].children[1].textContent).toMatch('2973 ud af 3328');
+    expect(tableRow1.cells[0].textContent).toMatch('6148');
+    expect(tableRow1.cells[1].textContent).toMatch('2973 ud af 3328');
 
-    expect(tableRow2.cells[0].children[1].textContent).toContain('9999');
-    expect(tableRow2.cells[1].children[1].textContent).toContain('1 ud af 9999');
+    expect(tableRow2.cells[0].textContent).toContain('9999');
+    expect(tableRow2.cells[1].textContent).toContain('1 ud af 9999');
     
   });
 
