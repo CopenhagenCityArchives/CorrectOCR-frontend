@@ -43,7 +43,13 @@ export class ApiService {
    * @return  {Observable<Object>}[return Observable]
    */
   public getOverview(): Observable<Object> {
-    return this.http.get(this.url);
+    return this.http.get(this.url).pipe(
+      retry(3),
+      catchError(err => {
+        console.log('Error encountered, rethrowing it...', err)
+        return this.handleError(err);
+      })
+    )
   }
   
   /**
