@@ -2,6 +2,13 @@
     <a routerLink="/doc-overview" routerLinkActive="active">
         <-- til dokumentoversigten
     </a>
+
+    <h1>Ret efterretning</h1>
+
+    <p>Ordet, der skal rettes er ordet i midten kaldet 'Hovedordet'</p>
+    <p>Vælg en af de foreslåede muligheder , eller skriv det rigtige ord og klik gem.
+        Skal ordet lægges sammen med ordet før eller efter hovedordet klikker du på knappen 'Læg sammen' enten ved billedet til højre eller venstre for hovedordet.</p>
+    <p>Læs vejledningen før du starter: <a href="https://kbharkiv.dk/ret-efterretninger">https://kbharkiv.dk/ret-efterretninger</a></p>
     <form class="border p-sm-5 ">
         <div class="row justify-content-center">
             <div class="col-lg card-deck">
@@ -11,13 +18,13 @@
                         <img id="left_token_img" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">venstre token</h5>
+                            <h5 class="card-title">Ordet før</h5>
                             <div class="card-text">
-                                <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="hypLeft()">Sammensæt til venstre</button>
+                                <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="hypLeft()">Læg sammen</button>
                             </div>
                         </div>
                         <div class="card-footer text-muted">
-                            Token: {{leftToken.doc_ID + ' / ' + leftToken.index}}
+                            Ord nr. {{leftToken.index}}
                         </div>
                     </ng-container>
                 </div>
@@ -27,7 +34,7 @@
                         <img id="main_token_img" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">main token</h5>
+                            <h5 class="card-title">Hovedordet</h5>
                             <div class="card-text">
                                 <div id="main_btn_group" class="mb-2">
                                     <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.firstBest)" >{{mainToken.firstBest}}</button>
@@ -38,13 +45,13 @@
                                 <div class="input-group">
                                     <input [(ngModel)]="andetInputField" id="andet" name="andet" type="text" class="form-control" placeholder="andet...">
                                     <div class="input-group-append">
-                                        <button class="btn btn-secondary" type="submit" (click)="correct(andetInputField)">send</button>
+                                        <button class="btn btn-secondary" type="submit" (click)="correct(andetInputField)">Gem</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer text-muted">
-                            Token: {{mainToken.doc_ID + ' / ' + mainToken.index}}
+                            Ord nr. {{mainToken.index}}
                         </div>
                     </ng-container>
                 </div>
@@ -54,13 +61,13 @@
                         <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}" alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
     
                         <div class="card-body">
-                            <h5 class="card-title">right token</h5>
+                            <h5 class="card-title">Ordet efter</h5>
                             <div class="card-text">
-                                <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="hypRight()">Sammensæt til højre</button>
+                                <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="hypRight()">Læg sammen</button>
                             </div>
                         </div>
                         <div class="card-footer text-muted">
-                            Token: {{rightToken.doc_ID + ' / ' + rightToken.index}}
+                            Ord nr. {{rightToken.index}}
                         </div>
                     </ng-container>
                 </div>    
@@ -69,18 +76,18 @@
         </div>
         
         <div class="row justify-content-center">
-            <button class="col-4 btn btn-secondary mr-2" type="button" (click)="refreshToken()">Geninlæs Token</button>
+            <button class="col-4 btn btn-secondary mr-2" type="button" (click)="refreshToken()">Genindlæs hovedordet</button>
             
             <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
-                <button class="col-4 btn btn-danger mr-2" type="button" (click)="discardToken()">SLET TOKEN</button>
-                <button id="toggleMetaData" class="btn btn-secondary" type="button" (click)="toggleMetadata = !toggleMetadata">Vis metadata</button>
+                <button class="col-4 btn btn-danger mr-2" type="button" (click)="discardToken()">Slet hovedordet</button>
+                <button id="toggleMetaData" class="btn btn-secondary" type="button" (click)="toggleMetadata = !toggleMetadata">Se hele siden</button>
             </ng-container>
 
         </div>
 
         <div class="row justify-content-center m-4" *ngIf="docTotal">
             <div class="col">
-                <label for="docProgress">Du har rettet: {{sessionCorrected}} tokens, ud af de resterende: {{docTotal}} tokens.</label>
+                <label for="docProgress">Du har rettet: {{sessionCorrected}} ord, ud af i alt: {{docTotal}} ord.</label>
                 <div id="docProgress" class="progress">
                     <!-- <div class="progress-bar" role="progressbar" [ngStyle]="{'width': docCorrected/docTotal*100 +'%' }" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal">{{docCorrected}} / {{docTotal}}</div> -->
                     <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 +'%' }" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal"></div>

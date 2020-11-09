@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { ApiService } from '../../API/api.service';
 @Component({
@@ -8,7 +9,7 @@ import { ApiService } from '../../API/api.service';
 })
 export class DocOverviewComponent implements OnInit {
   private apiService: ApiService;
-  public documentList$: any;
+  public documentList$: Observable<object>;
 
   constructor(service: ApiService) { 
     this.apiService = service;

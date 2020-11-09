@@ -1,8 +1,15 @@
-<div class="col">
-    <h1>doc-tokens-pipe WIP</h1>
-</div>
-<div *ngIf="mainToken$ | async">
+<div *ngIf="mainToken$ | async; else loadingIndicator">
     <app-tokens [mainToken$] = "mainToken$" [(docTotal)]="uncorrectedList.length" [(docCorrected)]="correctedList.length" (getNextMainToken)="getNextTokenFromList()"></app-tokens>
 </div>
+
+<ng-template #loadingIndicator>
+    <div class="row justify-content-center">
+        <div class="spinner-border text-primary m-5 align-self-center" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <p>Indlæser listen af tokens for dokument: {{docId}}</p>
+    </div>
+</ng-template>
+
 
 <router-outlet></router-outlet>

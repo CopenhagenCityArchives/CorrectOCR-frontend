@@ -17,6 +17,7 @@ export class DocTokensComponent implements OnInit {
   public index: number = 0;
   public docProgress: object;
   public mainToken$: Observable<Object>;
+  public docId: string;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
@@ -24,6 +25,7 @@ export class DocTokensComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       if(params.has("docid")) {
+        this.docId = params.get("docid")
         let getAllTokensPromise: Array<object>;
         let corrected: Array<object> = new Array;
         let uncorrected: Array<object> = new Array;
