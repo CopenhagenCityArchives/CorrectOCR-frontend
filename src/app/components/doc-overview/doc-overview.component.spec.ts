@@ -68,8 +68,8 @@ describe('DocOverviewComponent', () => {
     const tableRow1: HTMLTableRowElement = debug.query(By.css('#tr-6148')).nativeElement;
     const tableRow2: HTMLTableRowElement = debug.query(By.css('#tr-9999')).nativeElement;
 
-    expect(tableRow1.cells.length).toEqual(3);
-    expect(tableRow1.cells.length).toEqual(3);
+    expect(tableRow1.cells.length).toEqual(4);
+    expect(tableRow2.cells.length).toEqual(4);
 
     expect(tableRow1.cells[0].textContent).toMatch('6148');
     expect(tableRow1.cells[1].textContent).toMatch('2973 ud af 3328');
