@@ -1,19 +1,28 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ApiService } from './api.service';
 import { IToken } from '../components/tokens/i-token';
 import { Token } from '../components/tokens/token';
 import { environment } from '../../environments/environment';
+import { catchError, map, share } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { cold, hot } from 'jasmine-marbles';
 
+const url: string = environment.apiUrl;
+let apiService: ApiService;
+let testJSON: JSON = require('../../test-helpers/testMainToken.json');
+let client: HttpClient;
+let controller: HttpTestingController;
+// let httpClientSpy: { getOverview: jasmine.Spy, handleError: jasmine.Spy};
+
+//Run Tests
 describe('ApiService', () => {
-  const url: string = environment.apiUrl;
-  let apiService: ApiService;
-  let testJSON: JSON = require('../../test-helpers/testMainToken.json');
-  let client: HttpClient;
-  let controller: HttpTestingController;
+  describe('with successful fetching', successfulFetching);
+  describe('with handleErrors', catchingErrors);
+})
 
-
+function successfulFetching() {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [ ApiService, {provide: String, useValue: url}],
@@ -146,4 +155,57 @@ describe('ApiService', () => {
     expect(req.request.method).toEqual('POST');
   })
 
-});
+}
+
+function catchingErrors() {
+
+  const mockErrorInit = {
+    error: new Error('network error'),
+    message: 'shit happend',
+    lineno: 69,
+    colno: 420,
+    filename: 'veryReal.html'
+  }
+  const errorRequestMock = new ErrorEvent('MockError', mockErrorInit);
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [ ApiService, {provide: String, useValue: url}],
+      imports: [ HttpClientTestingModule ]
+    });
+
+    client = TestBed.inject(HttpClient);
+    controller = TestBed.inject(HttpTestingController);
+    apiService = TestBed.inject(ApiService);
+    // httpClientSpy = jasmine.createSpyObj('apiService', ['handleError', 'getOverview']);
+
+  });
+
+  afterEach(() => {
+    // After every test, assert that there are no more pending requests.
+    // controller.verify();
+  })
+
+  it('should be created', () => {
+    expect(apiService).toBeTruthy();
+  });
+
+  // it('should catch error in getOverview() when met with a network error', () => {
+  //   console.log("HELP")
+  //   apiService.handleError = jasmine.createSpy('handleError spy').and.callThrough();
+  //   apiService.getOverview().subscribe();
+  //   console.log("HELP")
+
+  //   const req = controller.expectOne(url);
+  //   req.error(errorRequestMock, {status: 404, statusText: 'network error'});
+  //   console.log("HELP")
+
+  //   expect(apiService.handleError).toHaveBeenCalledTimes(1);
+  //   console.log("HELP")
+
+  //   // req.flush(source, {status: 404, statusText: 'network error'});
+  //   // expect(req.request.method).toEqual('GET');
+
+  // })
+
+}

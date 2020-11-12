@@ -22,7 +22,6 @@ export class ApiService {
   }
 
   public handleError(error: HttpErrorResponse) {
-    // console.log("error hit");
     let errorMessage = 'Unknown error!'
     if (error.error instanceof ErrorEvent) {
       // Client-side
@@ -33,7 +32,6 @@ export class ApiService {
         `Error Code: ${error.status}
         Error Message: ${error.message}`
     }
-    // console.error(errorMessage);
     return throwError(errorMessage);
   }
 
