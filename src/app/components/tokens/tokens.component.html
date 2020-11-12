@@ -89,8 +89,7 @@
             <div class="col">
                 <label for="docProgress">Du har rettet: {{sessionCorrected}} ord, ud af i alt: {{docTotal}} ord.</label>
                 <div id="docProgress" class="progress">
-                    <!-- <div class="progress-bar" role="progressbar" [ngStyle]="{'width': docCorrected/docTotal*100 +'%' }" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal">{{docCorrected}} / {{docTotal}}</div> -->
-                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 +'%' }" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal"></div>
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal"></div>
                 </div>
             </div>
         </div>

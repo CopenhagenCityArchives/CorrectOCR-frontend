@@ -37,9 +37,6 @@ export class TokensComponent implements OnChanges {
   }
 
   ngOnInit(): void {
-    if (!this.sessionCorrected) {
-      this.sessionCorrected = 0;
-    }
     this.toggleMetadata = false;
   }
 
@@ -61,14 +58,15 @@ export class TokensComponent implements OnChanges {
     this.leftToken$ = changes$.pipe(mergeMap((mainToken:JSON) => this.apiService.getLeftToken(new Token(mainToken))), share());
     this.rightToken$ = changes$.pipe(mergeMap((mainToken:JSON) => this.apiService.getRightToken(new Token(mainToken))), share());
     let token = await changes$.toPromise().then((data:JSON) => new Token(data));
+    this.initCounter(token.doc_ID);
     this.mainToken = token;
   }
 
   nextToken(): void {
     this.andetInputField = '';
-    this.sessionCorrected++;
     this.getNextMainToken.emit();
-  }
+    this.updateCounter(this.mainToken.doc_ID);
+}
 
   public async correct(correction:string): Promise<void> {
     let response = await this.apiService.postGold(this.mainToken, correction).toPromise().then((data:JSON) => new Token(data));
@@ -100,6 +98,22 @@ export class TokensComponent implements OnChanges {
   }
 
   async setDocumentUrl() {
-      this.documentSrc = String(this.mainToken.doc_ID) + '.pdf';
+    this.documentSrc = String(this.mainToken.doc_ID) + '.pdf';
+  }
+
+  public initCounter(doc_id: number): void {
+    const value = parseInt(localStorage.getItem(`corrected-${doc_id}`));
+    if(!value || value < 0) {
+      localStorage.setItem(`corrected-${doc_id}`, '0');
+      this.sessionCorrected = 0;
+    }
+    this.sessionCorrected = value;
+  }
+
+  public updateCounter(doc_id: number): void {
+    let value = parseInt(localStorage.getItem(`corrected-${doc_id}`));
+    value++
+    this.sessionCorrected = value;
+    localStorage.setItem(`corrected-${doc_id}`, value.toString());
   }
 }
