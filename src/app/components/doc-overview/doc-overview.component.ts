@@ -15,15 +15,8 @@ export class DocOverviewComponent implements OnInit {
     this.apiService = service;
   }
 
-  async ngOnInit() {
-    let documentList$ = await this.apiService.getOverview().pipe(share());
-    this.documentList$ = documentList$;
-
-
-  }
-
-  public async getDocumentList(): Promise<Observable<Object>> {
-    return this.apiService.getOverview().pipe(share());
-  }
+   ngOnInit() {
+    this.documentList$ = this.apiService.getOverview().pipe(share());
+   }
 
 }
