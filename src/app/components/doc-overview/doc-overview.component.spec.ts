@@ -7,18 +7,20 @@ import { HttpClient } from '@angular/common/http';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AsyncTimestampPipe } from '../../custom-pipes/async-timestamp.pipe'
 
 describe('DocOverviewComponent', () => {
 
   let apiService: ApiService;
   let client: HttpClient;
+  let pipe: AsyncTimestampPipe;
 
   let component: DocOverviewComponent;
   let fixture: ComponentFixture<DocOverviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocOverviewComponent ],
+      declarations: [ DocOverviewComponent, AsyncTimestampPipe ],
       imports: [ HttpClientTestingModule, RouterTestingModule ],
       providers: [ ApiService ],
     }).compileComponents();
@@ -62,6 +64,7 @@ describe('DocOverviewComponent', () => {
     const debug: DebugElement = fixture.debugElement;
 
     spyOn(apiService, 'getOverview').and.returnValue(testData);
+    // spyOn(apiService, 'getDocumentDate').and.returnValue()
     fixture.detectChanges();
 
     //Inspect table rows
