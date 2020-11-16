@@ -24,9 +24,14 @@
 
         <tbody *ngIf="documentList$ | async as documentList">
             <tr *ngFor="let doc of documentList; index as i;" id="tr-{{doc.docid}}" routerLink="/tokens/{{doc.docid}}" routerLinkActive="active" tabindex="0" role="button" [attr.aria-label]="'doc-'+i">
-                <td>
-                    <h4 id="doc-{{i}}">{{doc.docid}}</h4>
+                <td *ngIf="doc.docid | asyncTimestamp | async as timestamp; else only_id">
+                    <h4 id="doc-{{i}}">Nummer: {{doc.docid}}, {{timestamp['response']['docs'][0].efterretning_date | date: 'dd. MMMM yyyy'}}</h4>
                 </td>
+                <ng-template #only_id>
+                    <td>
+                        <h4 id="doc-{{i}}">Nummer: {{doc.docid}} </h4>
+                    </td>
+                </ng-template>
                 <td>
                     <span>{{doc.corrected}} ud af {{doc.count}}</span> 
                 </td>
