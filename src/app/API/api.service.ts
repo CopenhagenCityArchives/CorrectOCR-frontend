@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment'
 export class ApiService {
 
   private url: string = environment.apiUrl;
+  private solrUrl: string = environment.solrUrl; 
   private http: HttpClient;
 
   options: {
@@ -173,6 +174,13 @@ export class ApiService {
     )
   }
 
+  /**
+   * [set token as discarded in db]
+   *
+   * @param   {IToken}              mainToken  Main Token
+   *
+   * @return  {Observable<Object>}             [return Observable]
+   */
   public discardToken(mainToken: IToken): Observable<Object> {
     const body = {'discard':true};
      return this.http.request('POST', (this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json'), {body: body}).pipe(
@@ -181,4 +189,14 @@ export class ApiService {
       })
     )
   }
+
+  public getDocumentDate(docid: string): Observable<Object> {
+    return this.http.request('GET', (`${this.solrUrl}select?wt=json&q=id:19-${docid}&fl=efterretning_date`)).pipe(
+      catchError(err => {
+        return this.handleError(err);
+      }),
+      retry(3)
+    )
+  }
+
 }
