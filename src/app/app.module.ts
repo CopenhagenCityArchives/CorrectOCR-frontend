@@ -18,6 +18,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { TokensPipePipe } from './custom-pipes/tokens-pipe.pipe';
 import { PdfViewerComponent } from './components/pdf-viewer/pdf-viewer.component';
 import { SpecificTokenComponent } from './components/specific-token/specific-token.component';
+import { AsyncTimestampPipe } from './custom-pipes/async-timestamp.pipe';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { SpecificTokenComponent } from './components/specific-token/specific-tok
     TokensPipePipe,
     PdfViewerComponent,
     SpecificTokenComponent,
+    AsyncTimestampPipe,
   ],
   imports: [
     BrowserModule,
