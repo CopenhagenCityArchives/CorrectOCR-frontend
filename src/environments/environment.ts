@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   auth0Redirect: `${window.location.origin}`,
   apiUrl: "http://localhost:5000/",
+  solrUrl: "https://aws.kbhkilder.dk/solr/apacs_core/",
   documentBaseUrl: "https://api.kbharkiv.dk/asset/"
 };
 
