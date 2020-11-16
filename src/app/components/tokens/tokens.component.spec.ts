@@ -91,10 +91,13 @@ describe('TokensComponent', () => {
     expect(mainTokenBtns.children[2].innerHTML).toEqual(testData.thirdBest);
   });
   
-  it('should call the correct function when triggered through nextToken()', () => {
+  it('should call the correct functions when triggered through nextToken()', () => {
     apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
     apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(of(testRightToken));
+    component.updateCounter = jasmine.createSpy("updateCounter spy").and.returnValue('');
     spyOn(component.getNextMainToken, 'emit');
+
+    component.mainToken = new Token(testMainToken);
     fixture.detectChanges();
     component.nextToken();
     expect(component.getNextMainToken.emit).toHaveBeenCalledTimes(1);
@@ -153,7 +156,9 @@ describe('TokensComponent', () => {
     //setup tokens
     apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
     apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(of(testRightToken));
+    component.updateCounter = jasmine.createSpy("updateCounter spy").and.returnValue('');
 
+    component.mainToken = new Token(testMainToken);
     component.andetInputField = 'old value';
     fixture.detectChanges();
     tick();
