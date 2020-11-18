@@ -31,13 +31,7 @@ export class PdfViewerComponent implements OnInit, AfterViewInit {
     const yOffset = this.frame[1];
     
     tokenFrame = [zoomLevel, xOffset.toString(), yOffset.toString()];
-    console.log("custom", tokenFrame);
     this.tokenFrame = tokenFrame;
   }
-
-  public getPDFInfo() {
-    console.log("pdf", this.pdf)
-  }
-
 
 }

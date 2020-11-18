@@ -2,7 +2,6 @@
     <div class="col">
         <ng2-pdfjs-viewer
             #pdfViewer
-            (onDocumentLoad)="getPDFInfo()"
             pdfSrc="{{src}}"
             [page]="page"
             [useOnlyCssZoom]="true"
