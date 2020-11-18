@@ -23,16 +23,21 @@ export class ApiService {
   }
 
   public handleError(error: HttpErrorResponse) {
+    console.log("error hit");
+    console.log(error);
     let errorMessage = 'Unknown error!'
     if (error.error instanceof ErrorEvent) {
+      console.log("Client", error.error);
       // Client-side
-      errorMessage = `Error: ${error.error.message}`
+      errorMessage = `Error: ${error.message}`
     } else {
+      console.log("Server", error.error);
       // Server-side
       errorMessage = 
         `Error Code: ${error.status}
         Error Message: ${error.message}`
     }
+    console.log(errorMessage);
     return throwError(errorMessage);
   }
 
@@ -150,7 +155,7 @@ export class ApiService {
    */
   public postHypernate(mainToken: IToken, hypDir: string): Observable<Object> {
     let body = { 'hyphenate': hypDir };
-    return this.http.request('POST', (this.url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body}).pipe(
+    return this.http.post(this.url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', {body: body}).pipe(
       catchError(err => {
         return this.handleError(err);
       })
@@ -167,7 +172,7 @@ export class ApiService {
    */
   public postGold(mainToken: IToken, gold: string): Observable<Object> {
     let body = { 'gold': gold };
-    return this.http.request('POST',(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'), {body: body}).pipe(
+    return this.http.post(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', {body: body}).pipe(
       catchError(err => {
         return this.handleError(err);
       })
@@ -183,7 +188,7 @@ export class ApiService {
    */
   public discardToken(mainToken: IToken): Observable<Object> {
     const body = {'discard':true};
-     return this.http.request('POST', (this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json'), {body: body}).pipe(
+     return this.http.post(this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json', {body: body}).pipe(
       catchError(err => {
         return this.handleError(err);
       })
@@ -191,7 +196,7 @@ export class ApiService {
   }
 
   public getDocumentDate(docid: string): Observable<Object> {
-    return this.http.request('GET', (`${this.solrUrl}select?wt=json&q=id:19-${docid}&fl=efterretning_date`)).pipe(
+    return this.http.get(`${this.solrUrl}select?wt=json&q=id:19-${docid}&fl=efterretning_date`).pipe(
       catchError(err => {
         return this.handleError(err);
       }),
