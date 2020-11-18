@@ -5,16 +5,13 @@ import { ApiService } from './api.service';
 import { IToken } from '../components/tokens/i-token';
 import { Token } from '../components/tokens/token';
 import { environment } from '../../environments/environment';
-import { catchError, map, share } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { cold, hot } from 'jasmine-marbles';
 
 const url: string = environment.apiUrl;
+const solrUrl: string = environment.solrUrl;
 let apiService: ApiService;
 let testJSON: JSON = require('../../test-helpers/testMainToken.json');
 let client: HttpClient;
 let controller: HttpTestingController;
-// let httpClientSpy: { getOverview: jasmine.Spy, handleError: jasmine.Spy};
 
 //Run Tests
 describe('ApiService', () => {
@@ -155,18 +152,22 @@ function successfulFetching() {
     expect(req.request.method).toEqual('POST');
   })
 
+  it('should send get request when getDocumentDate() is called', () => {
+    const mainToken: IToken = new Token(testJSON);
+    apiService.getDocumentDate('6148').subscribe((data) => {
+      const res = data;
+      expect(res).toEqual('something');
+    });
+    const req = controller.expectOne(`${solrUrl}select?wt=json&q=id:19-6148&fl=efterretning_date`);
+    expect(req.request.method).toEqual('GET');
+    req.flush('something');
+  })
+
 }
 
 function catchingErrors() {
 
-  const mockErrorInit = {
-    error: new Error('network error'),
-    message: 'shit happend',
-    lineno: 69,
-    colno: 420,
-    filename: 'veryReal.html'
-  }
-  const errorRequestMock = new ErrorEvent('MockError', mockErrorInit);
+  const testToken = new Token(require('../../test-helpers/testMainToken.json'));
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -177,35 +178,239 @@ function catchingErrors() {
     client = TestBed.inject(HttpClient);
     controller = TestBed.inject(HttpTestingController);
     apiService = TestBed.inject(ApiService);
-    // httpClientSpy = jasmine.createSpyObj('apiService', ['handleError', 'getOverview']);
 
   });
-
-  afterEach(() => {
-    // After every test, assert that there are no more pending requests.
-    // controller.verify();
-  })
 
   it('should be created', () => {
     expect(apiService).toBeTruthy();
   });
 
-  // it('should catch error in getOverview() when met with a network error', () => {
-  //   console.log("HELP")
-  //   apiService.handleError = jasmine.createSpy('handleError spy').and.callThrough();
-  //   apiService.getOverview().subscribe();
-  //   console.log("HELP")
+  it('should catch Client Error in getOverview()', () => {
+    const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: 'http://localhost:5000/', status: 0 }
+    const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
 
-  //   const req = controller.expectOne(url);
-  //   req.error(errorRequestMock, {status: 404, statusText: 'network error'});
-  //   console.log("HELP")
+    apiService.getOverview().subscribe();
+    controller.expectOne(url).error(new ErrorEvent('network error'), mockErrorResponse);
 
-  //   expect(apiService.handleError).toHaveBeenCalledTimes(1);
-  //   console.log("HELP")
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  })
 
-  //   // req.flush(source, {status: 404, statusText: 'network error'});
-  //   // expect(req.request.method).toEqual('GET');
+  it('should catch Server Error in getOverview()', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/"};
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getOverview().subscribe();
+    controller.expectOne(url).flush(null, { status: 404, statusText: 'Not Found' })
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse))
+  })
+
+  it('should catch Client Error in getToken()', () => {
+    const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/420/token-69.json", status: 0 }
+    const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getToken(420, 69).subscribe();
+    controller.expectOne(`${url}420/token-69.json`).error(new ErrorEvent('network error'), mockErrorResponse);
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  })
+
+  it('should catch Server Error in getToken()', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/420/token-69.json"};
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getToken(420, 69).subscribe();
+    controller.expectOne(`${url}420/token-69.json`).flush(null, { status: 404, statusText: 'Not Found' })
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
+  })
+
+  it('should catch Client Error in getTokenFromInfoUrl()', () => {
+    const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/6148/token-0.json", status: 0 }
+    const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getTokenFromInfoUrl('6148/token-0.json').subscribe();
+    controller.expectOne(`${url}6148/token-0.json`).error(new ErrorEvent('network error'), mockErrorResponse);
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  })
+
+  it('should catch Server Error in getTokenFromInfoUrl()', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/6148/token-0.json"};
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getTokenFromInfoUrl('6148/token-0.json').subscribe();
+    controller.expectOne(`${url}6148/token-0.json`).flush(null, { status: 404, statusText: 'Not Found' })
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
+  })
+
+  it('should catch Client Error in getAllTokensFromDocId()', () => {
+    const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/6148/tokens.json", status: 0 }
+    const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getAllTokensFromDocId('6148').subscribe();
+    controller.expectOne(`${url}6148/tokens.json`).error(new ErrorEvent('network error'), mockErrorResponse);
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  })
+
+  it('should catch Server Error in getAllTokensFromDocId()', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/6148/tokens.json"};
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getAllTokensFromDocId('6148').subscribe();
+    controller.expectOne(`${url}6148/tokens.json`).flush(null, { status: 404, statusText: 'Not Found' })
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
+  })
+
+  it('should catch Client Error in getRandomToken()', () => {
+    const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/random", status: 0 }
+    const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getRandomToken().subscribe();
+    controller.expectOne(`${url}random`).error(new ErrorEvent('network error'), mockErrorResponse);
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  })
+
+  it('should catch Server Error in getRandomToken()', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/random"};
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getRandomToken().subscribe();
+    controller.expectOne(`${url}random`).flush(null, { status: 404, statusText: 'Not Found' })
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
+  })
+
+  it('should catch Client Error in getLeftToken()', () => {
+    const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/6148/token-330.json", status: 0 }
+    const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getLeftToken(testToken).subscribe();
+    controller.expectOne(`${url}6148/token-330.json`).error(new ErrorEvent('network error'), mockErrorResponse);
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  })
+
+  it('should catch Server Error in getLeftToken()', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/6148/token-330.json"};
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getLeftToken(testToken).subscribe();
+    controller.expectOne(`${url}6148/token-330.json`).flush(null, { status: 404, statusText: 'Not Found' })
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
+  })
+
+  it('should catch Client Error in getRightToken()', () => {
+    const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/6148/token-332.json", status: 0 }
+    const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getRightToken(testToken).subscribe();
+    controller.expectOne(`${url}6148/token-332.json`).error(new ErrorEvent('network error'), mockErrorResponse);
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  })
+
+  it('should catch Server Error in getRightToken()', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/6148/token-332.json"};
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getRightToken(testToken).subscribe();
+    controller.expectOne(`${url}6148/token-332.json`).flush(null, { status: 404, statusText: 'Not Found' })
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
+  })
+
+  // it('should catch Client Error in postHypernate()', () => {
+  //   const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/6148/token-331.json", status: 0 }
+  //   const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+  //   const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+  //   apiService.postHypernate(testToken, 'left').subscribe();
+  //   expect(spyHandleError).toThrowError();       
+  //   controller.expectOne(`${url}6148/token-331.json`).error(new ErrorEvent('network error'), mockErrorResponse);
+  //   expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  //   // expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  // })
+
+  // it('should catch Server Error in postHypernate()', () => {
+  //   const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/6148/token-331.json"};
+  //   const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+  //   apiService.postHypernate(testToken, 'left').subscribe();
+  //   expect(spyHandleError).toThrow();
+  //   expect(spyHandleError).toHaveBeenCalledTimes(1);
 
   // })
+
+  // it('should catch Client Error in discardToken()', () => {
+  //   const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/6148/token-331.json", status: 0 }
+  //   const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+  //   const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+  //   apiService.discardToken(testToken).subscribe();
+  //   controller.expectOne(`${url}6148/token-331.json`).error(new ErrorEvent('network error'), mockErrorResponse);
+
+  //   expect(spyHandleError).toHaveBeenCalledTimes(1);
+  //   expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  // })
+
+  // it('should catch Server Error in discardToken()', () => {
+  //   const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/6148/token-331.json"};
+  //   const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+  //   apiService.discardToken(testToken).subscribe();
+  //   controller.expectOne(`${url}6148/token-331.json`).flush(null, { status: 404, statusText: 'Not Found' })
+
+  //   expect(spyHandleError).toHaveBeenCalledTimes(1);
+  //   expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
+  // })
+
+  it('should catch Client Error in getDocumentDate()', () => {
+    const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: `${solrUrl}select?wt=json&q=id:19-6148&fl=efterretning_date`, status: 0 }
+    const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getDocumentDate('6148').subscribe();
+    controller.expectOne(`${solrUrl}select?wt=json&q=id:19-6148&fl=efterretning_date`).error(new ErrorEvent('network error'), mockErrorResponse);
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
+  })
+
+  it('should catch Server Error in getDocumentDate()', () => {
+    const mockErrorResponse = { status: 404, statusText: 'Not Found', url: `${solrUrl}select?wt=json&q=id:19-6148&fl=efterretning_date`};
+    const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
+
+    apiService.getDocumentDate('6148').subscribe();
+    controller.expectOne(`${solrUrl}select?wt=json&q=id:19-6148&fl=efterretning_date`).flush(null, { status: 404, statusText: 'Not Found' })
+
+    expect(spyHandleError).toHaveBeenCalledTimes(1);
+    expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
+  })
 
 }
