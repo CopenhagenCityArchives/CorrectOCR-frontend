@@ -66,7 +66,12 @@ export class TokensComponent implements OnChanges {
     this.andetInputField = '';
     this.getNextMainToken.emit();
     this.updateCounter(this.mainToken.doc_ID);
-}
+  }
+
+  skipToken(): void {
+    this.andetInputField = '';
+    this.getNextMainToken.emit();
+  }
 
   public async correct(correction:string): Promise<void> {
     let response = await this.apiService.postGold(this.mainToken, correction).toPromise().then((data:JSON) => new Token(data));
