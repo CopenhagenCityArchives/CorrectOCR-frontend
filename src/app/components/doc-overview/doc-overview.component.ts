@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { ApiService } from '../../API/api.service';
@@ -11,12 +12,19 @@ export class DocOverviewComponent implements OnInit {
   private apiService: ApiService;
   public documentList$: Observable<object>;
 
-  constructor(service: ApiService) { 
+  public specificDocId: string;
+  public specificTokenIndex: string;
+
+  constructor(service: ApiService, private router: Router) { 
     this.apiService = service;
   }
 
-   ngOnInit() {
-    this.documentList$ = this.apiService.getOverview().pipe(share());
-   }
+  ngOnInit() {
+  this.documentList$ = this.apiService.getOverview().pipe(share());
+  }
+  
+  redirectToToken() {
+  this.router.navigate([`/tokens/${this.specificDocId}/${this.specificTokenIndex}`]);
+  }
 
 }
