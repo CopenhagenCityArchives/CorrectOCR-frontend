@@ -180,6 +180,24 @@ export class ApiService {
   }
 
   /**
+   * [postGoldAndHypernate description]
+   *
+   * @param   {IToken}  mainToken   Main Token
+   * @param   {string}  gold        new gold value
+   * @param   {string}  hypDir      hypernate direction, either left or right
+   *
+   * @return  {Observable<Object>}             [return Observable]
+   */
+  public postGoldAndHypernate(mainToken: IToken, gold: string, hypDir: string): Observable<Object> {
+    let body = { 'gold': gold, 'hyphenate': hypDir };
+    return this.http.post(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', {body: body}).pipe(
+      catchError(err => {
+        return this.handleError(err);
+      })
+    )
+  }
+
+  /**
    * [set token as discarded in db]
    *
    * @param   {IToken}              mainToken  Main Token

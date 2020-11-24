@@ -22,6 +22,9 @@
                             <div class="card-text">
                                 <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="hypLeft()">Læg sammen</button>
                             </div>
+                            <div class="input-group mt-2">
+                                <button ng class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'left')">Gem og læg sammen</button>
+                            </div>
                         </div>
                         <div class="card-footer text-muted">
                             Ord nr. {{leftToken.index}}
@@ -64,6 +67,9 @@
                             <h5 class="card-title">Ordet efter</h5>
                             <div class="card-text">
                                 <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="hypRight()">Læg sammen</button>
+                            </div>
+                            <div class="input-group mt-2">
+                                <button class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'right')">Gem og læg sammen</button>
                             </div>
                         </div>
                         <div class="card-footer text-muted">

@@ -63,18 +63,23 @@ export class TokensComponent implements OnChanges {
   }
 
   nextToken(): void {
-    this.andetInputField = '';
+    this.clearInputFields();
     this.getNextMainToken.emit();
     this.updateCounter(this.mainToken.doc_ID);
   }
 
   skipToken(): void {
-    this.andetInputField = '';
+    this.clearInputFields();
     this.getNextMainToken.emit();
   }
 
-  public async correct(correction:string): Promise<void> {
-    let response = await this.apiService.postGold(this.mainToken, correction).toPromise().then((data:JSON) => new Token(data));
+  public async correct(correction:string, hypDir?:string): Promise<void> {
+    let response: any;
+    if (hypDir) {
+      response = await this.apiService.postGoldAndHypernate(this.mainToken, correction, hypDir).toPromise().then((data:JSON) => new Token(data));
+    } else {
+      response = await this.apiService.postGold(this.mainToken, correction).toPromise().then((data:JSON) => new Token(data));
+    }
     console.log("correct Response", response);
     this.nextToken();
   }
@@ -120,5 +125,9 @@ export class TokensComponent implements OnChanges {
     value++
     this.sessionCorrected = value;
     localStorage.setItem(`corrected-${doc_id}`, value.toString());
+  }
+
+  public clearInputFields(): void {
+    this.andetInputField = '';
   }
 }
