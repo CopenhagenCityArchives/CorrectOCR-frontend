@@ -95,9 +95,11 @@
                 <label for="docProgress">Du har rettet: {{sessionCorrected}} ord, ud af i alt: {{docTotal}} ord.</label>
                 <div id="docProgress" class="progress">
                     <ng-template #OKTooltip>Ord som er vuderes OK</ng-template>
-                    <ng-template #RettetTooltip>Ord du har rettet</ng-template>
+                    <ng-template #CorrectedTooltip>Ord du har rettet</ng-template>
+                    <ng-template #MissingToolTip>Ord der mangler</ng-template>
                     <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': docCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal" [ngbTooltip]="OKTooltip"></div>
-                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal" [ngbTooltip]="RettetTooltip"></div>
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal" [ngbTooltip]="CorrectedTooltip"></div>
+                    <div class="progress-bar bg-light" role="progressbar" [ngStyle]="{'width': (docTotal - (docCorrected + sessionCorrected))/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="docTotal - (docCorrected + sessionCorrected)" [attr.aria-valuemax]="docTotal" [ngbTooltip]="MissingToolTip"></div>
                 </div>
             </div>
         </div>
