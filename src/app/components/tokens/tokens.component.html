@@ -23,7 +23,7 @@
                                 <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="hypLeft()">Læg sammen</button>
                             </div>
                             <div class="input-group mt-2">
-                                <button ng class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'left')">Gem og læg sammen</button>
+                                <button ng class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'left')">Gem ændring i hovedord og læg sammen</button>
                             </div>
                         </div>
                         <div class="card-footer text-muted">
@@ -94,8 +94,10 @@
             <div class="col">
                 <label for="docProgress">Du har rettet: {{sessionCorrected}} ord, ud af i alt: {{docTotal}} ord.</label>
                 <div id="docProgress" class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': docCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal"></div>
-                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal"></div>
+                    <ng-template #OKTooltip>Ord som er vuderes OK</ng-template>
+                    <ng-template #RettetTooltip>Ord du har rettet</ng-template>
+                    <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': docCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal" [ngbTooltip]="OKTooltip"></div>
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal" [ngbTooltip]="RettetTooltip"></div>
                 </div>
             </div>
         </div>
