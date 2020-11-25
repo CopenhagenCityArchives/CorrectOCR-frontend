@@ -172,7 +172,7 @@ export class ApiService {
    */
   public postGold(mainToken: IToken, gold: string): Observable<Object> {
     let body = { 'gold': gold };
-    return this.http.post(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', {body: body}).pipe(
+    return this.http.post(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', body).pipe(
       catchError(err => {
         return this.handleError(err);
       })
@@ -190,7 +190,7 @@ export class ApiService {
    */
   public postGoldAndHypernate(mainToken: IToken, gold: string, hypDir: string): Observable<Object> {
     let body = { 'gold': gold, 'hyphenate': hypDir };
-    return this.http.post(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', {body: body}).pipe(
+    return this.http.post(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', body).pipe(
       catchError(err => {
         return this.handleError(err);
       })
@@ -206,7 +206,7 @@ export class ApiService {
    */
   public discardToken(mainToken: IToken): Observable<Object> {
     const body = {'discard':true};
-     return this.http.post(this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json', {body: body}).pipe(
+     return this.http.post(this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json', body).pipe(
       catchError(err => {
         return this.handleError(err);
       })
