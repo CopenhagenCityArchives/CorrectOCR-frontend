@@ -82,6 +82,7 @@
         </div>
         
         <div class="row justify-content-center">
+            <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-secondary mr-2" type="button" (click)="prevToken()">Tilbage til sidste ord</button>
             <button class="col-4 btn btn-secondary mr-2" type="button" (click)="refreshToken()">Genindlæs hovedordet</button>            
             <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken"> 
                 <button class="col-4 btn btn-danger mr-2" type="button" (click)="discardToken()">Slet hovedordet</button>

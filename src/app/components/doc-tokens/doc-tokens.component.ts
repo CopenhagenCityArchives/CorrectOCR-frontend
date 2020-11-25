@@ -48,7 +48,16 @@ export class DocTokensComponent implements OnInit {
   }
 
   public getNextTokenFromList() {
-    this.mainToken$ = this.apiService.getTokenFromInfoUrl(this.uncorrectedList[this.index]['info_url']).pipe(share());
-    this.index++;
+    if(this.index != this.uncorrectedList.length) {
+      this.mainToken$ = this.apiService.getTokenFromInfoUrl(this.uncorrectedList[this.index]['info_url']).pipe(share());
+      this.index++;
+    }
+  }
+
+  public getPreviousTokenFromList() {
+    if(this.index != 0) {
+      this.index--;
+      this.mainToken$ = this.apiService.getTokenFromInfoUrl(this.uncorrectedList[this.index-1]['info_url']).pipe(share());
+    }
   }
 }

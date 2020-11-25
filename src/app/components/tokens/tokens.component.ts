@@ -1,7 +1,6 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { defer, forkJoin, Observable, pipe, Subscription } from 'rxjs';
-import { catchError, map, retry, share, endWith, finalize, mergeMap } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs';
+import { share, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
 import { Token } from '../tokens/token';
 import { environment } from '../../../environments/environment';
@@ -24,6 +23,7 @@ export class TokensComponent implements OnChanges {
 
   @Input() public mainToken$: Observable<any>;
   @Output() public getNextMainToken = new EventEmitter();
+  @Output() public getPrevMainToken = new EventEmitter();
 
   public mainToken: Token;
   public leftToken$: Observable<any>
@@ -71,6 +71,11 @@ export class TokensComponent implements OnChanges {
   skipToken(): void {
     this.clearInputFields();
     this.getNextMainToken.emit();
+  }
+
+  prevToken(): void {
+    this.clearInputFields();
+    this.getPrevMainToken.emit();
   }
 
   public async correct(correction:string, hypDir?:string): Promise<void> {
