@@ -24,6 +24,24 @@ export class Token implements IToken {
     selection: string[];
     token_info: string[];
     token_type: string;
+    k_best: {
+        1: {
+            candidate: string;
+            probability: number
+        }
+        2: {
+            candidate: string;
+            probability: number
+        }
+        3: {
+            candidate: string;
+            probability: number
+        }
+        4: {
+            candidate: string;
+            probability: number
+        }
+    }
 
     constructor(json: JSON) {
         this.firstBest  = json['1-best'];
@@ -49,6 +67,7 @@ export class Token implements IToken {
         this.selection  = json['Selection'];
         this.token_info = json['Token info'];
         this.token_type = json['Token type'];
+        this.k_best     = json['k-best'];
     };
 
 }

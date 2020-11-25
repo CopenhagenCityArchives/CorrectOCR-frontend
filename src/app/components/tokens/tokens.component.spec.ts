@@ -86,9 +86,10 @@ describe('TokensComponent', () => {
     expect(rightTokenImg.title).toEqual('Token id: 6148/332');
 
     // assert main_token buttons has correct values
-    expect(mainTokenBtns.children[0].innerHTML).toEqual(testData.firstBest);
-    expect(mainTokenBtns.children[1].innerHTML).toEqual(testData.secondBest)
-    expect(mainTokenBtns.children[2].innerHTML).toEqual(testData.thirdBest);
+    expect(mainTokenBtns.children[0].innerHTML).toEqual(testData.k_best["1"].candidate);
+    expect(mainTokenBtns.children[1].innerHTML).toEqual(testData.k_best["2"].candidate);
+    expect(mainTokenBtns.children[2].innerHTML).toEqual(testData.k_best["3"].candidate);
+    expect(mainTokenBtns.children[3].innerHTML).toEqual(testData.k_best["4"].candidate);
   });
   
   it('should call the correct functions when triggered through nextToken()', () => {
@@ -122,16 +123,16 @@ describe('TokensComponent', () => {
     component.correct = jasmine.createSpy('correct spy');
     btnFirstBest.click();
     expect(component.correct).toHaveBeenCalledTimes(1);
-    expect(component.correct).toHaveBeenCalledWith(testData.firstBest);
+    expect(component.correct).toHaveBeenCalledWith(testData.k_best['1'].candidate);
     btnSecondBest.click();
     expect(component.correct).toHaveBeenCalledTimes(2);
-    expect(component.correct).toHaveBeenCalledWith(testData.secondBest);
+    expect(component.correct).toHaveBeenCalledWith(testData.k_best['2'].candidate);
     btnThirdBest.click();
     expect(component.correct).toHaveBeenCalledTimes(3);
-    expect(component.correct).toHaveBeenCalledWith(testData.thirdBest);
+    expect(component.correct).toHaveBeenCalledWith(testData.k_best['3'].candidate);
     btnFourthBest.click();
     expect(component.correct).toHaveBeenCalledTimes(4);
-    expect(component.correct).toHaveBeenCalledWith(testData.fourthBest);
+    expect(component.correct).toHaveBeenCalledWith(testData.k_best['4'].candidate);
   })
 
   it('should trigger hypLeft() or hypRight() upon clicking the correct btns', () => {

@@ -40,10 +40,10 @@
                             <h5 class="card-title">Hovedordet</h5>
                             <div class="card-text">
                                 <div id="main_btn_group" class="mb-2">
-                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.firstBest)" >{{mainToken.firstBest}}</button>
-                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.secondBest)">{{mainToken.secondBest}}</button>
-                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.thirdBest)" >{{mainToken.thirdBest}}</button>
-                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.fourthBest)">{{mainToken.fourthBest}}</button>
+                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
+                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.k_best['2'].candidate)">{{mainToken.k_best['2'].candidate}}</button>
+                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.k_best['3'].candidate)">{{mainToken.k_best['3'].candidate}}</button>
+                                    <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.k_best['4'].candidate)">{{mainToken.k_best['4'].candidate}}</button>
                                 </div>
                                 <div class="input-group">
                                     <input [(ngModel)]="andetInputField" id="andet" name="andet" type="text" class="form-control" placeholder="andet...">
@@ -82,6 +82,7 @@
         </div>
         
         <div class="row justify-content-center">
+            <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-secondary mr-2" type="button" (click)="prevToken()">Tilbage til sidste ord</button>            
             <button class="col-4 btn btn-secondary mr-2" type="button" (click)="refreshToken()">Genindlæs hovedordet</button>            
             <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken"> 
                 <button class="col-4 btn btn-danger mr-2" type="button" (click)="discardToken()">Slet hovedordet</button>

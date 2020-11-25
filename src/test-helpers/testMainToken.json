@@ -7,7 +7,7 @@
     "3-best prob.": 1.8460234059602953e-05,
     "4-best": "gt",
     "4-best prob.": 8.5158417277853e-06,
-    "Annotation info": "[{}]",
+    "Annotation info": "{}",
     "Bin": 1,
     "Decision": "original",
     "Discarded": 0,
@@ -22,10 +22,29 @@
     "Heuristic": "o",
     "Hyphenated": 0,
     "Index": 331,
+    "Last Modified": 1606294457.0,
     "Original": "et",
     "Page": 0,
     "Selection": "et",
     "Token info": "[0, 203.35000610351562, 562.5964965820312, 210.96487426757812, 575.2694702148438, \"et\", 16, 34, 3]",
     "Token type": "PDFToken",
-    "image_url": "/6148/token-331.png"
+    "image_url": "/6148/token-331.png",
+    "k-best": {
+        "1": {
+            "candidate": "et",
+            "probability": 0.0011109677143394947
+        },
+        "2": {
+            "candidate": "st",
+            "probability": 0.00012121564213884994
+        },
+        "3": {
+            "candidate": "ct",
+            "probability": 1.8460234059602953e-05
+        },
+        "4": {
+            "candidate": "gt",
+            "probability": 8.5158417277853e-06
+        }
+    }
 }
