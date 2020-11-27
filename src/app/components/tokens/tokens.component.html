@@ -3,7 +3,7 @@
         <-- til dokumentoversigten
     </a>
 
-    <h1>Retter efterretning nr: {{mainToken.doc_ID}}</h1>
+    <h1>Retter efterretning nr: <span *ngIf="mainToken$ | async | tokensPipe as mainToken">{{mainToken.doc_ID}}</span></h1>
 
     <p>Ordet, der skal rettes er ordet i midten kaldet 'Hovedordet'</p>
     <p>Vælg en af de foreslåede muligheder , eller skriv det rigtige ord og klik gem.
@@ -18,7 +18,7 @@
                         <img id="left_token_img" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Ordet før</h5>
+                            <h5 class="card-title">Ordet før <span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord tydet som {{leftToken.gold}}</span></h5>
                             <div class="card-text">
                                 <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="hypLeft()">Læg sammen</button>
                             </div>
@@ -37,7 +37,7 @@
                         <img id="main_token_img" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Hovedordet</h5>
+                            <h5 class="card-title">Hovedordet <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord tydet som {{mainToken.gold}}</span></h5>
                             <div class="card-text">
                                 <div id="main_btn_group" class="mb-2">
                                     <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
@@ -64,7 +64,7 @@
                         <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}" alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Ordet efter</h5>
+                            <h5 class="card-title">Ordet efter <span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord tydet som {{rightToken.gold}}</span></h5>
                             <div class="card-text">
                                 <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="hypRight()">Læg sammen</button>
                             </div>
