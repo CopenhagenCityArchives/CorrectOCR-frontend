@@ -139,18 +139,22 @@ describe('TokensComponent', () => {
     apiService.getLeftToken = jasmine.createSpy("leftToken spy").and.returnValue(of(testLeftToken));
     apiService.getRightToken = jasmine.createSpy("rightToken spy").and.returnValue(of(testRightToken));
 
+    const leftToken = new Token(testLeftToken);
+    const rightToken = new Token(testRightToken);
+
     fixture.detectChanges();
     
     const debug: DebugElement = fixture.debugElement;
-    const hypLeftBtn: HTMLButtonElement = debug.query(By.css('#hyp_left_btn')).nativeElement;
-    const hypRightBtn: HTMLButtonElement = debug.query(By.css('#hyp_right_btn')).nativeElement;
+    const loadLeftToken: HTMLButtonElement = debug.query(By.css('#hyp_left_btn')).nativeElement;
+    const loadRightToken: HTMLButtonElement = debug.query(By.css('#hyp_right_btn')).nativeElement;
 
-    component.hypLeft = jasmine.createSpy('hypLeft spy');
-    component.hypRight = jasmine.createSpy('hypRight spy');
-    hypLeftBtn.click();
-    expect(component.hypLeft).toHaveBeenCalled();
-    hypRightBtn.click();
-    expect(component.hypRight).toHaveBeenCalled();
+    component.makeMainToken = jasmine.createSpy('makeMainToken spy');
+    loadLeftToken.click();
+    expect(component.makeMainToken).toHaveBeenCalledTimes(1);
+    expect(component.makeMainToken).toHaveBeenCalledWith(leftToken.doc_ID, leftToken.index);
+    loadRightToken.click();
+    expect(component.makeMainToken).toHaveBeenCalledTimes(2);
+    expect(component.makeMainToken).toHaveBeenCalledWith(rightToken.doc_ID, rightToken.index);
   })
 
   it('should clear dirty inputfield when nextToken() is called', fakeAsync(() => {
