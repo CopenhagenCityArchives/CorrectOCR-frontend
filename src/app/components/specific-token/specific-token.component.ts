@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, share } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-specific-token',
@@ -14,7 +15,7 @@ export class SpecificTokenComponent implements OnInit {
   public tokenIndex: any;
   public docId: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private location: Location, private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
@@ -42,7 +43,7 @@ export class SpecificTokenComponent implements OnInit {
   }
 
   redirectToUrl() {
-    this.router.navigate(['/']);
+    this.location.back();
   }
 
 }

@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Ordet før <span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord tydet som: {{leftToken.gold}}</span></h5>
                             <div class="card-text">
-                                <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="hypLeft()">Læg sammen</button>
+                                <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(leftToken.doc_ID, leftToken.index)">Indlæs som hovedord</button>
                             </div>
                             <div class="input-group mt-2">
                                 <button ng class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'left')">Gem ændring i hovedord og læg sammen</button>
@@ -66,7 +66,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Ordet efter <span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord tydet som: {{rightToken.gold}}</span></h5>
                             <div class="card-text">
-                                <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="hypRight()">Læg sammen</button>
+                                <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(rightToken.doc_ID, rightToken.index)">Indlæs som hovedord</button>
                             </div>
                             <div class="input-group mt-2">
                                 <button class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'right')">Gem ændring i hovedord og læg sammen</button>

@@ -4,6 +4,7 @@ import { share, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
 import { Token } from '../tokens/token';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,8 +33,9 @@ export class TokensComponent implements OnChanges {
   public andetInputField: string;
   public toggleMetadata: boolean;
 
-  constructor(apiService: ApiService) {
+  constructor(apiService: ApiService, private router: Router) {
     this.apiService = apiService;
+    this.router = router;
   }
 
   ngOnInit(): void {
@@ -76,6 +78,10 @@ export class TokensComponent implements OnChanges {
   prevToken(): void {
     this.clearInputFields();
     this.getPrevMainToken.emit();
+  }
+
+  makeMainToken(doc_id: number, token_index: number): void {
+    this.router.navigate([`/tokens/${doc_id}/${token_index}`]);
   }
 
   public async correct(correction:string, hypDir?:string): Promise<void> {
