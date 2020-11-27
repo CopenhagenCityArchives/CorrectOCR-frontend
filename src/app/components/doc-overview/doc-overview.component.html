@@ -36,7 +36,7 @@
                     <span>{{doc.corrected}} rettet ud af {{doc.count}}</span> 
                 </td>
                 <td *ngIf="doc.last_modified">
-                    <span>{{doc.last_modified * 1000 | date: 'dd-MM-yyyy kl. H.m'}}</span>
+                    <span>{{doc.last_modified * 1000 | date: 'dd-MM-yyyy kl. HH.mm'}}</span>
                 </td>
                 <td *ngIf="!doc.last_modified">
                     <span>Ikke rettet før</span>
