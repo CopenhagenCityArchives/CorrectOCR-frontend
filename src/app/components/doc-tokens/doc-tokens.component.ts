@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
-import { Token } from '../tokens/token';
 
 @Component({
   selector: 'app-doc-tokens',
@@ -11,13 +10,14 @@ import { Token } from '../tokens/token';
   styleUrls: ['./doc-tokens.component.scss']
 })
 export class DocTokensComponent implements OnInit {
+  public mainToken$: Observable<Object>;
+  public docId: string;
+  public index: number = 0;
+
   public tokenList:Array<object> = new Array;
   public correctedList:Array<object>;
   public uncorrectedList:Array<object>;
-  public index: number = 0;
-  public docProgress: object;
-  public mainToken$: Observable<Object>;
-  public docId: string;
+  public modelCorrected: number;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
@@ -25,23 +25,26 @@ export class DocTokensComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(async params => {
       if(params.has("docid")) {
-        this.docId = params.get("docid")
-        let getAllTokensPromise: Array<object>;
+        this.docId = params.get("docid");
+        let tokenList: Array<object>;
         let corrected: Array<object> = new Array;
         let uncorrected: Array<object> = new Array;
-        await this.apiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data:Array<object>) => getAllTokensPromise = data);
+        let modelCorrected: number;
+        await this.apiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data:Array<object>) => tokenList = data);
+        await this.apiService.getOverview().toPromise().then((data:Array<object>) => modelCorrected = data.find(elm => elm['docid'] == this.docId)['corrected_by_model']);
         
-        getAllTokensPromise.map((token) => {
-          if(token['is_corrected']) {
+        tokenList.map((token) => {
+          if(token['is_corrected'] || token['is_discarded'] == 1) {
             corrected.push(token);
-          } else if (token['is_discarded'] === 0) {
+          } else {
             uncorrected.push(token);
           }
         });
-        this.tokenList = getAllTokensPromise;
+
+        this.tokenList = tokenList;
         this.correctedList = corrected;
         this.uncorrectedList = uncorrected;
-        this.docProgress = {total: this.tokenList.length, corrected: this.correctedList.length}
+        this.modelCorrected = modelCorrected
         this.getNextTokenFromList();
       }
     })

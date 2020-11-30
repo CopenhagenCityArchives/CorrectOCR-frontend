@@ -20,6 +20,7 @@ export class TokensComponent implements OnChanges {
 
   @Input() public docTotal?: number;
   @Input() public docCorrected?: number;
+  @Input() public modelCorrected?: number;
   public sessionCorrected: number;
 
   @Input() public mainToken$: Observable<any>;

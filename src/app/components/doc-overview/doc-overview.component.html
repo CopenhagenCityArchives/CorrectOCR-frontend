@@ -32,8 +32,11 @@
                         <h4 id="doc-{{i}}">Nummer: {{doc.docid}} </h4>
                     </td>
                 </ng-template>
-                <td>
-                    <span>{{doc.corrected}} rettet ud af {{doc.count}}</span> 
+                <td *ngIf="!(doc.corrected >= doc.count)">
+                    <span>{{(doc.corrected - doc.corrected_by_model)}} rettet ud af {{(doc.count - doc.corrected_by_model)}}</span> 
+                </td>
+                <td *ngIf="doc.corrected >= doc.count">
+                    <span>{{(doc.corrected - doc.corrected_by_model)}} rettet ud af {{(doc.count - doc.corrected_by_model)}}</span> 
                 </td>
                 <td *ngIf="doc.last_modified">
                     <span>{{doc.last_modified * 1000 | date: 'dd-MM-yyyy kl. HH.mm'}}</span>

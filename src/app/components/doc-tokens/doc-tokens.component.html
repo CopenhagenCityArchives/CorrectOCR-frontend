@@ -1,5 +1,5 @@
 <div *ngIf="mainToken$ | async; else loadingIndicator">
-    <app-tokens [mainToken$] = "mainToken$" [(docTotal)]="tokenList.length" [(docCorrected)]="correctedList.length" (getNextMainToken)="getNextTokenFromList()" (getPrevMainToken)="getPreviousTokenFromList()"></app-tokens>
+    <app-tokens [mainToken$] = "mainToken$" [(docTotal)]="tokenList.length" [(docCorrected)]="correctedList.length" [(modelCorrected)]="modelCorrected" (getNextMainToken)="getNextTokenFromList()" (getPrevMainToken)="getPreviousTokenFromList()"></app-tokens>
 </div>
 
 <ng-template #loadingIndicator>
