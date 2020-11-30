@@ -23,7 +23,16 @@
                                 <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(leftToken.doc_ID, leftToken.index)">Indlæs som hovedord</button>
                             </div>
                             <div class="input-group mt-2">
-                                <button ng class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'left')">Gem ændring i hovedord og læg sammen</button>
+                                <!-- <button ng class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'left')">Gem ændring i hovedord og læg sammen</button> -->
+                                
+                                <form [formGroup]="checkForm">
+                                    <div class="form-group">
+                                        <input id="leftCheckmark" type="checkbox" formControlName="leftCheck" class="m-1" [value]="'left'" (change)="onCheckboxChange($event)">
+                                        <label class="form-check-label" for="leftCheckmark">Gem ændring i hovedord og læg sammen</label>
+                                    </div>
+                                </form>
+
+                                
                             </div>
                         </div>
                         <div class="card-footer text-muted">
@@ -69,7 +78,15 @@
                                 <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(rightToken.doc_ID, rightToken.index)">Indlæs som hovedord</button>
                             </div>
                             <div class="input-group mt-2">
-                                <button class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'right')">Gem ændring i hovedord og læg sammen</button>
+                                <!-- <button class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'right')">Gem ændring i hovedord og læg sammen</button> -->
+                                
+                                <form [formGroup]="checkForm">
+                                    <div class="form-group">
+                                        <input id="rightCheckmark" formControlName="rightCheck" type="checkbox" class="m-1" [value]="'right'" (change)="onCheckboxChange($event)">
+                                        <label class="form-check-label" for="rightCheckmark">Gem ændring i hovedord og læg sammen</label>
+                                    </div>
+                                </form>
+                            
                             </div>
                         </div>
                         <div class="card-footer text-muted">

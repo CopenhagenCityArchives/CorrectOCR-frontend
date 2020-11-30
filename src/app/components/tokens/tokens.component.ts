@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/API/api.service';
 import { Token } from '../tokens/token';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-tokens',
@@ -33,6 +33,12 @@ export class TokensComponent implements OnChanges {
   public andetInputField: string;
   public toggleMetadata: boolean;
 
+  hypDir: string;
+  checkForm: FormGroup = new FormGroup({
+    leftCheck: new FormControl(''),
+    rightCheck: new FormControl('')
+  });
+
   constructor(apiService: ApiService, private router: Router) {
     this.apiService = apiService;
     this.router = router;
@@ -52,6 +58,18 @@ export class TokensComponent implements OnChanges {
       return
     }
     return
+  }
+
+  onCheckboxChange(e) {
+    if (e.target.checked) {
+      if (e.target.value == 'left') {
+        this.checkForm.controls['rightCheck'].setValue(false);
+        this.hypDir = 'left';
+      } else if(e.target.value == 'right'){
+        this.checkForm.controls['leftCheck'].setValue(false);
+        this.hypDir = 'right';
+      }
+    }
   }
 
   public async setupTokens(mainToken$: Observable<any>) {
@@ -84,10 +102,10 @@ export class TokensComponent implements OnChanges {
     this.router.navigate([`/tokens/${doc_id}/${token_index}`]);
   }
 
-  public async correct(correction:string, hypDir?:string): Promise<void> {
+  public async correct(correction:string): Promise<void> {
     let response: any;
-    if (hypDir) {
-      response = await this.apiService.postGoldAndHypernate(this.mainToken, correction, hypDir).toPromise().then((data:JSON) => new Token(data));
+    if (this.hypDir) {
+      response = await this.apiService.postGoldAndHypernate(this.mainToken, correction, this.hypDir).toPromise().then((data:JSON) => new Token(data));
     } else {
       response = await this.apiService.postGold(this.mainToken, correction).toPromise().then((data:JSON) => new Token(data));
     }

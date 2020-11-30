@@ -4,7 +4,7 @@ import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PdfJsViewerModule  } from 'ng2-pdfjs-viewer';
@@ -41,7 +41,8 @@ import { AsyncTimestampPipe } from './custom-pipes/async-timestamp.pipe';
     FormsModule,
     PdfViewerModule,
     PdfJsViewerModule,
-    //ReactiveFormsModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot([
       {path: '', component: DocOverviewComponent, canActivate: [AuthGuard]},
       {path: 'tokens', component: RandomTokenComponent, canActivate: [AuthGuard]},
