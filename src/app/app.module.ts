@@ -48,6 +48,7 @@ import { AsyncTimestampPipe } from './custom-pipes/async-timestamp.pipe';
       {path: 'tokens/:docid', component: DocTokensComponent, canActivate: [AuthGuard]},
       {path: 'tokens/:docid/:tokenindex', component: SpecificTokenComponent, canActivate: [AuthGuard]},
       {path: 'doc-overview', component: DocOverviewComponent, canActivate: [AuthGuard]},
+      {path:'**', redirectTo: '/', canActivate: [AuthGuard]}
     ]),
     NgbModule
   ],
