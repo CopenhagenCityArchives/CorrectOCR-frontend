@@ -1,7 +1,7 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { DebugElement, SimpleChange } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of } from 'rxjs';
@@ -27,7 +27,7 @@ describe('TokensComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TokensComponent, TokensPipePipe ],
-      imports: [ HttpClientTestingModule, RouterTestingModule, FormsModule ],
+      imports: [ HttpClientTestingModule, RouterTestingModule, FormsModule, ReactiveFormsModule ],
       providers: [ ApiService, TokensPipePipe ]
     })
     .compileComponents();

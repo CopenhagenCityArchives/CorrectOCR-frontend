@@ -1,9 +1,9 @@
 [
     [
-        {"image_url": "/6000/token-6.png",  "info_url": "/6148/token-6.json",  "is_corrected": true, "string": "La&s"},
-        {"image_url": "/6000/token-7.png",  "info_url": "/6148/token-7.json",  "is_corrected": true, "string": "stter."},
-        {"image_url": "/6000/token-10.png", "info_url": "/6148/token-10.json", "is_corrected": true, "string": "anskrør,"},
-        {"image_url": "/6000/token-27.png", "info_url": "/6148/token-27.json", "is_corrected": true, "string": "lalet"},
+        {"image_url": "/6000/token-6.png",  "info_url": "/6148/token-6.json",  "is_corrected": true, "is_discarded": 0, "string": "La&s"},
+        {"image_url": "/6000/token-7.png",  "info_url": "/6148/token-7.json",  "is_corrected": true, "is_discarded": 0, "string": "stter."},
+        {"image_url": "/6000/token-10.png", "info_url": "/6148/token-10.json", "is_corrected": true, "is_discarded": 0, "string": "anskrør,"},
+        {"image_url": "/6000/token-27.png", "info_url": "/6148/token-27.json", "is_corrected": true, "is_discarded": 0, "string": "lalet"},
         {"image_url": "/6000/token-30.png", "info_url": "/6148/token-30.json", "is_corrected": false, "is_discarded": 0, "string": "T^e."},
         {"image_url": "/6000/token-42.png", "info_url": "/6148/token-42.json", "is_corrected": false, "is_discarded": 0, "string": "idten."},
         {"image_url": "/6000/token-45.png", "info_url": "/6148/token-45.json", "is_corrected": false, "is_discarded": 0, "string": ":asse,"},

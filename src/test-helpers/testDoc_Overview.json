@@ -1,20 +1,32 @@
 [
-    {
-      "docid": "6000",
-      "url": "/6000/tokens.json",
-      "count": 2555,
-      "corrected": 250
-    },
-    {
-      "docid": "6148",
-      "url": "/6148/tokens.json",
-      "count": 3328,
-      "corrected": 500
-    },
-    {
-      "docid": "6500",
-      "url": "/6500/tokens.json",
-      "count": 1857,
-      "corrected": 1857
-    }
-  ]
+  {
+    "corrected": 1663,
+    "corrected_by_model": 1647,
+    "count": 1903,
+    "discarded": 250,
+    "docid": "6000",
+    "info_url": null,
+    "last_modified": 1606478420.0,
+    "url": "/6000/tokens.json"
+  },
+  {
+    "corrected": 2469,
+    "corrected_by_model": 2249,
+    "count": 2534,
+    "discarded": 286,
+    "docid": "6148",
+    "info_url": null,
+    "last_modified": 1606737928.0,
+    "url": "/6148/tokens.json"
+  },
+  {
+    "corrected": 2188,
+    "corrected_by_model": 2156,
+    "count": 2478,
+    "discarded": 46,
+    "docid": "6158",
+    "info_url": null,
+    "last_modified": 1606385275.0,
+    "url": "/6158/tokens.json"
+  }
+]

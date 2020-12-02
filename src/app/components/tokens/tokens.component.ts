@@ -35,10 +35,7 @@ export class TokensComponent implements OnChanges {
   public toggleMetadata: boolean;
 
   hypDir: string;
-  checkForm: FormGroup = new FormGroup({
-    leftCheck: new FormControl(''),
-    rightCheck: new FormControl('')
-  });
+  checkForm: FormGroup;
 
   constructor(apiService: ApiService, private router: Router) {
     this.apiService = apiService;
@@ -47,6 +44,10 @@ export class TokensComponent implements OnChanges {
 
   ngOnInit(): void {
     this.toggleMetadata = false;
+    this.checkForm = new FormGroup({
+      leftCheck: new FormControl(''),
+      rightCheck: new FormControl('')
+    });
   }
 
   async ngOnChanges(changes: SimpleChanges) {

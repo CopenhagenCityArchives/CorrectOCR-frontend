@@ -13,9 +13,11 @@ describe('DocTokensComponent', () => {
   let fixture: ComponentFixture<DocTokensComponent>;
   let activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
 
-  const testDocs:Array<JSON> = require('../../../test-helpers/testGet_All_Tokens_From_Doc_Id.json');
-  const testDoc6000:JSON = testDocs[0];
+  const testDocsTokenInfo:Array<JSON> = require('../../../test-helpers/testGet_All_Tokens_From_Doc_Id.json');
+  const testDocOverview:Array<JSON> = require('../../../test-helpers/testDoc_overview.json');
+  const testDoc6000:JSON = testDocsTokenInfo[0];
 
+  let getOverviewSpy: jasmine.Spy;
   let getTokenFromInfoUrlSpy: jasmine.Spy;
   let getNextTokenFromListSpy: jasmine.Spy;
   let getAllTokensFromDocIdSpy: jasmine.Spy;
@@ -33,12 +35,15 @@ describe('DocTokensComponent', () => {
     apiService = TestBed.inject(ApiService);
     fixture = TestBed.createComponent(DocTokensComponent);
     component = fixture.componentInstance;
+    getOverviewSpy = spyOn(apiService, 'getOverview').and.returnValue(of(testDocOverview));
     getTokenFromInfoUrlSpy = spyOn(apiService, 'getTokenFromInfoUrl').and.returnValue(of(testDoc6000));
     getAllTokensFromDocIdSpy = spyOn(apiService, 'getAllTokensFromDocId').and.returnValue(of(testDoc6000));
     getNextTokenFromListSpy = spyOn(component, 'getNextTokenFromList').and.callThrough();
+
   });
 
   afterEach(() => {
+    getOverviewSpy.calls.reset();
     getNextTokenFromListSpy.calls.reset();
     getAllTokensFromDocIdSpy.calls.reset();
     getTokenFromInfoUrlSpy.calls.reset();
@@ -75,67 +80,16 @@ describe('DocTokensComponent', () => {
     expect(component.correctedList.length).toBe(4);
   }));
 
-});
-
-describe('DocTokensComponent calls', () => {
-  let apiService: ApiService;
-  let component: DocTokensComponent;
-  let fixture: ComponentFixture<DocTokensComponent>;
-  let activatedRoute: ActivatedRouteStub = new ActivatedRouteStub();
-
-  const testDocs:Array<JSON> = require('../../../test-helpers/testGet_All_Tokens_From_Doc_Id.json');
-  const testDoc6000:JSON = testDocs[0];
-
-  let getTokenFromInfoUrlSpy: jasmine.Spy;
-  let getNextTokenFromListSpy: jasmine.Spy;
-  let getAllTokensFromDocIdSpy: jasmine.Spy;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DocTokensComponent ],
-      imports: [ HttpClientTestingModule, RouterTestingModule ],
-      providers: [ ApiService, {provide: ActivatedRoute, useValue: activatedRoute} ]
-    })
-    .compileComponents();
-  }));
-  
-  beforeEach(() => {
-    apiService = TestBed.inject(ApiService);
-    fixture = TestBed.createComponent(DocTokensComponent);
-    component = fixture.componentInstance;
-    getTokenFromInfoUrlSpy = spyOn(apiService, 'getTokenFromInfoUrl').and.returnValue(of(testDoc6000));
-    getAllTokensFromDocIdSpy = spyOn(apiService, 'getAllTokensFromDocId').and.returnValue(of(testDoc6000));
-    getNextTokenFromListSpy = spyOn(component, 'getNextTokenFromList').and.callThrough();
-  });
-
-  afterEach(() => {
-    getNextTokenFromListSpy.calls.reset();
-    getAllTokensFromDocIdSpy.calls.reset();
-    getTokenFromInfoUrlSpy.calls.reset();
-  })
-
   it('should call getNextTokenFromList with expected params from component.uncorrectedList when called multiple times', fakeAsync(() => {
     activatedRoute.setParamMap({docid: "6000"});
-    expect(getNextTokenFromListSpy).toHaveBeenCalledTimes(0);
-    expect(component.index).toBe(0);
     component.ngOnInit();
     tick();
     fixture.detectChanges();
     const testData:Array<Object> = component.uncorrectedList;
-    
-    expect(getNextTokenFromListSpy).toHaveBeenCalledTimes(1);
     expect(apiService.getTokenFromInfoUrl).toHaveBeenCalledWith(testData[0]['info_url']);
-    expect(component.index).toBe(1)
-
     component.getNextTokenFromList();
-    expect(getNextTokenFromListSpy).toHaveBeenCalledTimes(2);
     expect(apiService.getTokenFromInfoUrl).toHaveBeenCalledWith(testData[1]['info_url']);
-    expect(component.index).toBe(2)
-
     component.getNextTokenFromList();
-    expect(getNextTokenFromListSpy).toHaveBeenCalledTimes(3);
     expect(apiService.getTokenFromInfoUrl).toHaveBeenCalledWith(testData[2]['info_url']);
-    expect(component.index).toBe(3)
-
-  }));
+  }))
 });
