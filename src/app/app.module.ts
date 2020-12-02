@@ -38,7 +38,6 @@ import { AsyncTimestampPipe } from './custom-pipes/async-timestamp.pipe';
     AppRoutingModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    FormsModule,
     PdfViewerModule,
     PdfJsViewerModule,
     ReactiveFormsModule,
