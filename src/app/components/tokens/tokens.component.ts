@@ -139,7 +139,7 @@ export class TokensComponent implements OnChanges {
   }
 
   async setDocumentUrl() {
-    this.documentSrc = String(this.mainToken.doc_ID) + '.pdf';
+    this.documentSrc = `${environment.documentBaseUrl}${this.mainToken.doc_ID}`;
   }
 
   public initCounter(doc_id: number): void {
