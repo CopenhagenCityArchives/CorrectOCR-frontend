@@ -18,17 +18,16 @@
                         <img id="left_token_img" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Ordet før <span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord tydet som: {{leftToken.gold}}</span></h5>
+                            <h5 class="card-title">Ordet før <span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord tydet: {{leftToken.gold}}</span></h5>
                             <div class="card-text">
                                 <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(leftToken.doc_ID, leftToken.index)">Indlæs som hovedord</button>
                             </div>
                             <div class="input-group mt-2">
-                                <!-- <button ng class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'left')">Gem ændring i hovedord og læg sammen</button> -->
                                 
                                 <form [formGroup]="checkForm">
                                     <div class="form-group">
                                         <input id="leftCheckmark" type="checkbox" formControlName="leftCheck" class="m-1" [value]="'left'" (change)="onCheckboxChange($event)">
-                                        <label class="form-check-label" for="leftCheckmark">Gem ændring i hovedord og læg sammen</label>
+                                        <label class="form-check-label" for="leftCheckmark">Læg sammen</label>
                                     </div>
                                 </form>
 
@@ -46,9 +45,9 @@
                         <img id="main_token_img" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Hovedordet <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord tydet som: {{mainToken.gold}}</span></h5>
+                            <h5 class="card-title">Hovedordet <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.gold}}</span></h5>
                             <div class="card-text">
-                                <div id="main_btn_group" class="mb-2">
+                                <div *ngIf="mainToken.k_best" id="main_btn_group" class="m-2">
                                     <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
                                     <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.k_best['2'].candidate)">{{mainToken.k_best['2'].candidate}}</button>
                                     <button class="btn btn-secondary mr-2" type="button" (click)="correct(mainToken.k_best['3'].candidate)">{{mainToken.k_best['3'].candidate}}</button>
@@ -73,17 +72,16 @@
                         <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}" alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Ordet efter <span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord tydet som: {{rightToken.gold}}</span></h5>
+                            <h5 class="card-title">Ordet efter <span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord tydet: {{rightToken.gold}}</span></h5>
                             <div class="card-text">
                                 <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(rightToken.doc_ID, rightToken.index)">Indlæs som hovedord</button>
                             </div>
                             <div class="input-group mt-2">
-                                <!-- <button class="btn btn-secondary" type="submit" (click)="correct(andetInputField, 'right')">Gem ændring i hovedord og læg sammen</button> -->
                                 
                                 <form [formGroup]="checkForm">
                                     <div class="form-group">
                                         <input id="rightCheckmark" formControlName="rightCheck" type="checkbox" class="m-1" [value]="'right'" (change)="onCheckboxChange($event)">
-                                        <label class="form-check-label" for="rightCheckmark">Gem ændring i hovedord og læg sammen</label>
+                                        <label class="form-check-label" for="rightCheckmark">Læg sammen</label>
                                     </div>
                                 </form>
                             
@@ -98,15 +96,17 @@
 
         </div>
         
-        <div class="row justify-content-center">
-            <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-secondary mr-2" type="button" (click)="prevToken()">Tilbage til sidste ord</button>
-            <button class="col-4 btn btn-secondary mr-2" type="button" (click)="refreshToken()">Genindlæs hovedordet</button>            
-            <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken"> 
-                <button class="col-4 btn btn-danger mr-2" type="button" (click)="discardToken()">Slet hovedordet</button>
-                <button id="toggleMetaData" class="btn btn-secondary mr-2" type="button" (click)="toggleMetadata = !toggleMetadata">Se hele siden</button>
-                <button class="btn btn-secondary mr-2" type="button" (click)="skipToken()">Spring dette ord over</button>
-            </ng-container>
-        </div>
+            <div class="d-flex justify-content-around m-2">
+                <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-sm btn-secondary" type="button" (click)="prevToken()">Tilbage</button>
+                <button class="btn btn-secondary btn-sm" type="button" (click)="refreshToken()">Genindlæs</button>
+                <button class="btn btn-secondary btn-sm" type="button" (click)="skipToken()">Spring over</button>
+            </div>
+            <div class="d-flex justify-content-around m-2">
+                <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
+                    <button id="toggleMetaData" class="btn btn-secondary btn-sm" type="button" (click)="toggleMetadata = !toggleMetadata">Se hele siden</button>
+                    <button class="btn btn-danger btn-sm" type="button" (click)="discardToken()">Slet hovedordet</button>
+                </ng-container>
+            </div>
 
         <div class="row justify-content-center m-4" *ngIf="docTotal">
             <div class="col">
