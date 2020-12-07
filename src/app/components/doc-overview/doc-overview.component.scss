@@ -1,0 +1,9 @@
+td {
+    display: block;
+}
+  
+@media screen and (min-width: 768px) {
+    td {
+        display: table-cell;
+    }
+}
