@@ -59,18 +59,20 @@
 
     </table>
 
-    <form class="col-4">
-        <div class="row">
-            <div class="form-group col">
+    <form>
+        <div class="d-flex m-2">
+            <div class="form-group">
                 <label for="specificDocId">Efterretning nr.</label>
                 <input [(ngModel)]="specificDocId" id="specificDocId" name="specificDocId" type="text" class="form-control" placeholder="fx. 6148">
             </div>
-            <div class="form-group col">
+            <div class="form-group">
                 <label for="specificTokenIndex">Hovedord nr.</label>
                 <input [(ngModel)]="specificTokenIndex" id="specificTokenIndex" name="specificTokenIndex" type="text" class="form-control" placeholder="fx. 500">    
             </div>
         </div>
-        <button class="btn btn-secondary" type="submit" (click)="redirectToToken()">Gå til Ord</button>
+        <div class="d-flex m-2">
+            <button class="btn btn-secondary" type="submit" (click)="redirectToToken()">Gå til Ord</button>
+        </div>
     </form>
 
     <!-- <div class="row">
