@@ -1,6 +1,6 @@
 <div class="container-fluid">
-    <h1>Forbedring af søgning i Politiets efterretninger</h1>
-
+    <h1 class="d-none d-md-block">Forbedring af søgning i Politiets efterretninger</h1>
+    <h2 class="d-md-none">Forbedring af søgning i Politiets efterretninger</h2>
     <div>
         <p>Ikke alle ord i politiets efterretninger er blevet genkendt korrekt i OCR-behandlingen.</p>
         <p>Her kan du rette fejlene, således at efterretningerne bliver bedre at søge i og lettere at anvende</p>
@@ -61,7 +61,7 @@
 
     <form>
         <div class="d-flex m-2">
-            <div class="form-group">
+            <div class="form-group mr-1">
                 <label for="specificDocId">Efterretning nr.</label>
                 <input [(ngModel)]="specificDocId" id="specificDocId" name="specificDocId" type="text" class="form-control" placeholder="fx. 6148">
             </div>
