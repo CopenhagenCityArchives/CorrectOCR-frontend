@@ -47,11 +47,11 @@
                         <div class="card-body">
                             <h5 class="card-title">Hovedordet <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.gold}}</span></h5>
                             <div class="card-text">
-                                <div *ngIf="mainToken.k_best" id="main_btn_group" class="d-flex justify-content-around mb-2">
-                                    <button class="btn btn-secondary" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
-                                    <button class="btn btn-secondary" type="button" (click)="correct(mainToken.k_best['2'].candidate)">{{mainToken.k_best['2'].candidate}}</button>
-                                    <button class="btn btn-secondary" type="button" (click)="correct(mainToken.k_best['3'].candidate)">{{mainToken.k_best['3'].candidate}}</button>
-                                    <button class="btn btn-secondary" type="button" (click)="correct(mainToken.k_best['4'].candidate)">{{mainToken.k_best['4'].candidate}}</button>
+                                <div *ngIf="mainToken.k_best" id="main_btn_group" class="d-flex mb-2">
+                                    <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
+                                    <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['2'].candidate)">{{mainToken.k_best['2'].candidate}}</button>
+                                    <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['3'].candidate)">{{mainToken.k_best['3'].candidate}}</button>
+                                    <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['4'].candidate)">{{mainToken.k_best['4'].candidate}}</button>
                                 </div>
                                 <div class="input-group">
                                     <input [(ngModel)]="andetInputField" id="andet" name="andet" type="text" class="form-control" placeholder="andet...">
@@ -97,14 +97,14 @@
         </div>
         
             <div class="d-flex justify-content-around m-2">
-                <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-sm btn-secondary" type="button" (click)="prevToken()">Tilbage</button>
-                <button class="btn btn-secondary btn-sm" type="button" (click)="refreshToken()">Genindlæs</button>
-                <button class="btn btn-secondary btn-sm" type="button" (click)="skipToken()">Spring over</button>
+                <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-block btn-secondary m-1" type="button" (click)="prevToken()">Tilbage</button>
+                <button class="btn btn-block btn-secondary m-1" type="button" (click)="refreshToken()">Genindlæs</button>
+                <button class="btn btn-block btn-secondary m-1" type="button" (click)="skipToken()">Spring over</button>
             </div>
             <div class="d-flex justify-content-around m-2">
                 <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
-                    <button id="toggleMetaData" class="btn btn-secondary btn-sm" type="button" (click)="toggleMetadata = !toggleMetadata">Se hele siden</button>
-                    <button class="btn btn-danger btn-sm" type="button" (click)="discardToken()">Slet hovedordet</button>
+                    <button id="toggleMetaData" class="btn btn-secondary btn-block m-1" type="button" (click)="toggleMetadata = !toggleMetadata">Se hele siden</button>
+                    <button class="btn btn-danger btn-block m-1" type="button" (click)="discardToken()">Slet hovedordet</button>
                 </ng-container>
             </div>
 
