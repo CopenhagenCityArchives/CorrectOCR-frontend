@@ -47,7 +47,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Hovedordet <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.gold}}</span></h5>
                             <div class="card-text">
-                                <div *ngIf="mainToken.k_best" id="main_btn_group" class="d-flex mb-2">
+                                <div *ngIf="mainToken.k_best" id="main_btn_group" class="d-flex flex-wrap mb-2">
                                     <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
                                     <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['2'].candidate)">{{mainToken.k_best['2'].candidate}}</button>
                                     <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['3'].candidate)">{{mainToken.k_best['3'].candidate}}</button>
