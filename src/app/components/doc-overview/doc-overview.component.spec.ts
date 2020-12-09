@@ -11,6 +11,8 @@ import { AsyncTimestampPipe } from '../../custom-pipes/async-timestamp.pipe'
 
 describe('DocOverviewComponent', () => {
 
+  const testData = require('../../../test-helpers/testDoc_Overview.json');
+
   let apiService: ApiService;
   let client: HttpClient;
   let pipe: AsyncTimestampPipe;
@@ -40,62 +42,59 @@ describe('DocOverviewComponent', () => {
   });
 
   it('should create a table with the expected number of rows', () => {
-    const testData = of([
-      {"corrected": 2973, "count": 3328, "docid": "6148", "url": "/6148/tokens.json"},
-      {"corrected": 1, "count": 9999, "docid": "9999", "url": "/9999/tokens.json"},
-    ]);
     const debug: DebugElement = fixture.debugElement;
 
-    spyOn(apiService, 'getOverview').and.returnValue(testData);
+    spyOn(apiService, 'getOverview').and.returnValue(of(testData));
     fixture.detectChanges();
 
     //inspect TableBody
     const tableBody: HTMLElement = debug.query(By.css('tbody')).nativeElement; 
     expect(tableBody).toBeDefined(); 
-    expect(tableBody.children.length).toEqual(2);
+    expect(tableBody.children.length).toEqual(3);
 
   });
 
   it('should create a table containing rows with expected data', () => {
-    const testData = of([
-      {"corrected": 2973, "count": 3328, "docid": "6148", "url": "/6148/tokens.json"},
-      {"corrected": 1, "count": 9999, "docid": "9999", "url": "/9999/tokens.json"},
-    ]);
     const debug: DebugElement = fixture.debugElement;
 
-    spyOn(apiService, 'getOverview').and.returnValue(testData);
-    // spyOn(apiService, 'getDocumentDate').and.returnValue()
+    spyOn(apiService, 'getOverview').and.returnValue(of(testData));
     fixture.detectChanges();
 
     //Inspect table rows
-    const tableRow1: HTMLTableRowElement = debug.query(By.css('#tr-6148')).nativeElement;
-    const tableRow2: HTMLTableRowElement = debug.query(By.css('#tr-9999')).nativeElement;
+    const tableRow1: HTMLTableRowElement = debug.query(By.css('#tr-6000')).nativeElement;
+    const tableRow2: HTMLTableRowElement = debug.query(By.css('#tr-6148')).nativeElement;
+    const tableRow3: HTMLTableRowElement = debug.query(By.css('#tr-6158')).nativeElement;
 
     expect(tableRow1.cells.length).toEqual(4);
     expect(tableRow2.cells.length).toEqual(4);
 
-    expect(tableRow1.cells[0].textContent).toMatch('6148');
-    expect(tableRow1.cells[1].textContent).toMatch('2973 rettet ud af 3328');
+    expect(tableRow1.cells[0].textContent).toMatch('6000');
+    expect(tableRow1.cells[1].textContent).toMatch('16 rettet ud af 256');
+    expect(tableRow1.cells[2].textContent).toMatch('27-11-2020 kl. 13.00');
 
-    expect(tableRow2.cells[0].textContent).toContain('9999');
-    expect(tableRow2.cells[1].textContent).toContain('1 rettet ud af 9999');
+    expect(tableRow2.cells[0].textContent).toContain('6148');
+    expect(tableRow2.cells[1].textContent).toContain('220 rettet ud af 285');
+    expect(tableRow2.cells[2].textContent).toContain('30-11-2020 kl. 13.05');
+
+    expect(tableRow3.cells[0].textContent).toContain('6158');
+    expect(tableRow3.cells[1].textContent).toContain('32 rettet ud af 322');
+    expect(tableRow3.cells[2].textContent).toContain('26-11-2020 kl. 11.07');
     
   });
 
   it('should raise a click event when clicked (triggerEventhandler)', () => {
-    const testData = of([
-      {"corrected": 2973, "count": 3328, "docid": "6148", "url": "/6148/tokens.json"},
-      {"corrected": 1, "count": 9999, "docid": "9999", "url": "/9999/tokens.json"},
-    ]);
     const debug: DebugElement = fixture.debugElement;
 
-    spyOn(apiService, 'getOverview').and.returnValue(testData);
+    spyOn(apiService, 'getOverview').and.returnValue(of(testData));
     fixture.detectChanges();
     
-    const tableRow1: HTMLTableRowElement = debug.query(By.css('#tr-6148')).nativeElement;
-    const tableRow2: HTMLTableRowElement = debug.query(By.css('#tr-9999')).nativeElement; 
-    expect(tableRow1.attributes.getNamedItem("ng-reflect-router-link").value).toMatch('/tokens/6148');
-    expect(tableRow2.attributes.getNamedItem("ng-reflect-router-link").value).toMatch('/tokens/9999');
+    const tableRow1: HTMLTableRowElement = debug.query(By.css('#tr-6000')).nativeElement;
+    const tableRow2: HTMLTableRowElement = debug.query(By.css('#tr-6148')).nativeElement; 
+    const tableRow3: HTMLTableRowElement = debug.query(By.css('#tr-6158')).nativeElement; 
+
+    expect(tableRow1.attributes.getNamedItem("ng-reflect-router-link").value).toMatch('/tokens/6000');
+    expect(tableRow2.attributes.getNamedItem("ng-reflect-router-link").value).toMatch('/tokens/6148');
+    expect(tableRow3.attributes.getNamedItem("ng-reflect-router-link").value).toMatch('/tokens/6158');
     
   })
 
