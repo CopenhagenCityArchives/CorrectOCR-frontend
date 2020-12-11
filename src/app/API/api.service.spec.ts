@@ -10,6 +10,7 @@ const url: string = environment.apiUrl;
 const solrUrl: string = environment.solrUrl;
 let apiService: ApiService;
 let testJSON: JSON = require('../../test-helpers/testMainToken.json');
+const testUserData = JSON.stringify({"email": "test@test.com", "name": "Tester", "APACS": "69420" });
 let client: HttpClient;
 let controller: HttpTestingController;
 
@@ -126,7 +127,7 @@ function successfulFetching() {
   it('should send post request when postHypernate() is called', () => {
     const mainToken: IToken = new Token(testJSON);
     const hypDir: string = "left";
-    apiService.postHypernate(mainToken, hypDir).subscribe((data:JSON) => {
+    apiService.postHypernate(mainToken, hypDir, testUserData).subscribe((data:JSON) => {
       const resToken: Token = new Token(data);
     });
     const req = controller.expectOne((url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'));
@@ -136,7 +137,7 @@ function successfulFetching() {
   it('should send post request when postGold() is called', () => {
     const mainToken: IToken = new Token(testJSON);
     const gold: string = "sol";
-    apiService.postGold(mainToken, gold).subscribe((data:JSON) => {
+    apiService.postGold(mainToken, gold, testUserData).subscribe((data:JSON) => {
       const resToken: Token = new Token(data);
     });
     const req = controller.expectOne((url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json'));
@@ -145,7 +146,7 @@ function successfulFetching() {
 
   it('should send post request when discardToken() is called', () => {
     const mainToken: IToken = new Token(testJSON);
-    apiService.discardToken(mainToken).subscribe((data:JSON) => {
+    apiService.discardToken(mainToken, testUserData).subscribe((data:JSON) => {
       const resToken: Token = new Token(data);
     });
     const req = controller.expectOne((url + mainToken.doc_ID + '/token-' + mainToken.index + '.json'));
@@ -345,50 +346,6 @@ function catchingErrors() {
     expect(spyHandleError).toHaveBeenCalledTimes(1);
     expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
   })
-
-  // it('should catch Client Error in postHypernate()', () => {
-  //   const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/6148/token-331.json", status: 0 }
-  //   const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
-  //   const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
-
-  //   apiService.postHypernate(testToken, 'left').subscribe();
-  //   expect(spyHandleError).toThrowError();       
-  //   controller.expectOne(`${url}6148/token-331.json`).error(new ErrorEvent('network error'), mockErrorResponse);
-  //   expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
-  //   // expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
-  // })
-
-  // it('should catch Server Error in postHypernate()', () => {
-  //   const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/6148/token-331.json"};
-  //   const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
-  //   apiService.postHypernate(testToken, 'left').subscribe();
-  //   expect(spyHandleError).toThrow();
-  //   expect(spyHandleError).toHaveBeenCalledTimes(1);
-
-  // })
-
-  // it('should catch Client Error in discardToken()', () => {
-  //   const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: "http://localhost:5000/6148/token-331.json", status: 0 }
-  //   const mockErrorResponse = { status: 0, statusText: 'Bad Request' };
-  //   const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
-
-  //   apiService.discardToken(testToken).subscribe();
-  //   controller.expectOne(`${url}6148/token-331.json`).error(new ErrorEvent('network error'), mockErrorResponse);
-
-  //   expect(spyHandleError).toHaveBeenCalledTimes(1);
-  //   expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorInit));
-  // })
-
-  // it('should catch Server Error in discardToken()', () => {
-  //   const mockErrorResponse = { status: 404, statusText: 'Not Found', url: "http://localhost:5000/6148/token-331.json"};
-  //   const spyHandleError = spyOn(apiService, 'handleError').and.callThrough();
-
-  //   apiService.discardToken(testToken).subscribe();
-  //   controller.expectOne(`${url}6148/token-331.json`).flush(null, { status: 404, statusText: 'Not Found' })
-
-  //   expect(spyHandleError).toHaveBeenCalledTimes(1);
-  //   expect(spyHandleError).toHaveBeenCalledWith(new HttpErrorResponse(mockErrorResponse));
-  // })
 
   it('should catch Client Error in getDocumentDate()', () => {
     const mockErrorInit = { error: new ErrorEvent('network error'), statusText: 'Bad Request', url: `${solrUrl}select?wt=json&q=id:19-6148&fl=efterretning_date`, status: 0 }

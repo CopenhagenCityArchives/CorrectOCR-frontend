@@ -153,8 +153,8 @@ export class ApiService {
    *
    * @return  {Observable<Object>}             [return Observable]
    */
-  public postHypernate(mainToken: IToken, hypDir: string): Observable<Object> {
-    let body = { 'hyphenate': hypDir };
+  public postHypernate(mainToken: IToken, hypDir: string, userData): Observable<Object> {
+    let body = { 'hyphenate': hypDir,'annotation_info': JSON.parse(userData) };
     return this.http.post(this.url + mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', {body: body}).pipe(
       catchError(err => {
         return this.handleError(err);
@@ -170,8 +170,8 @@ export class ApiService {
    *
    * @return  {Observable<Object>}             [return Observable]
    */
-  public postGold(mainToken: IToken, gold: string): Observable<Object> {
-    let body = { 'gold': gold };
+  public postGold(mainToken: IToken, gold: string, userData): Observable<Object> {
+    let body = { 'gold': gold, 'annotation_info': JSON.parse(userData) };
     return this.http.post(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', body).pipe(
       catchError(err => {
         return this.handleError(err);
@@ -188,8 +188,8 @@ export class ApiService {
    *
    * @return  {Observable<Object>}             [return Observable]
    */
-  public postGoldAndHypernate(mainToken: IToken, gold: string, hypDir: string): Observable<Object> {
-    let body = { 'gold': gold, 'hyphenate': hypDir };
+  public postGoldAndHypernate(mainToken: IToken, gold: string, hypDir: string, userData): Observable<Object> {
+    let body = { 'gold': gold, 'hyphenate': hypDir, 'annotation_info': JSON.parse(userData) };
     return this.http.post(this.url +  mainToken.doc_ID + '/token-' + (mainToken.index) + '.json', body).pipe(
       catchError(err => {
         return this.handleError(err);
@@ -204,8 +204,8 @@ export class ApiService {
    *
    * @return  {Observable<Object>}             [return Observable]
    */
-  public discardToken(mainToken: IToken): Observable<Object> {
-    const body = {'discard':true};
+  public discardToken(mainToken: IToken, userData): Observable<Object> {
+    const body = {'discard':true, 'annotation_info': JSON.parse(userData)};
      return this.http.post(this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json', body).pipe(
       catchError(err => {
         return this.handleError(err);

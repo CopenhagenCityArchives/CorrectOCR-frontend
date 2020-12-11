@@ -6,6 +6,7 @@ import { Token } from '../tokens/token';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-tokens',
@@ -17,6 +18,7 @@ export class TokensComponent implements OnChanges {
   public url: string = environment.apiUrl;
   public documentSrc: string;
   private apiService: ApiService;
+  private authService: AuthService;
 
   @Input() public docTotal?: number;
   @Input() public docCorrected?: number;
@@ -30,16 +32,18 @@ export class TokensComponent implements OnChanges {
   public mainToken: Token;
   public leftToken$: Observable<any>
   public rightToken$: Observable<any>;
-  
   public andetInputField: string;
   public toggleMetadata: boolean;
 
   hypDir: string;
   checkForm: FormGroup;
+  profile$: Observable<any>;
+  userData: any;
 
-  constructor(apiService: ApiService, private router: Router) {
+  constructor(apiService: ApiService, authService: AuthService, private router: Router) {
     this.apiService = apiService;
     this.router = router;
+    this.authService = authService;
   }
 
   ngOnInit(): void {
@@ -48,6 +52,7 @@ export class TokensComponent implements OnChanges {
       leftCheck: new FormControl(''),
       rightCheck: new FormControl('')
     });
+    this.getUserInfo();
   }
 
   async ngOnChanges(changes: SimpleChanges) {
@@ -107,22 +112,22 @@ export class TokensComponent implements OnChanges {
   public async correct(correction:string): Promise<void> {
     let response: any;
     if (this.hypDir) {
-      response = await this.apiService.postGoldAndHypernate(this.mainToken, correction, this.hypDir).toPromise().then((data:JSON) => new Token(data));
+      response = await this.apiService.postGoldAndHypernate(this.mainToken, correction, this.hypDir, this.userData).toPromise().then((data:JSON) => new Token(data));
     } else {
-      response = await this.apiService.postGold(this.mainToken, correction).toPromise().then((data:JSON) => new Token(data));
+      response = await this.apiService.postGold(this.mainToken, correction, this.userData).toPromise().then((data:JSON) => new Token(data));
     }
     console.log("correct Response", response);
     this.nextToken();
   }
 
   public async hypLeft(): Promise<void> {
-    let response = await this.apiService.postHypernate(this.mainToken, 'left').toPromise().then((data:JSON) => new Token(data));
+    let response = await this.apiService.postHypernate(this.mainToken, 'left', this.userData).toPromise().then((data:JSON) => new Token(data));
     console.log("hypLeft response", response);
     this.nextToken();
   }
 
   public async hypRight(): Promise<void> {
-    let response = await this.apiService.postHypernate(this.mainToken, 'right').toPromise().then((data: JSON) => new Token(data));
+    let response = await this.apiService.postHypernate(this.mainToken, 'right', this.userData).toPromise().then((data: JSON) => new Token(data));
     console.log("hypRight response", response);
     this.nextToken();
   }
@@ -133,7 +138,7 @@ export class TokensComponent implements OnChanges {
   }
 
   public async discardToken(): Promise<void> {
-    let response = await this.apiService.discardToken(this.mainToken).toPromise().then((data: JSON) => new Token(data));
+    let response = await this.apiService.discardToken(this.mainToken, this.userData).toPromise().then((data: JSON) => new Token(data));
     console.log("discarded response", response);
     this.nextToken();
   }
@@ -160,5 +165,12 @@ export class TokensComponent implements OnChanges {
 
   public clearInputFields(): void {
     this.andetInputField = '';
+  }
+
+  public async getUserInfo(): Promise<void> {
+    let userData;
+    this.profile$ = await this.authService.userProfile$.pipe(share());
+    this.profile$.subscribe((data) => userData = JSON.stringify({"email": data.email, "name": data.name, "APACS": data["https://kbharkiv.dk/claims/apacs_user_id"] }));
+    this.userData = userData;
   }
 }

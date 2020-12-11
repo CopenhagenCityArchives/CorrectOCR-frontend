@@ -39,11 +39,11 @@ describe('TokensComponent', () => {
     controller = TestBed.inject(HttpTestingController);
     fixture = TestBed.createComponent(TokensComponent);
     component = fixture.componentInstance;
-
     component.mainToken$ = testMainToken$;
     component.ngOnChanges({
       mainToken$: new SimpleChange(null, testMainToken$, true)
     });
+    component.getUserInfo = jasmine.createSpy("get userData spy");
   });
 
   afterEach(() => {
