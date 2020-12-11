@@ -30,8 +30,6 @@
                                         <label class="form-check-label" for="leftCheckmark">Læg sammen</label>
                                     </div>
                                 </form>
-
-                                
                             </div>
                         </div>
                         <div class="card-footer text-muted">
@@ -96,17 +94,17 @@
 
         </div>
         
-            <div class="d-flex justify-content-around m-2">
-                <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-block btn-secondary m-1" type="button" (click)="prevToken()">Tilbage</button>
-                <button class="btn btn-block btn-secondary m-1" type="button" (click)="refreshToken()">Genindlæs</button>
-                <button class="btn btn-block btn-secondary m-1" type="button" (click)="skipToken()">Spring over</button>
-            </div>
-            <div class="d-flex justify-content-around m-2">
-                <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
-                    <button id="toggleMetaData" class="btn btn-secondary btn-block m-1" type="button" (click)="toggleMetadata = !toggleMetadata">Se hele siden</button>
-                    <button class="btn btn-danger btn-block m-1" type="button" (click)="discardToken()">Slet hovedordet</button>
-                </ng-container>
-            </div>
+        <div class="d-flex justify-content-around m-2">
+            <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-block btn-secondary m-1" type="button" (click)="prevToken()">Tilbage</button>
+            <button class="btn btn-block btn-secondary m-1" type="button" (click)="refreshToken()">Genindlæs</button>
+            <button class="btn btn-block btn-secondary m-1" type="button" (click)="skipToken()">Spring over</button>
+        </div>
+        <div class="d-flex justify-content-around m-2">
+            <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
+                <button id="toggleMetaData" class="btn btn-secondary btn-block m-1" type="button" (click)="toggleMetadata = !toggleMetadata">Se hele siden</button>
+                <button class="btn btn-danger btn-block m-1" type="button" (click)="discardToken()">Slet hovedordet</button>
+            </ng-container>
+        </div>
 
         <div class="row justify-content-center m-4" *ngIf="docTotal">
             <div class="col">
