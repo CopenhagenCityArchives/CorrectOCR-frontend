@@ -170,7 +170,7 @@ export class TokensComponent implements OnChanges {
   public async getUserInfo(): Promise<void> {
     let userData;
     this.profile$ = await this.authService.userProfile$.pipe(share());
-    this.profile$.subscribe((data) => userData = JSON.stringify({"email": data.email, "name": data.name, "APACS": data["https://kbharkiv.dk/claims/apacs_user_id"] }));
+    this.profile$.subscribe((data) => userData = JSON.stringify({"nickname": data.nickname, "APACS": data["https://kbharkiv.dk/claims/apacs_user_id"] }));
     this.userData = userData;
   }
 }
