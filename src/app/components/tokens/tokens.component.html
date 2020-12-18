@@ -18,7 +18,7 @@
                         <img id="left_token_img" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Ordet før <span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord tydet: {{leftToken.gold}}</span></h5>
+                            <h5 class="card-title">Ordet før <span *ngIf="leftToken.original" class="float-right font-weight-light">Ord tydet: {{leftToken.original}}</span></h5>
                             <div class="card-text">
                                 <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(leftToken.doc_ID, leftToken.index)">Indlæs som hovedord</button>
                             </div>
@@ -43,7 +43,7 @@
                         <img id="main_token_img" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Hovedordet <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.gold}}</span></h5>
+                            <h5 class="card-title">Hovedordet <span *ngIf="mainToken.original" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span></h5>
                             <div class="card-text">
                                 <div *ngIf="mainToken.k_best" id="main_btn_group" class="d-flex flex-wrap mb-2">
                                     <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
@@ -70,7 +70,7 @@
                         <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}" alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Ordet efter <span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord tydet: {{rightToken.gold}}</span></h5>
+                            <h5 class="card-title">Ordet efter <span *ngIf="rightToken.original" class="float-right font-weight-light">Ord tydet: {{rightToken.original}}</span></h5>
                             <div class="card-text">
                                 <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(rightToken.doc_ID, rightToken.index)">Indlæs som hovedord</button>
                             </div>
