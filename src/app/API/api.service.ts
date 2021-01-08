@@ -137,7 +137,8 @@ export class ApiService {
    * @return  {Observable<Object>}             [return Observable]
    */
   public getRightToken(mainToken: IToken): Observable<Object> {
-    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index + 1) + '.json').pipe(
+    const index = 1 + mainToken.hyphenated;
+    return this.http.get(this.url + mainToken.doc_ID + '/token-' + (mainToken.index + index) + '.json').pipe(
       catchError(err => {
         return this.handleError(err);
       }),

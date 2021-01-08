@@ -43,7 +43,8 @@
                         <img id="main_token_img" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Hovedordet <span *ngIf="mainToken.original" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span></h5>
+                            <h5 class="card-title">Hovedordet</h5>
+                            <!-- <h5 class="card-title">Hovedordet <span *ngIf="mainToken.original" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span></h5> -->
                             <div class="card-text">
                                 <div *ngIf="mainToken.k_best" id="main_btn_group" class="d-flex flex-wrap mb-2">
                                     <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
