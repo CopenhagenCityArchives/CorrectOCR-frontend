@@ -50,7 +50,10 @@ export class DocTokensComponent implements OnInit {
     })
   }
 
-  public getNextTokenFromList() {
+  public getNextTokenFromList(hyp?: boolean) {
+    if (hyp == true) {
+      this.uncorrectedList.splice(this.index, 1);
+    }
     if(this.index != this.uncorrectedList.length) {
       this.mainToken$ = this.apiService.getTokenFromInfoUrl(this.uncorrectedList[this.index]['info_url']).pipe(share());
       this.index++;

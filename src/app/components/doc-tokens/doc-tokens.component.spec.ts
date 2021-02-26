@@ -91,5 +91,18 @@ describe('DocTokensComponent', () => {
     expect(apiService.getTokenFromInfoUrl).toHaveBeenCalledWith(testData[1]['info_url']);
     component.getNextTokenFromList();
     expect(apiService.getTokenFromInfoUrl).toHaveBeenCalledWith(testData[2]['info_url']);
-  }))
+  }));
+
+  it('should skip forward 2 steps in the list when getNextTokenFromList is called with hyp param', fakeAsync(() => {
+    activatedRoute.setParamMap({docid: "6000"});
+    component.ngOnInit();
+    tick();
+    fixture.detectChanges();
+    const testData:Array<Object> = component.uncorrectedList;
+    const beforeLength = component.uncorrectedList.length;
+    component.getNextTokenFromList(true);
+    fixture.detectChanges();
+    expect(component.uncorrectedList.length).toEqual(beforeLength - 1);
+  }));
+
 });

@@ -91,8 +91,12 @@ export class TokensComponent implements OnChanges {
 
   nextToken(): void {
     this.clearInputFields();
-    this.getNextMainToken.emit();
     this.updateCounter(this.mainToken.doc_ID);
+    if (this.hypDir) {
+      this.getNextMainToken.emit(true);
+    } else {
+      this.getNextMainToken.emit();
+    }
   }
 
   skipToken(): void {
