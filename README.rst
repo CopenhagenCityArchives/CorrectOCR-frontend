@@ -1,6 +1,11 @@
 CorrectOCR
 ==========
 
+UML diagram in project
+link to diagram https://drive.google.com/file/d/1gyD_xoRbgdgi456kkshRzsLImmjubSuX/view?usp=sharing 
+
+==========
+
 Run locally
 =======
 Backend:
