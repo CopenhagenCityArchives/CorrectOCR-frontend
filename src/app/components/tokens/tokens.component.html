@@ -18,7 +18,12 @@
                         <img id="left_token_img" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Ordet før <span *ngIf="leftToken.original" class="float-right font-weight-light">Ord tydet: {{leftToken.original}}</span></h5>
+                            <h5 class="card-title">
+								Ordet før
+									<span *ngIf="leftToken.original" class="float-right font-weight-light">Ord tydet: {{leftToken.original}}</span>
+									<span *ngIf="leftToken.gold != leftToken.original" class="float-right font-weight-light">Rettet til: {{leftToken.gold}}</span>
+							
+							</h5>
                             <div class="card-text">
                                 <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(leftToken.doc_ID, leftToken.index)">Indlæs som hovedord</button>
                             </div>
@@ -71,7 +76,12 @@
                         <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}" alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
     
                         <div class="card-body">
-                            <h5 class="card-title">Ordet efter <span *ngIf="rightToken.original" class="float-right font-weight-light">Ord tydet: {{rightToken.original}}</span></h5>
+                            <h5 class="card-title">
+								Ordet efter
+									<span *ngIf="rightToken.original" class="float-right font-weight-light">Ord tydet: {{rightToken.original}}</span>
+									<span *ngIf="rightToken.gold != rightToken.original" class="float-right font-weight-light">Rettet til: {{rightToken.gold}}</span>
+							
+							</h5>
                             <div class="card-text">
                                 <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(rightToken.doc_ID, rightToken.index)">Indlæs som hovedord</button>
                             </div>
