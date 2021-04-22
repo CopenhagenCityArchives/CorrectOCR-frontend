@@ -51,8 +51,8 @@
                     <span>Ikke rettet før</span>
                 </td>
                 <td>
-                <h5 class="d-md-none">Link:</h5>
-                    <button class="btn btn-secondary">Ret efterretning</button>
+					<h5 class="d-md-none">Link:</h5>
+                    <button class="btn btn-secondary" [disabled]="doc.corrected == doc.count">Ret efterretning</button>
                 </td>
             </tr>
         </tbody>
