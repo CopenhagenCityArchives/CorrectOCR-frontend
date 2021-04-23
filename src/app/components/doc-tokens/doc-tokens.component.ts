@@ -17,6 +17,7 @@ export class DocTokensComponent implements OnInit {
   public tokenList:Array<object> = new Array;
   public correctedList:Array<object>;
   public uncorrectedList:Array<object>;
+  public tokenCount: number;
   public modelCorrected: number;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
@@ -29,9 +30,15 @@ export class DocTokensComponent implements OnInit {
         let tokenList: Array<object>;
         let corrected: Array<object> = new Array;
         let uncorrected: Array<object> = new Array;
+        let tokenCount: number;
         let modelCorrected: number;
         await this.apiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data:Array<object>) => tokenList = data);
-        await this.apiService.getOverview().toPromise().then((data:Array<object>) => modelCorrected = data.find(elm => elm['docid'] == this.docId)['corrected_by_model']);
+        await this.apiService.getOverview().toPromise().then(
+			(data:Array<object>) => {
+				tokenCount = data.find(elm => elm['docid'] == this.docId)['count'];
+				modelCorrected = data.find(elm => elm['docid'] == this.docId)['corrected_by_model'];
+			}
+		);
         
         tokenList.map((token) => {
           if(token['is_corrected'] || token['is_discarded'] == 1) {
@@ -41,6 +48,7 @@ export class DocTokensComponent implements OnInit {
           }
         });
 
+		this.tokenCount = tokenCount;
         this.tokenList = tokenList;
         this.correctedList = corrected;
         this.uncorrectedList = uncorrected;
