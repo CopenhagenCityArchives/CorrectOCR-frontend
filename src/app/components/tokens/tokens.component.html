@@ -16,19 +16,18 @@
                 <div id="left_token_card" class="card bg-light border-dark mb-sm-2">
                     <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken; else loadingIndicator">
                         <img id="left_token_img" class="card-img-top" src="{{url}}{{leftToken.image_url}}" alt="left token" title="Token id: {{leftToken.doc_ID +'/'+ leftToken.index}}">
-    
+
                         <div class="card-body">
                             <h5 class="card-title">
-								Ordet før
-									<span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord rettet: {{leftToken.gold}}</span>
-									<span *ngIf="!leftToken.gold" class="float-right font-weight-light">Ord tydet: {{leftToken.original}}</span>
-							
-							</h5>
+                                Ordet før
+                                <span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord rettet: {{leftToken.gold}}</span>
+                                <span *ngIf="!leftToken.gold" class="float-right font-weight-light">Ord tydet: {{leftToken.original}}</span>
+                            </h5>
                             <div class="card-text">
                                 <button id="hyp_left_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(leftToken.doc_ID, leftToken.index)">Indlæs som hovedord</button>
                             </div>
                             <div class="input-group mt-2">
-                                
+
                                 <form [formGroup]="checkForm">
                                     <div class="form-group">
                                         <input id="leftCheckmark" type="checkbox" formControlName="leftCheck" class="m-1" [value]="'left'" (change)="onCheckboxChange($event)">
@@ -42,18 +41,17 @@
                         </div>
                     </ng-container>
                 </div>
-    
+
                 <div id="main_token_card" class="card bg-light border-dark mb-sm-2">
                     <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken; else loadingIndicator">
                         <img id="main_token_img" class="card-img-top" src="{{url}}{{mainToken.image_url}}" alt="main token" title="Token id: {{mainToken.doc_ID +'/'+ mainToken.index}}">
-    
+
                         <div class="card-body">
                             <h5 class="card-title">
-								Hovedordet
-									<span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord rettet: {{mainToken.gold}}</span>
-									<span *ngIf="!mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span>
-							
-							</h5>
+                                Hovedordet
+                                <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord rettet: {{mainToken.gold}}</span>
+                                <span *ngIf="!mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span>
+                            </h5>
                             <!-- <h5 class="card-title">Hovedordet <span *ngIf="mainToken.original" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span></h5> -->
                             <div class="card-text">
                                 <div *ngIf="mainToken.k_best" id="main_btn_group" class="d-flex flex-wrap mb-2">
@@ -75,41 +73,40 @@
                         </div>
                     </ng-container>
                 </div>
-    
+
                 <div id="right_token_card" class="card bg-light border-dark mb-sm-2">
                     <ng-container *ngIf="rightToken$ | async | tokensPipe as rightToken; else loadingIndicator">
                         <img id="right_token_img" class="card-img-top" src="{{url}}{{rightToken.image_url}}" alt="right token" title="Token id: {{rightToken.doc_ID +'/'+ rightToken.index }}">
-    
+
                         <div class="card-body">
                             <h5 class="card-title">
-								Ordet efter
-									<span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord rettet: {{rightToken.gold}}</span>
-									<span *ngIf="!rightToken.gold" class="float-right font-weight-light">Ord tydet: {{rightToken.original}}</span>
-							
-							</h5>
+                                Ordet efter
+                                <span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord rettet: {{rightToken.gold}}</span>
+                                <span *ngIf="!rightToken.gold" class="float-right font-weight-light">Ord tydet: {{rightToken.original}}</span>
+                            </h5>
                             <div class="card-text">
                                 <button id="hyp_right_btn" class="btn btn-secondary" type="button" (click)="makeMainToken(rightToken.doc_ID, rightToken.index)">Indlæs som hovedord</button>
                             </div>
                             <div class="input-group mt-2">
-                                
+
                                 <form [formGroup]="checkForm">
                                     <div class="form-group">
                                         <input id="rightCheckmark" formControlName="rightCheck" type="checkbox" class="m-1" [value]="'right'" (change)="onCheckboxChange($event)">
                                         <label class="form-check-label" for="rightCheckmark">Læg sammen</label>
                                     </div>
                                 </form>
-                            
+
                             </div>
                         </div>
                         <div class="card-footer text-muted">
                             Ord nr. {{rightToken.index}}
                         </div>
                     </ng-container>
-                </div>    
+                </div>
             </div>
 
         </div>
-        
+
         <div class="d-flex justify-content-around m-2">
             <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-block btn-secondary m-1" type="button" (click)="prevToken()">Tilbage</button>
             <button class="btn btn-block btn-secondary m-1" type="button" (click)="refreshToken()">Genindlæs</button>
@@ -147,12 +144,12 @@
         <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken" >
         <h2>Hovedtoken information</h2>
         <section class="row">
-        
+
             <div class="col-lg-8 pdf-viewer-container">
                 <app-pdf-viewer [src] = "documentSrc" [page] = "mainToken.page + 1" [frame] = leftToken.frame>
                 </app-pdf-viewer>
             </div>
-    
+
             <div class="col-lg-4">
                 <h4 id="metadata">Metadata</h4>
                 <table class="table table-responsive d-table table-striped" aria-labelledby="metadata">
@@ -169,7 +166,7 @@
                     </tbody>
                 </table>
             </div>
-         
+
         </section>
         </ng-container>
     </div>
