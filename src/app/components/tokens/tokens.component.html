@@ -50,7 +50,7 @@
                             <h5 class="card-title">
                                 Hovedordet
                                 <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord rettet: {{mainToken.gold}}</span>
-                                <span *ngIf="!mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span>
+                                <span *ngIf="!mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.original}} <button (click)="correct(mainToken.original)">OK</button></span>
                             </h5>
                             <!-- <h5 class="card-title">Hovedordet <span *ngIf="mainToken.original" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span></h5> -->
                             <div class="card-text">
