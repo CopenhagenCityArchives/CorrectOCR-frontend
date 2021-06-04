@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { PdfJsViewerModule  } from 'ng2-pdfjs-viewer';
 
+import { NgMagnizoomModule } from 'ng-magnizoom';
+
 import { AppComponent } from './app.component';
 import { TokensComponent } from './components/tokens/tokens.component'
 import { DocOverviewComponent } from './components/doc-overview/doc-overview.component';
@@ -50,7 +52,8 @@ import { AsyncTimestampPipe } from './custom-pipes/async-timestamp.pipe';
       {path: 'doc-overview', component: DocOverviewComponent, canActivate: [AuthGuard]},
       {path:'**', redirectTo: '/', canActivate: [AuthGuard]}
     ]),
-    NgbModule
+    NgbModule,
+    NgMagnizoomModule
   ],
   providers: [],
   bootstrap: [AppComponent]
