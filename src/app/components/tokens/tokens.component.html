@@ -54,11 +54,11 @@
                             </h5>
                             <!-- <h5 class="card-title">Hovedordet <span *ngIf="mainToken.original" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span></h5> -->
                             <div class="card-text">
-                                <div *ngIf="mainToken.k_best" id="main_btn_group" class="d-flex flex-wrap mb-2">
-                                    <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
-                                    <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['2'].candidate)">{{mainToken.k_best['2'].candidate}}</button>
-                                    <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['3'].candidate)">{{mainToken.k_best['3'].candidate}}</button>
-                                    <button class="col btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['4'].candidate)">{{mainToken.k_best['4'].candidate}}</button>
+                                <div *ngIf="mainToken.k_best" id="main_btn_group" class="row container mb-2">
+                                    <button class="btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['1'].candidate)">{{mainToken.k_best['1'].candidate}}</button>
+                                    <button class="btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['2'].candidate)">{{mainToken.k_best['2'].candidate}}</button>
+                                    <button class="btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['3'].candidate)">{{mainToken.k_best['3'].candidate}}</button>
+                                    <button class="btn btn-secondary m-1" type="button" (click)="correct(mainToken.k_best['4'].candidate)">{{mainToken.k_best['4'].candidate}}</button>
                                 </div>
                                 <div class="input-group">
                                     <input [(ngModel)]="andetInputField" id="andet" name="andet" type="text" class="form-control" placeholder="andet...">
