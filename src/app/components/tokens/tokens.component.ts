@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
 
+const SETTINGS_KEY = "userSettings";
+
 @Component({
   selector: 'app-tokens',
   templateUrl: './tokens.component.html',
@@ -38,6 +40,7 @@ export class TokensComponent implements OnChanges {
   hypDir: string;
   checkForm: FormGroup;
   profile$: Observable<any>;
+  userSettings: any;
   userData: any;
 
   constructor(apiService: ApiService, authService: AuthService, private router: Router) {
@@ -53,6 +56,7 @@ export class TokensComponent implements OnChanges {
       rightCheck: new FormControl('')
     });
     this.getUserInfo();
+    this.getSettings();
   }
 
   async ngOnChanges(changes: SimpleChanges) {
@@ -90,6 +94,7 @@ export class TokensComponent implements OnChanges {
   }
 
   nextToken(): void {
+    this.saveSettings();
     this.clearInputFields();
     this.updateCounter(this.mainToken.doc_ID);
     if (this.hypDir) {
@@ -100,11 +105,13 @@ export class TokensComponent implements OnChanges {
   }
 
   skipToken(): void {
+    this.saveSettings();
     this.clearInputFields();
     this.getNextMainToken.emit();
   }
 
   prevToken(): void {
+    this.saveSettings();
     this.clearInputFields();
     this.getPrevMainToken.emit();
   }
@@ -181,4 +188,23 @@ export class TokensComponent implements OnChanges {
     }
     this.userData = userData;
   }
+
+  private getSettings() {
+      var settings = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+      if (settings == undefined) {
+        settings = new Object();
+      }
+      if (settings.toggleLeft == undefined) {
+        settings.toggleLeft = true;
+      }
+      if (settings.toggleRight == undefined) {
+        settings.toggleRight = true;
+      }
+      this.userSettings = settings;
+  }
+
+  private saveSettings() {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(this.userSettings));
+  }
+
 }

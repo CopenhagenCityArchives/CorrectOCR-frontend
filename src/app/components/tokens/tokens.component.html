@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-lg card-deck">
 
-                <div id="left_token_card" class="card bg-light border-dark mb-sm-2">
+                <div *ngIf="userSettings.toggleLeft" id="left_token_card" class="card bg-light border-dark mb-sm-2">
                     <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken; else loadingIndicator">
                         <ng-magnizoom
                             imageSrc="{{url}}{{leftToken.image_url}}"
@@ -89,7 +89,7 @@
                     </ng-container>
                 </div>
 
-                <div id="right_token_card" class="card bg-light border-dark mb-sm-2">
+                <div *ngIf="userSettings.toggleRight"  id="right_token_card" class="card bg-light border-dark mb-sm-2">
                     <ng-container *ngIf="rightToken$ | async | tokensPipe as rightToken; else loadingIndicator">
                         <ng-magnizoom
                             imageSrc="{{url}}{{rightToken.image_url}}"
@@ -130,12 +130,14 @@
 
         <div class="d-flex justify-content-around m-2">
             <button *ngIf="mainToken$ | async | tokensPipe" class="btn btn-block btn-secondary m-1" type="button" (click)="prevToken()">Tilbage</button>
+			<button id="toggleLeft" class="btn btn-secondary btn-block m-1" type="button" (click)="userSettings.toggleLeft = !userSettings.toggleLeft">{{ userSettings.toggleLeft ? 'Skjul' : 'Vis' }} ordet før</button>
+			<button id="toggleRight" class="btn btn-secondary btn-block m-1" type="button" (click)="userSettings.toggleRight = !userSettings.toggleRight">{{ userSettings.toggleRight ? 'Skjul' : 'Vis' }} ordet efter</button>
             <button class="btn btn-block btn-secondary m-1" type="button" (click)="refreshToken()">Genindlæs</button>
             <button class="btn btn-block btn-secondary m-1" type="button" (click)="skipToken()">Spring over</button>
         </div>
         <div class="d-flex justify-content-around m-2">
             <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
-                <button id="toggleMetaData" class="btn btn-secondary btn-block m-1" type="button" (click)="toggleMetadata = !toggleMetadata">Se hele siden</button>
+                <button id="toggleMetaData" class="btn btn-secondary btn-block m-1" type="button" (click)="toggleMetadata = !toggleMetadata">{{ toggleMetadata ? 'Skjul' : 'Vis' }} hele siden</button>
                 <button class="btn btn-danger btn-block m-1" type="button" (click)="discardToken()">Slet hovedordet</button>
             </ng-container>
         </div>
