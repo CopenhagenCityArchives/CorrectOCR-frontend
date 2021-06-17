@@ -22,7 +22,7 @@
             </tr>
         </thead>
 
-        <tbody *ngIf="documentList$ | async as documentList">
+        <tbody *ngIf="documentList$ | async as documentList; else loadingIndicator">
             <tr *ngFor="let doc of documentList; index as i;" id="tr-{{doc.docid}}" routerLink="/tokens/{{doc.docid}}" routerLinkActive="active" tabindex="0" role="button" [attr.aria-label]="'doc-'+i">
                 <td *ngIf="doc.docid | asyncTimestamp | async as timestamp; else only_id">
                     <h5 class="d-md-none">Efterretning:</h5>
@@ -80,3 +80,10 @@
     </div> -->
 
 </div>
+
+<ng-template #loadingIndicator>
+    <div class="spinner-border text-primary m-5 align-self-center" role="status">
+        <span class="sr-only">Henter...</span>
+    </div>
+</ng-template>
+
