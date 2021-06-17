@@ -1,12 +1,9 @@
+export interface IKBest {
+    candidate: string;
+    probability: number
+}
+
 export interface IToken {
-    firstBest: string;
-    firstProb: number;
-    secondBest: string;
-    secondProb: number;
-    thirdBest: string;
-    thirdProb: number;
-    fourthBest: string;
-    fourthProb: number;
     bin: number;
     decision: string;
     doc_ID: number;
@@ -23,21 +20,6 @@ export interface IToken {
     token_info: string[];
     token_type: string;
     k_best: {
-        1: {
-            candidate: string;
-            probability: number
-        }
-        2: {
-            candidate: string;
-            probability: number
-        }
-        3: {
-            candidate: string;
-            probability: number
-        }
-        4: {
-            candidate: string;
-            probability: number
-        }
+        [ order: number ]: IKBest
     }
 }
