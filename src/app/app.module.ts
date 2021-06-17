@@ -11,6 +11,8 @@ import { PdfJsViewerModule  } from 'ng2-pdfjs-viewer';
 
 import { NgMagnizoomModule } from 'ng-magnizoom';
 
+
+import { AutofocusDirective } from './autofocus.directive';
 import { AppComponent } from './app.component';
 import { TokensComponent } from './components/tokens/tokens.component'
 import { DocOverviewComponent } from './components/doc-overview/doc-overview.component';
@@ -25,6 +27,7 @@ import { AsyncTimestampPipe } from './custom-pipes/async-timestamp.pipe';
 
 @NgModule({
   declarations: [
+    AutofocusDirective,
     AppComponent,
     TokensComponent,
     DocOverviewComponent,
@@ -55,7 +58,7 @@ import { AsyncTimestampPipe } from './custom-pipes/async-timestamp.pipe';
     NgbModule,
     NgMagnizoomModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [AutofocusDirective],
 })
 export class AppModule { }
