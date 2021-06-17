@@ -1,6 +1,12 @@
-# Frontend
+# CorrectOCR Frontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.0.
+
+# Usage
+
+## Backend
+
+Backend server is at [CorrectOCR](CopenhagenCityArchives/CorrectOCR)
 
 ## Development server
 
