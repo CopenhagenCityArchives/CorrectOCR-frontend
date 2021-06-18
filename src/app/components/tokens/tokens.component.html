@@ -144,9 +144,14 @@
 
         <div class="row justify-content-center m-4" *ngIf="docTotal">
             <div class="col">
-                <label for="docProgress">Du har rettet: {{sessionCorrected}} ord, ud af i alt: {{(docTotal - modelCorrected)}} ord.</label>
+                <label for="docProgress">
+					Efterretningen indeholder {{docTotal}} ord.
+					Af dem er {{modelCorrected}} rettet automatisk, og {{docCorrected - modelCorrected}} er rettede af brugere.
+					Der mangler {{docTotal - docCorrected}} ord.
+					Du har rettet {{sessionCorrected}} ord.
+				</label>
                 <div id="docProgress" class="progress">
-                    <ng-template #ModelTooltip>Ord som er rettet af modellen</ng-template>
+                    <ng-template #ModelTooltip>Ord som er rettet automatisk</ng-template>
                     <ng-template #OKTooltip>Ord som er rettet af brugere</ng-template>
                     <ng-template #CorrectedTooltip>Ord du har rettet</ng-template>
                     <ng-template #MissingToolTip>Ord der mangler at rettes</ng-template>
