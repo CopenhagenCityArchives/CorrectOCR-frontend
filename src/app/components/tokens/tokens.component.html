@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 Ordet før
-                                <span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord rettet af {{ leftToken.decision == 'annotator' ? 'bruger' : 'model' }}: {{leftToken.gold}}</span>
+                                <span *ngIf="leftToken.gold" class="float-right font-weight-light">Ord rettet af {{ leftToken.decision == 'annotator' ? 'bruger' : 'ordbog' }}: {{leftToken.gold}}</span>
                                 <span *ngIf="!leftToken.gold" class="float-right font-weight-light">Ord tydet: {{leftToken.original}}</span>
                             </h5>
                             <div class="card-text">
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 Hovedordet
-                                <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord rettet af {{ mainToken.decision == 'annotator' ? 'bruger' : 'model' }}: {{mainToken.gold}}</span>
+                                <span *ngIf="mainToken.gold" class="float-right font-weight-light">Ord rettet af {{ mainToken.decision == 'annotator' ? 'bruger' : 'ordbog' }}: {{mainToken.gold}}</span>
                                 <span *ngIf="!mainToken.gold" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span>
                             </h5>
                             <!-- <h5 class="card-title">Hovedordet <span *ngIf="mainToken.original" class="float-right font-weight-light">Ord tydet: {{mainToken.original}}</span></h5> -->
@@ -102,7 +102,7 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 Ordet efter
-                                <span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord rettet af {{ rightToken.decision == 'annotator' ? 'bruger' : 'model' }}: {{rightToken.gold}}</span>
+                                <span *ngIf="rightToken.gold" class="float-right font-weight-light">Ord rettet af {{ rightToken.decision == 'annotator' ? 'bruger' : 'ordbog' }}: {{rightToken.gold}}</span>
                                 <span *ngIf="!rightToken.gold" class="float-right font-weight-light">Ord tydet: {{rightToken.original}}</span>
                             </h5>
                             <div class="card-text">
