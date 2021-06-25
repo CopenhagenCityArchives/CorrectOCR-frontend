@@ -214,6 +214,22 @@ export class ApiService {
     )
   }
 
+  /**
+   * [report error for token]
+   *
+   * @param   {IToken}              mainToken  Main Token
+   *
+   * @return  {Observable<Object>}             [return Observable]
+   */
+  public reportError(mainToken: IToken, error_info, userData): Observable<Object> {
+    const body = {'error':error_info, 'annotation_info': JSON.parse(userData)};
+     return this.http.post(this.url + mainToken.doc_ID + '/token-' + mainToken.index + '.json', body).pipe(
+      catchError(err => {
+        return this.handleError(err);
+      })
+    )
+  }
+
   public getDocumentDate(docid: string): Observable<Object> {
     return this.http.get(`${this.solrUrl}select?wt=json&q=id:19-${docid}&fl=efterretning_date`).pipe(
       catchError(err => {
