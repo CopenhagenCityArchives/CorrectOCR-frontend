@@ -154,6 +154,13 @@ export class TokensComponent implements OnChanges {
     this.nextToken();
   }
 
+  public async reportError(): Promise<void> {
+    let errorReport = { 'description': 'User reported an error in the token.' }
+    let response = await this.apiService.reportError(this.mainToken, errorReport, this.userData).toPromise().then((data: JSON) => new Token(data));
+    console.log("report error response", { 'description': 'User reported an error in the token.' }, response);
+    this.nextToken();
+  }
+
   async setDocumentUrl() {
     this.documentSrc = `${environment.documentBaseUrl}${this.mainToken.doc_ID}`;
   }
