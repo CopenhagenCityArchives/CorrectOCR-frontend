@@ -41,7 +41,9 @@ export class DocTokensComponent implements OnInit {
 		);
         
         tokenList.map((token) => {
-          if(token['is_corrected'] || token['is_discarded'] == 1) {
+          if (token['has_error']) {
+            // Ignore for now. Maybe useful to save for a "superuser interface" in the future
+          } else if (token['is_corrected'] || token['is_discarded'] == 1) {
             corrected.push(token);
           } else {
             uncorrected.push(token);
