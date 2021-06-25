@@ -35,8 +35,8 @@ export class DocTokensComponent implements OnInit {
         await this.apiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data:Array<object>) => tokenList = data);
         await this.apiService.getOverview().toPromise().then(
 			(data:Array<object>) => {
-				tokenCount = data.find(elm => elm['docid'] == this.docId)['stats']['token_count'];
-				modelCorrected = data.find(elm => elm['docid'] == this.docId)['stats']['corrected_by_model_count'];
+				tokenCount = data.find(elm => elm['docid'] == this.docId)['count'];
+				modelCorrected = data.find(elm => elm['docid'] == this.docId)['corrected_by_model'];
 			}
 		);
         
