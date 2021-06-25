@@ -139,6 +139,7 @@
             <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
                 <button id="toggleMetaData" class="btn btn-secondary btn-block m-1" type="button" (click)="toggleMetadata = !toggleMetadata">{{ toggleMetadata ? 'Skjul' : 'Vis' }} hele siden</button>
                 <button class="btn btn-danger btn-block m-1" type="button" (click)="discardToken()">Slet hovedordet</button>
+                <button class="btn btn-danger btn-block m-1" type="button" (click)="reportError()">Fejlmeld</button>
             </ng-container>
         </div>
 
