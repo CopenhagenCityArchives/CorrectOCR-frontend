@@ -14,7 +14,7 @@
             <div class="col-lg card-deck">
 
                 <div *ngIf="userSettings.toggleLeft" id="left_token_card" class="card bg-light border-dark mb-sm-2">
-                    <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken; else loadingIndicator">
+                    <ng-container *ngIf="leftToken$ | async | tokensPipe as leftToken">
                         <ng-magnizoom
                             imageSrc="{{url}}{{leftToken.image_url}}"
                             id="main_token_img"
@@ -49,7 +49,7 @@
                 </div>
 
                 <div id="main_token_card" class="card bg-light border-dark mb-sm-2">
-                    <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken; else loadingIndicator">
+                    <ng-container *ngIf="mainToken$ | async | tokensPipe as mainToken">
                         <ng-magnizoom
                             imageSrc="{{url}}{{mainToken.image_url}}"
                             id="main_token_img"
@@ -90,7 +90,7 @@
                 </div>
 
                 <div *ngIf="userSettings.toggleRight"  id="right_token_card" class="card bg-light border-dark mb-sm-2">
-                    <ng-container *ngIf="rightToken$ | async | tokensPipe as rightToken; else loadingIndicator">
+                    <ng-container *ngIf="rightToken$ | async | tokensPipe as rightToken">
                         <ng-magnizoom
                             imageSrc="{{url}}{{rightToken.image_url}}"
                             id="main_token_img"
@@ -200,12 +200,5 @@
         </ng-container>
     </div>
 </div>
-
-
-<ng-template #loadingIndicator>
-    <div class="spinner-border text-primary m-5 align-self-center" role="status">
-        <span class="sr-only">Henter...</span>
-    </div>
-</ng-template>
 
 <router-outlet></router-outlet>
