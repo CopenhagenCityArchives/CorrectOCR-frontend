@@ -91,6 +91,7 @@ export class TokensComponent implements OnChanges {
     let token = await changes$.toPromise().then((data:JSON) => new Token(data));
     this.initCounter(token.doc_ID);
     this.mainToken = token;
+	this.andetInputField = this.mainToken.original;
   }
 
   nextToken(): void {
