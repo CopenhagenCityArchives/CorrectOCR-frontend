@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
@@ -20,7 +20,7 @@ export class DocTokensComponent implements OnInit {
   public uncorrectedList:Array<object>;
   public stats: DocStats;
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) {
+  constructor(private route: ActivatedRoute, private router: Router, private apiService: ApiService) {
   }
 
   ngOnInit() {
@@ -61,14 +61,17 @@ export class DocTokensComponent implements OnInit {
     if (hyp == true) {
       this.uncorrectedList.splice(this.index, 1);
     }
-    if(this.index != this.uncorrectedList.length) {
+    if(this.index < this.uncorrectedList.length) {
       this.mainToken$ = this.apiService.getTokenFromInfoUrl(this.uncorrectedList[this.index]['info_url']).pipe(share());
       this.index++;
-    }
+    } else {
+	  // TODO perhaps show a "congratulations" page here
+	  this.router.navigate(['/'])
+	}
   }
 
   public getPreviousTokenFromList() {
-    if(this.index != 0) {
+    if(this.index >	0) {
       this.index--;
       this.mainToken$ = this.apiService.getTokenFromInfoUrl(this.uncorrectedList[this.index-1]['info_url']).pipe(share());
     }
