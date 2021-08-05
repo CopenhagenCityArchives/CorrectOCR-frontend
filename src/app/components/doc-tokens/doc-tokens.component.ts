@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { share } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
+import { DocStats } from '../doc-tokens/docstats';
 
 @Component({
   selector: 'app-doc-tokens',
@@ -17,8 +18,7 @@ export class DocTokensComponent implements OnInit {
   public tokenList:Array<object> = new Array;
   public correctedList:Array<object>;
   public uncorrectedList:Array<object>;
-  public tokenCount: number;
-  public modelCorrected: number;
+  public stats: DocStats;
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) {
   }
@@ -35,8 +35,7 @@ export class DocTokensComponent implements OnInit {
         await this.apiService.getAllTokensFromDocId(params.get("docid")).toPromise().then((data:Array<object>) => tokenList = data);
         await this.apiService.getOverview().toPromise().then(
 			(data:Array<object>) => {
-				tokenCount = data.find(elm => elm['docid'] == this.docId)['count'];
-				modelCorrected = data.find(elm => elm['docid'] == this.docId)['corrected_by_model'];
+				this.stats = data.find(elm => elm['docid'] == this.docId)['stats'];
 			}
 		);
         
@@ -50,11 +49,9 @@ export class DocTokensComponent implements OnInit {
           }
         });
 
-		this.tokenCount = tokenCount;
         this.tokenList = tokenList;
         this.correctedList = corrected;
         this.uncorrectedList = uncorrected;
-        this.modelCorrected = modelCorrected
         this.getNextTokenFromList();
       }
     })

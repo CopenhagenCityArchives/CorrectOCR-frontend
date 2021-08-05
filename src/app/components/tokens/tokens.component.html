@@ -143,12 +143,12 @@
             </ng-container>
         </div>
 
-        <div class="row justify-content-center m-4" *ngIf="docTotal">
+        <div class="row justify-content-center m-4" *ngIf="stats">
             <div class="col">
                 <label for="docProgress">
-					Efterretningen indeholder {{docTotal}} ord.
-					Af dem er {{modelCorrected}} rettet automatisk, og {{docCorrected - modelCorrected}} er rettede af brugere.
-					Der mangler {{docTotal - docCorrected}} ord.
+					Efterretningen indeholder {{stats.token_count}} ord.
+					Af dem er {{stats.corrected_by_model_count}} rettet automatisk, og {{stats.corrected_by_annotator_count}} er rettede af brugere.
+					Der mangler {{stats.token_count - stats.corrected_count}} ord.
 					Du har rettet {{sessionCorrected}} ord.
 				</label>
                 <div id="docProgress" class="progress">
@@ -156,10 +156,10 @@
                     <ng-template #OKTooltip>Ord som er rettet af brugere</ng-template>
                     <ng-template #CorrectedTooltip>Ord du har rettet</ng-template>
                     <ng-template #MissingToolTip>Ord der mangler at rettes</ng-template>
-                    <div class="progress-bar bg-info" role="progressbar" [ngStyle]="{'width': modelCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="modelCorrected" [attr.aria-valuemax]="docTotal" [ngbTooltip]="ModelTooltip"></div>
-                    <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': (docCorrected - modelCorrected)/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="docCorrected" [attr.aria-valuemax]="docTotal" [ngbTooltip]="OKTooltip"></div>
-                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="docTotal" [ngbTooltip]="CorrectedTooltip"></div>
-                    <div class="progress-bar bg-light" role="progressbar" [ngStyle]="{'width': (docTotal - (docCorrected + sessionCorrected))/docTotal*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="docTotal - (docCorrected + sessionCorrected)" [attr.aria-valuemax]="docTotal" [ngbTooltip]="MissingToolTip"></div>
+                    <div class="progress-bar bg-info" role="progressbar" [ngStyle]="{'width': stats.corrected_by_model_count/stats.token_count*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="stats.corrected_by_model_count" [attr.aria-valuemax]="stats.token_count" [ngbTooltip]="ModelTooltip"></div>
+                    <div class="progress-bar bg-success" role="progressbar" [ngStyle]="{'width': (stats.corrected_count - stats.corrected_by_model_count)/stats.token_count*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="stats.corrected_count" [attr.aria-valuemax]="stats.token_count" [ngbTooltip]="OKTooltip"></div>
+                    <div class="progress-bar" role="progressbar" [ngStyle]="{'width': sessionCorrected/stats.token_count*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="sessionCorrected" [attr.aria-valuemax]="stats.token_count" [ngbTooltip]="CorrectedTooltip"></div>
+                    <div class="progress-bar bg-light" role="progressbar" [ngStyle]="{'width': (stats.token_count - (stats.corrected_count + sessionCorrected))/stats.token_count*100 + '%'}" aria-valuemin="0" [attr.aria-valuenow]="stats.token_count - (stats.corrected_count + sessionCorrected)" [attr.aria-valuemax]="stats.token_count" [ngbTooltip]="MissingToolTip"></div>
                 </div>
             </div>
         </div>

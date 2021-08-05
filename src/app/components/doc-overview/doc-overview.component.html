@@ -34,13 +34,9 @@
                         <h4 id="doc-{{i}}">Nummer: {{doc.docid}} </h4>
                     </td>
                 </ng-template>
-                <td *ngIf="!(doc.corrected >= doc.count)">
+                <td>
                     <h5 class="d-md-none">Status</h5>
-                    <span>{{(doc.corrected - doc.corrected_by_model)}} rettet ud af {{(doc.count - doc.corrected_by_model)}}</span> 
-                </td>
-                <td *ngIf="doc.corrected >= doc.count">
-                    <h5 class="d-md-none">Status</h5>
-                    <span>{{(doc.corrected - doc.corrected_by_model)}} rettet ud af {{(doc.count - doc.corrected_by_model)}}</span> 
+                    <span>{{doc.stats.corrected_by_annotator_count}} rettet ud af {{(doc.stats.corrected_by_annotator_count + doc.stats.uncorrected_count)}}</span> 
                 </td>
                 <td *ngIf="doc.last_modified">
                     <h5 class="d-md-none">Sidst rettet:</h5>
@@ -52,7 +48,7 @@
                 </td>
                 <td>
 					<h5 class="d-md-none">Link:</h5>
-                    <button class="btn btn-secondary" [disabled]="doc.corrected == doc.count">Ret efterretning</button>
+                    <button class="btn btn-secondary" [disabled]="doc.stats.done">Ret efterretning</button>
                 </td>
             </tr>
         </tbody>
@@ -61,6 +57,7 @@
 
     <form>
         <div class="d-flex m-2">
+			Spring direkte til et ord:
             <div class="form-group mr-1">
                 <label for="specificDocId">Efterretning nr.</label>
                 <input [(ngModel)]="specificDocId" id="specificDocId" name="specificDocId" type="text" class="form-control" placeholder="fx. 6148">
@@ -69,8 +66,6 @@
                 <label for="specificTokenIndex">Hovedord nr.</label>
                 <input [(ngModel)]="specificTokenIndex" id="specificTokenIndex" name="specificTokenIndex" type="text" class="form-control" placeholder="fx. 500">    
             </div>
-        </div>
-        <div class="d-flex m-2">
             <button class="btn btn-secondary" type="submit" (click)="redirectToToken()">Gå til Ord</button>
         </div>
     </form>

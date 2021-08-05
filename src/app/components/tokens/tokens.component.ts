@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { share, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
 import { Token } from '../tokens/token';
+import { DocStats } from '../doc-tokens/docstats';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -22,9 +23,7 @@ export class TokensComponent implements OnChanges {
   private apiService: ApiService;
   private authService: AuthService;
 
-  @Input() public docTotal?: number;
-  @Input() public docCorrected?: number;
-  @Input() public modelCorrected?: number;
+  @Input() public stats?: DocStats;
   public sessionCorrected: number;
 
   @Input() public mainToken$: Observable<any>;
