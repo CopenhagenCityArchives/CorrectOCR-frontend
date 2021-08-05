@@ -147,8 +147,8 @@
             <div class="col">
                 <label for="docProgress">
 					Efterretningen indeholder {{stats.token_count}} ord.
-					Af dem er {{stats.corrected_by_model_count}} rettet automatisk, og {{stats.corrected_by_annotator_count}} er rettede af brugere.
-					Der mangler {{stats.token_count - stats.corrected_count}} ord.
+					Ved sidste opdatering var {{stats.corrected_by_model_count}} automatisk rettede, og {{stats.corrected_by_annotator_count}} rettede af brugere.
+					Der mangler {{stats.uncorrected_count}} ord.
 					Du har rettet {{sessionCorrected}} ord.
 				</label>
                 <div id="docProgress" class="progress">
