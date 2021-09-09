@@ -178,6 +178,9 @@ export class TokensComponent implements OnChanges {
     let value = parseInt(localStorage.getItem(`corrected-${doc_id}`));
     value++
     this.sessionCorrected = value;
+	this.stats['corrected_count']++;
+	this.stats['corrected_by_annotator_count']++;
+	this.stats['uncorrected_count']--;
     localStorage.setItem(`corrected-${doc_id}`, value.toString());
   }
 
