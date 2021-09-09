@@ -5,10 +5,12 @@
 
     <h1>Retter efterretning nr: <span *ngIf="mainToken$ | async | tokensPipe as mainToken">{{mainToken.doc_ID}}</span></h1>
 
+	<!--
     <p>Ordet, der skal rettes er ordet i midten kaldet 'Hovedordet'</p>
     <p>Vælg en af de foreslåede muligheder , eller skriv det rigtige ord og klik gem.
         Skal ordet lægges sammen med ordet før eller efter hovedordet klikker du på knappen 'Læg sammen' enten ved billedet til højre eller venstre for hovedordet.</p>
-    <p>Læs vejledningen før du starter: <a href="https://kbharkiv.dk/ret-efterretninger">https://kbharkiv.dk/ret-efterretninger</a></p>
+    -->
+	<p>Læs vejledningen før du starter: <a href="https://kbharkiv.dk/ret-efterretninger">https://kbharkiv.dk/ret-efterretninger</a></p>
     <form class="border p-sm-5 ">
         <div class="row justify-content-center">
             <div class="col-lg card-deck">
@@ -144,10 +146,12 @@
         <div class="row justify-content-center m-4" *ngIf="stats">
             <div class="col">
                 <label for="docProgress">
+					<!--
 					Efterretningen indeholder {{stats.token_count}} ord.
 					Ved sidste opdatering var {{stats.corrected_by_model_count}} automatisk rettede, og {{stats.corrected_by_annotator_count}} rettede af brugere.
-					Der mangler {{stats.uncorrected_count}} ord.
+					-->
 					Du har rettet {{sessionCorrected}} ord.
+					Der mangler {{stats.uncorrected_count}} ord.
 				</label>
                 <div id="docProgress" class="progress">
                     <ng-template #ModelTooltip>Ord som er rettet automatisk</ng-template>
