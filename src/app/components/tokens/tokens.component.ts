@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, isDevMode } from '@angular/core';
+import { Component, EventEmitter, ElementRef, Input, OnChanges, Output, SimpleChanges, ViewChild, isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
 import { share, mergeMap } from 'rxjs/operators';
 import { ApiService } from 'src/app/API/api.service';
@@ -35,6 +35,8 @@ export class TokensComponent implements OnChanges {
   public rightToken$: Observable<any>;
   public andetInputField: string;
   public toggleMetadata: boolean;
+  @ViewChild('main_token_card') public maincard: ElementRef;
+  @ViewChild('andet') public andetfield: ElementRef;
 
   hypDir: string;
   checkForm: FormGroup;
@@ -56,6 +58,11 @@ export class TokensComponent implements OnChanges {
     });
     this.getUserInfo();
     this.getSettings();
+  }
+
+  ngAfterViewInit() {
+    this.andetfield.nativeElement.focus();
+	this.maincard.nativeElement.scrollIntoView({behavior: 'smooth'});
   }
 
   async ngOnChanges(changes: SimpleChanges) {
