@@ -90,7 +90,7 @@ export class TokensComponent implements OnChanges {
     let token = await changes$.toPromise().then((data:JSON) => new Token(data));
     this.initCounter(token.doc_ID);
     this.mainToken = token;
-	this.andetInputField = this.mainToken.original;
+	this.andetInputField = this.mainToken.gold ? this.mainToken.gold : this.mainToken.original;
   }
 
   nextToken(): void {
@@ -121,6 +121,7 @@ export class TokensComponent implements OnChanges {
   }
 
   public async correct(correction:string): Promise<void> {
+    this.mainToken.gold = correction;
     let response: any;
     if (this.hypDir) {
       response = await this.apiService.postGoldAndHypernate(this.mainToken, correction, this.hypDir, this.userData).toPromise().then((data:JSON) => new Token(data));
