@@ -35,6 +35,7 @@ export class TokensComponent implements OnChanges {
   public rightToken$: Observable<any>;
   public andetInputField: string;
   public toggleMetadata: boolean;
+  public toggleEdit: boolean;
 
   hypDir: string;
   checkForm: FormGroup;
@@ -91,6 +92,7 @@ export class TokensComponent implements OnChanges {
     this.initCounter(token.doc_ID);
     this.mainToken = token;
 	this.andetInputField = this.mainToken.gold ? this.mainToken.gold : this.mainToken.original;
+	this.toggleEdit = this.mainToken.gold ? false : true;
   }
 
   nextToken(): void {
