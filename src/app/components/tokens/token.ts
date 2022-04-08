@@ -12,7 +12,6 @@ export class KBest implements IKBest {
 
 export class Token implements IToken {
     bin: number;
-    decision: string;
     doc_ID: number;
     discarded: number;
     frame: number[];
@@ -32,7 +31,6 @@ export class Token implements IToken {
 
     constructor(json: JSON) {
         this.bin        = json['Bin'];
-        this.decision   = json['Decision'];
         this.discarded  = json['Discarded'];
         this.doc_ID     = json['Doc ID'];
         this.frame      = json['Frame'];

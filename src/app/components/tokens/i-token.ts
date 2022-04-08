@@ -5,7 +5,6 @@ export interface IKBest {
 
 export interface IToken {
     bin: number;
-    decision: string;
     doc_ID: number;
     discarded: number;
     frame: number[];
